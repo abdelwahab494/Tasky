@@ -1,4 +1,3 @@
-import 'package:path_provider/path_provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tasky/core/imports.dart';
 
