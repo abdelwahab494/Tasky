@@ -86,8 +86,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         bottomNavigationBar: CustomElevatedButton(
           onPressed: () async {
             if (!_formKey.currentState!.validate()) return;
+            final navigator = Navigator.of(context);
             await saveChanges();
-            Navigator.of(context).pop(true);
+            navigator.pop(true);
           },
           title: "Save Changes",
           icon: Icons.check_rounded,

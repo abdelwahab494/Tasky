@@ -141,13 +141,14 @@ class Dialogs {
                           child: CustomElevatedButton(
                             onPressed: () async {
                               if (!formKey.currentState!.validate()) return;
+                              final navigator = Navigator.of(context);
                               await editTask(
                                 task,
                                 taskNameC,
                                 taskDescC,
                                 isHighPriority,
                               );
-                              Navigator.of(context).pop(true);
+                              navigator.pop(true);
                             },
                             title: "Edit Task",
                             icon: Icons.mode_edit_rounded,

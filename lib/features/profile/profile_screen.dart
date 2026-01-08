@@ -47,44 +47,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
           pickedImage.path,
         ).copy("${appDir.path}/${pickedImage.name}");
         await PrefHelper.saveProfileImage(newFile.path);
-      }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "Image Changed Successfully.",
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium!.copyWith(color: Colors.white),
-          ),
+        if (!mounted) return;
+        showSnackBar(
+          message: "Image Changed Successfully.",
           backgroundColor: Theme.of(context).primaryColor,
-          showCloseIcon: true,
-          closeIconColor: Colors.white,
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
-        ),
-      );
+        );
+      }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "Faild to change Image!\nPlease try again.",
-            style: Theme.of(
-              context,
-            ).textTheme.titleMedium!.copyWith(color: Colors.white),
-          ),
-          backgroundColor: Colors.red.shade700,
-          showCloseIcon: true,
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
-        ),
+      if (!mounted) return;
+      showSnackBar(
+        message: "Faild to change Image!\nPlease try again.",
+        backgroundColor: Theme.of(context).colorScheme.error,
       );
     }
   }
@@ -245,6 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Gap(10),
                     GestureDetector(
                       onTap: () async {
+                        final navigator = Navigator.of(context);
                         final bool? result = await Dialogs.showDeletAlertDialog(
                           context: context,
                           title: "Log Out",
@@ -256,8 +230,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           await PrefHelper.clearQuote();
                           await PrefHelper.clearTasksList();
                           await PrefHelper.clearProfileImage();
-                          Navigator.pushAndRemoveUntil(
-                            context,
+                          navigator.pushAndRemoveUntil(
                             MaterialPageRoute(builder: (c) => WelcomeScreen()),
                             (Route<dynamic> route) => false,
                           );
@@ -280,6 +253,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void showSnackBar({required String message, required Color backgroundColor}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium!.copyWith(color: Colors.white),
+        ),
+        backgroundColor: backgroundColor,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 0,
       ),
     );
   }

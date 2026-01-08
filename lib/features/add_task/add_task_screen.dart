@@ -73,6 +73,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         bottomNavigationBar: CustomElevatedButton(
           onPressed: () async {
             if (!_formKey.currentState!.validate()) return;
+                          final navigator = Navigator.of(context);
             await PrefHelper.addNewTask(
               TaskModel(
                 taskName: _taskNameC.text.trim(),
@@ -80,7 +81,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 isHighPriority: isHighPriority,
               ),
             );
-            Navigator.of(context).pop(true);
+            if (!mounted) return;
+            navigator.pop(true);
           },
           title: "Add Task",
           icon: Icons.add_rounded,

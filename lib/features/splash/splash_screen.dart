@@ -24,12 +24,14 @@ class _SplashScreenState extends State<SplashScreen>
     super.didChangeDependencies();
     final String? username = await PrefHelper.getName();
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushReplacement(
+      if (mounted){
+        Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (c) => username == null ? WelcomeScreen() : RootScreen(),
         ),
       );
+      }
     });
   }
 
