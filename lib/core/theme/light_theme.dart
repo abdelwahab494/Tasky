@@ -10,7 +10,7 @@ ThemeData lightTheme = ThemeData(
     secondaryContainer: Colors.grey.shade200,
     outline: LightColors.border,
     shadow: LightColors.text4,
-    error: Colors.red.shade700
+    error: Colors.red.shade700,
   ),
   appBarTheme: AppBarTheme(
     backgroundColor: LightColors.backGround,

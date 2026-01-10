@@ -1,13 +1,14 @@
 import 'package:tasky/core/imports.dart';
 
 class PrefHelper {
-  static final String nameKey = "name key";
-  static final String quoteKey = "quote key";
-  static final String tasksListKey = "tasksList";
-  static final String themeKey = "isDark";
-  static final String profileImageKey = "profile image";
+  static const String nameKey = "name key";
+  static const String quoteKey = "quote key";
+  static const String tasksListKey = "tasksList";
+  static const String themeKey = "isDark";
+  static const String profileImageKey = "profile image";
   static late SharedPreferences _prefs;
 
+  //* Initialize _prefs
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
