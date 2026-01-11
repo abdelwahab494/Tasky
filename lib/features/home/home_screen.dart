@@ -11,7 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<HomeController>(
-      create: (BuildContext context) => HomeController(),
+      create: (BuildContext context) => HomeController()..init(),
       child: Scaffold(
         body: Center(
           child: Padding(

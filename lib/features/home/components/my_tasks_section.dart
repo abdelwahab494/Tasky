@@ -77,11 +77,14 @@ class MyTasksSection extends StatelessWidget {
                       onChanged: (bool? value) =>
                           controller.onChanged(value: value, task: task),
                       onDelete: () => controller.onDelete(
+                        context: context,
                         task: task,
-                        showDeletingMessage: Dialogs.showDeletingMessage(
-                          context: context,
-                          controller: controller,
-                        ),
+                        showDeletingMessage: (ctx, ctrl) {
+                          Dialogs.showDeletingMessage(
+                            context: ctx,
+                            controller: ctrl,
+                          );
+                        },
                       ),
                       onEdit: () =>
                           controller.onEdit(context: context, task: task),

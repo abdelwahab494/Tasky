@@ -6,8 +6,8 @@ class CompletedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeController(),
+    return ChangeNotifierProvider<HomeController>(
+      create: (_) => HomeController()..init(),
       child: Scaffold(
         appBar: AppBar(title: Text("Completed Tasks")),
         body: Consumer<HomeController>(
@@ -79,11 +79,14 @@ class CompletedScreen extends StatelessWidget {
                         onChanged: (bool? value) =>
                             controller.onChanged(value: value, task: task),
                         onDelete: () => controller.onDelete(
+                          context: context,
                           task: task,
-                          showDeletingMessage: Dialogs.showDeletingMessage(
-                            context: context,
-                            controller: controller,
-                          ),
+                          showDeletingMessage: (ctx, ctrl) {
+                            Dialogs.showDeletingMessage(
+                              context: ctx,
+                              controller: ctrl,
+                            );
+                          },
                         ),
                         onEdit: () =>
                             controller.onEdit(context: context, task: task),

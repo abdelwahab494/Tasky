@@ -18,6 +18,7 @@ class HomeController extends ChangeNotifier {
               100)
           .round();
   late final Stream<bool> _buttonStream = _buttonState();
+  EncourageEnum _encourageStatus = EncourageEnum.started;
 
   List<TaskModel> get tasksList => _tasksList;
   List<TaskModel> get toDoTasksList => _toDoTasksList;
@@ -28,14 +29,11 @@ class HomeController extends ChangeNotifier {
   bool get isLoading => _isLoading;
   int get percentage => _percentage();
   Stream<bool> get buttonStream => _buttonStream;
+  EncourageEnum get encourageStatus => _encourageStatus;
 
   set tasksListBeforeDeleting(List<TaskModel> list) {
     _tasksListBeforeDeleting = list;
     notifyListeners();
-  }
-
-  HomeController() {
-    if (tasksList.isEmpty) init();
   }
 
   Future<void> init() async {
@@ -43,8 +41,6 @@ class HomeController extends ChangeNotifier {
   }
 
   Future<void> loadData() async {
-    // _isLoading = true;
-    // notifyListeners();
     final List<TaskModel> fetchedTasksList = await PrefHelper.getTasksList();
 
     _tasksList = sortList
@@ -60,6 +56,7 @@ class HomeController extends ChangeNotifier {
         .where((element) => element.isHighPriority == true)
         .toList();
     _isLoading = false;
+    _encourageStatus = _encourageConditions();
     notifyListeners();
   }
 
@@ -77,15 +74,17 @@ class HomeController extends ChangeNotifier {
   }
 
   Future<void> onDelete({
+    required BuildContext context,
     required TaskModel task,
     required Function(BuildContext context, HomeController controller)
     showDeletingMessage,
   }) async {
     _tasksListBeforeDeleting = List.from(_tasksList);
     _tasksList.removeWhere((e) => e == task);
-    showDeletingMessage;
+    showDeletingMessage(context, this);
     await PrefHelper.updateTasksList(_tasksList);
     loadData();
+    notifyListeners();
   }
 
   Future<void> onEdit({
@@ -116,7 +115,7 @@ class HomeController extends ChangeNotifier {
   Future<void> addTaskButtonOnPressed({required BuildContext context}) async {
     final bool? result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (c) =>   AddTaskScreen()),
+      MaterialPageRoute(builder: (c) => AddTaskScreen()),
     );
     if (result != null && result) {
       loadData();
@@ -127,5 +126,17 @@ class HomeController extends ChangeNotifier {
     yield true;
     await Future.delayed(const Duration(seconds: 2));
     yield false;
+  }
+
+  EncourageEnum _encourageConditions() {
+    if (_completedTasksList.isNotEmpty &&
+        _completedTasksList.length == _tasksList.length) {
+      return EncourageEnum.isDone;
+    } else if (completedTasksList.isNotEmpty &&
+        completedTasksList.length < tasksList.length) {
+      return EncourageEnum.isGoing;
+    } else {
+      return EncourageEnum.started;
+    }
   }
 }

@@ -296,32 +296,38 @@ class Dialogs {
     );
   }
 
-  static  showDeletingMessage({
+  static void showDeletingMessage({
     required BuildContext context,
     required HomeController controller,
   }) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Task Deleted Successfully.",
-          style: Theme.of(context).textTheme.titleMedium,
+    final messenger = ScaffoldMessenger.of(context);
+
+    messenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(
+            "Task Deleted Successfully.",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 0,
+          action: SnackBarAction(
+            label: "Undo",
+            onPressed: () async {
+              await PrefHelper.updateTasksList(
+                controller.tasksListBeforeDeleting,
+              );
+              controller.loadData();
+            },
+            textColor: Theme.of(context).textTheme.titleMedium!.color,
+          ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 0,
-        action: SnackBarAction(
-          label: "Undo",
-          onPressed: () async {
-            await PrefHelper.updateTasksList(
-              controller.tasksListBeforeDeleting,
-            );
-            controller.loadData();
-          },
-          textColor: Theme.of(context).textTheme.titleMedium!.color,
-        ),
-      ),
-    );
+      );
   }
 }

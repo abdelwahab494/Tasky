@@ -6,8 +6,8 @@ class HighPriorityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => HomeController(),
+    return ChangeNotifierProvider<HomeController>(
+      create: (_) => HomeController()..init(),
       child: Scaffold(
         appBar: AppBar(title: Text("High Priority Tasks")),
         body: Consumer<HomeController>(
@@ -82,13 +82,18 @@ class HighPriorityScreen extends StatelessWidget {
                         task: task,
                         onChanged: (bool? value) =>
                             controller.onChanged(value: value, task: task),
-                        onDelete: () => controller.onDelete(
-                          task: task,
-                          showDeletingMessage: Dialogs.showDeletingMessage(
+                        onDelete: () {
+                          controller.onDelete(
                             context: context,
-                            controller: controller,
-                          ),
-                        ),
+                            task: task,
+                            showDeletingMessage: (ctx, ctrl) {
+                              Dialogs.showDeletingMessage(
+                                context: ctx,
+                                controller: ctrl,
+                              );
+                            },
+                          );
+                        },
                         onEdit: () =>
                             controller.onEdit(context: context, task: task),
                         togglePriority: () =>

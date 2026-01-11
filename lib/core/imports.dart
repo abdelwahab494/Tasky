@@ -46,3 +46,4 @@ export 'package:tasky/main.dart';
 export 'package:tasky/features/home/components/my_tasks_actions_row.dart';
 export 'package:tasky/features/home/components/my_tasks_section.dart';
 export 'package:tasky/features/home/components/add_task_button.dart';
+export 'package:tasky/data/enums/encourage_enum.dart';
