@@ -10,7 +10,7 @@ class UserDetailsScreen extends StatelessWidget {
       child: Consumer<UserDetailsController>(
         builder: (context, controller, child) {
           return Scaffold(
-            appBar: AppBar(title: Text("User Details")),
+            appBar: AppBar(title: const Text("User Details")),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
@@ -28,7 +28,7 @@ class UserDetailsScreen extends StatelessWidget {
                             validationMessage: "Please Enter Your Name.",
                             hintText: "e.g. Abdelwahab Mo.",
                           ),
-                          Gap(20),
+                          const Gap(20),
                           CustomTextField(
                             title: "Motivation Quote",
                             controller: controller.quoteC,

@@ -48,13 +48,13 @@ class Dialogs {
               onTap: () => FocusScope.of(context).unfocus(),
               child: SingleChildScrollView(
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(),
+                  constraints: const BoxConstraints(),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20),
                       ),
@@ -70,7 +70,7 @@ class Dialogs {
                         Container(
                           width: 60,
                           height: 5,
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 8,
                           ),
@@ -81,10 +81,10 @@ class Dialogs {
                             ).colorScheme.primaryContainer,
                           ),
                         ),
-                        Gap(16),
+                        const Gap(16),
                         Expanded(
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               horizontal: 16,
                               vertical: 8,
                             ),
@@ -101,7 +101,7 @@ class Dialogs {
                                           "Please Enter The Task Name.",
                                       // autofocus: true,
                                     ),
-                                    Gap(20),
+                                    const Gap(20),
                                     CustomTextField(
                                       title: "Task Description",
                                       controller: taskDescC,
@@ -109,7 +109,7 @@ class Dialogs {
                                       maxLines: 5,
                                       validate: false,
                                     ),
-                                    Gap(20),
+                                    const Gap(20),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -192,7 +192,7 @@ class Dialogs {
                   fontSize: 16,
                 ),
               ),
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
@@ -207,8 +207,8 @@ class Dialogs {
             ),
           ],
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          contentPadding: EdgeInsetsGeometry.fromLTRB(25, 12, 25, 12),
-          actionsPadding: EdgeInsetsGeometry.fromLTRB(25, 0, 25, 16),
+          contentPadding: const EdgeInsetsGeometry.fromLTRB(25, 12, 25, 12),
+          actionsPadding: const EdgeInsetsGeometry.fromLTRB(25, 0, 25, 16),
         );
       },
     );
@@ -228,7 +228,7 @@ class Dialogs {
               onPressed: () {
                 Navigator.of(context).pop(ImageActionsEnum.camera);
               },
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: Row(
                 spacing: 16,
                 children: [
@@ -248,7 +248,7 @@ class Dialogs {
               onPressed: () {
                 Navigator.of(context).pop(ImageActionsEnum.gallery);
               },
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
               child: Row(
                 spacing: 16,
@@ -270,7 +270,7 @@ class Dialogs {
                 onPressed: () {
                   Navigator.of(context).pop(ImageActionsEnum.delete);
                 },
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Row(
                   spacing: 16,
                   children: [

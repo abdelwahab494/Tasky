@@ -7,7 +7,7 @@ class HighPriorityScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("High Priority Tasks")),
+      appBar: AppBar(title: const Text("High Priority Tasks")),
       body: Consumer<HomeController>(
         builder: (context, controller, child) {
           if (controller.isLoading) {
@@ -26,7 +26,7 @@ class HighPriorityScreen extends StatelessWidget {
                     ),controller: controller,
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => Gap(8),
+                separatorBuilder: (BuildContext context, int index) => const Gap(8),
               ),
             );
           }
@@ -77,7 +77,7 @@ class HighPriorityScreen extends StatelessWidget {
                       controller: controller,
                     );
                   },
-                  separatorBuilder: (BuildContext context, int index) => Gap(8),
+                  separatorBuilder: (BuildContext context, int index) => const Gap(8),
                 );
         },
       ),

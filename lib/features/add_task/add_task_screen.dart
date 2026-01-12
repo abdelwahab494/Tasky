@@ -13,7 +13,7 @@ class AddTaskScreen extends StatelessWidget {
           final AddTaskController addTaskController = context
               .read<AddTaskController>();
           return Scaffold(
-            appBar: AppBar(title: Text("New Task")),
+            appBar: AppBar(title: const Text("New Task")),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
@@ -28,7 +28,7 @@ class AddTaskScreen extends StatelessWidget {
                         validationMessage: "Please Enter The Task Name.",
                         autofocus: true,
                       ),
-                      Gap(20),
+                      const Gap(20),
                       CustomTextField(
                         title: "Description",
                         controller: addTaskController.taskDescC,
@@ -36,7 +36,7 @@ class AddTaskScreen extends StatelessWidget {
                         maxLines: 5,
                         validate: false,
                       ),
-                      Gap(20),
+                      const Gap(20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -11,7 +11,7 @@ class MyTasksSection extends StatelessWidget {
         if (controller.isLoading) {
           return SliverSkeletonizer(
             child: SliverPadding(
-              padding: EdgeInsets.only(bottom: 80),
+              padding: const EdgeInsets.only(bottom: 80),
               sliver: SliverList.separated(
                 itemCount: 3,
                 itemBuilder: (context, index) {
@@ -23,7 +23,7 @@ class MyTasksSection extends StatelessWidget {
                     controller: controller,
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => Gap(8),
+                separatorBuilder: (BuildContext context, int index) => const Gap(8),
               ),
             ),
           );
@@ -64,14 +64,14 @@ class MyTasksSection extends StatelessWidget {
                 ),
               )
             : SliverPadding(
-                padding: EdgeInsets.only(bottom: 80),
+                padding: const EdgeInsets.only(bottom: 80),
                 sliver: SliverList.separated(
                   itemCount: controller.tasksList.length,
                   itemBuilder: (context, index) {
                     final TaskModel task = controller.tasksList[index];
                     return TaskContainer(task: task, controller: controller);
                   },
-                  separatorBuilder: (BuildContext context, int index) => Gap(8),
+                  separatorBuilder: (BuildContext context, int index) => const Gap(8),
                 ),
               );
       },

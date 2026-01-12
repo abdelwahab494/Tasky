@@ -6,7 +6,7 @@ class ThemeController {
   );
 
   static Future<void> init() async {
-    bool isDark = await PrefHelper.getTheme() ?? true;
+    final bool isDark = await PrefHelper.getTheme() ?? true;
     themeNotifier.value = isDark ? ThemeMode.dark : ThemeMode.light;
   }
 

@@ -7,7 +7,7 @@ class CompletedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Completed Tasks")),
+      appBar: AppBar(title: const Text("Completed Tasks")),
       body: Consumer<HomeController>(
         builder: (context, controller, child) {
           if (controller.isLoading) {
@@ -27,7 +27,7 @@ class CompletedScreen extends StatelessWidget {
                     controller: controller,
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => Gap(8),
+                separatorBuilder: (BuildContext context, int index) => const Gap(8),
               ),
             );
           }
@@ -75,7 +75,7 @@ class CompletedScreen extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (BuildContext context, int index) =>
-                      Gap(8),
+                      const Gap(8),
                 );
         },
       ),

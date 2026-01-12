@@ -71,7 +71,7 @@ ThemeData lightTheme = ThemeData(
     hintStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
       fontSize: 18,
-      color: Color(0xff9E9E9E),
+      color: const Color(0xff9E9E9E),
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: LightColors.border, width: 1),

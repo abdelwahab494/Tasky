@@ -45,17 +45,18 @@ class HomeController extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     final List<TaskModel> fetchedTasksList = await PrefHelper.getTasksList();
+    updateLists(fetchedTasksList);
+  }
 
-    _tasksList = sortList
-        ? fetchedTasksList.reversed.toList()
-        : fetchedTasksList;
+  void updateLists(List<TaskModel> list) {
+    _tasksList = sortList ? list.reversed.toList() : list;
     _toDoTasksList = tasksList
         .where((element) => element.isDone == false)
         .toList();
     _completedTasksList = tasksList
         .where((element) => element.isDone == true)
         .toList();
-    _highPriorityTasksList = fetchedTasksList.reversed
+    _highPriorityTasksList = list.reversed
         .where((element) => element.isHighPriority == true)
         .toList();
     _isLoading = false;
@@ -68,11 +69,8 @@ class HomeController extends ChangeNotifier {
     required TaskModel task,
   }) async {
     task.isDone = value!;
-    _completedTasksList = _tasksList
-        .where((element) => element.isDone == true)
-        .toList();
-    await PrefHelper.updateTasksList(tasksList);
-    await loadData();
+    await PrefHelper.updateTasksList(_tasksList);
+    updateLists(_tasksList);
   }
 
   Future<void> onDelete({
@@ -85,7 +83,7 @@ class HomeController extends ChangeNotifier {
     _tasksList.removeWhere((e) => e == task);
     showDeletingMessage(context, this);
     await PrefHelper.updateTasksList(_tasksList);
-    await loadData();
+    updateLists(_tasksList);
   }
 
   Future<void> onEdit({
@@ -101,9 +99,9 @@ class HomeController extends ChangeNotifier {
 
   Future<void> togglePriority({required TaskModel task}) async {
     task.isHighPriority = !task.isHighPriority;
-    notifyListeners();
+    // notifyListeners();
     await PrefHelper.updateTasksList(tasksList);
-    await loadData();
+    updateLists(_tasksList);
   }
 
   Future<void> toggleSortingList() async {
@@ -116,7 +114,7 @@ class HomeController extends ChangeNotifier {
   Future<void> addTaskButtonOnPressed({required BuildContext context}) async {
     final bool? result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (c) => AddTaskScreen()),
+      MaterialPageRoute(builder: (c) => const AddTaskScreen()),
     );
     if (result != null && result) {
       await loadData();

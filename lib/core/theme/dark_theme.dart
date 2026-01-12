@@ -71,7 +71,7 @@ ThemeData darkTheme = ThemeData(
     hintStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
       fontSize: 16,
-      color: Color(0xff6D6D6D),
+      color: const Color(0xff6D6D6D),
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide.none,
@@ -142,5 +142,5 @@ ThemeData darkTheme = ThemeData(
   ),
   dividerTheme: DividerThemeData(color: DarkColors.border),
   splashFactory: NoSplash.splashFactory,
-  popupMenuTheme: PopupMenuThemeData(shadowColor: Colors.black38),
+  popupMenuTheme: const PopupMenuThemeData(shadowColor: Colors.black38),
 );

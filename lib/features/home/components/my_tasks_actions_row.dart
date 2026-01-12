@@ -44,7 +44,7 @@ class MyTasksActionsRow extends StatelessWidget {
                       Container(
                         height: 22,
                         width: 1,
-                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        margin: const EdgeInsets.symmetric(horizontal: 5),
                         decoration: BoxDecoration(
                           color: Theme.of(context).iconTheme.color,
                         ),
@@ -67,7 +67,7 @@ class MyTasksActionsRow extends StatelessWidget {
                           }
                         },
                         tooltip: "Delete All Tasks",
-                        icon: Icon(Icons.clear_all_rounded),
+                        icon: const Icon(Icons.clear_all_rounded),
                         style: IconButton.styleFrom(
                           padding: EdgeInsets.zero,
                           foregroundColor: Theme.of(

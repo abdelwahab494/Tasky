@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
             context,
           ).textTheme.displayMedium!.copyWith(fontSize: 16),
         ),
-        Gap(8),
+        const Gap(8),
         TextFormField(
           controller: controller,
           cursorHeight: 20,

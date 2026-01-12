@@ -12,7 +12,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("My Profile")),
+      appBar: AppBar(title: const Text("My Profile")),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
         child: Center(
@@ -30,11 +30,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           AvatarGlow(
                             glowRadiusFactor: 0.2,
                             glowColor: Theme.of(context).primaryColor,
-                            startDelay: Duration(seconds: 1),
+                            startDelay: const Duration(seconds: 1),
                             child: CircleAvatar(
                               radius: 50,
                               backgroundImage: controller.image == null
-                                  ? AssetImage("assets/images/profile.png")
+                                  ? const AssetImage("assets/images/profile.png")
                                   : FileImage(File(controller.image!)),
                               backgroundColor: Colors.transparent,
                             ),
@@ -57,12 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     : BorderSide(color: LightColors.border),
                                 iconSize: 20,
                               ),
-                              icon: Icon(Icons.camera_alt_outlined),
+                              icon: const Icon(Icons.camera_alt_outlined),
                             ),
                           ),
                         ],
                       ),
-                      Gap(16),
+                      const Gap(16),
                       Skeletonizer(
                         enabled: controller.isLoading,
                         containersColor: ThemeController.isDark()
@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context,
                               ).textTheme.titleMedium!.copyWith(fontSize: 20),
                             ),
-                            Gap(4),
+                            const Gap(4),
                             Text(
                               controller.isLoading
                                   ? "One task at a time. One step closer."
@@ -102,7 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         context,
                       ).textTheme.titleMedium!.copyWith(fontSize: 20),
                     ),
-                    Gap(16),
+                    const Gap(16),
                     GestureDetector(
                       onTap: () => Navigator.push(
                         context,
@@ -124,8 +124,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    Gap(10),
-                    Divider(),
+                    const Gap(10),
+                    const Divider(),
                     ProfileRow(
                       svgPicture: "assets/icons/darkmode.svg",
                       title: "Dark Mode",
@@ -146,8 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             },
                       ),
                     ),
-                    Divider(),
-                    Gap(10),
+                    const Divider(),
+                    const Gap(10),
                     GestureDetector(
                       onTap: () async {
                         final navigator = Navigator.of(context);
@@ -163,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           await PrefHelper.clearTasksList();
                           await PrefHelper.clearProfileImage();
                           navigator.pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (c) => WelcomeScreen()),
+                            MaterialPageRoute(builder: (c) => const WelcomeScreen()),
                             (Route<dynamic> route) => false,
                           );
                         }

@@ -17,7 +17,7 @@ class TaskContainer extends StatelessWidget {
       key: ValueKey(task.hashCode),
       startActionPane: ActionPane(
         extentRatio: 0.25,
-        motion: StretchMotion(),
+        motion: const StretchMotion(),
         children: [
           SlidableAction(
             onPressed: (context) =>
@@ -31,7 +31,7 @@ class TaskContainer extends StatelessWidget {
       ),
       endActionPane: ActionPane(
         extentRatio: 0.25,
-        motion: StretchMotion(),
+        motion: const StretchMotion(),
         children: [
           SlidableAction(
             onPressed: (context) => controller.onDelete(
@@ -60,7 +60,7 @@ class TaskContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 7, bottom: 7, right: 4, left: 4),
+          padding: const EdgeInsets.only(top: 7, bottom: 7, right: 4, left: 4),
           child: Row(
             spacing: 8,
             children: [
@@ -94,7 +94,7 @@ class TaskContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              Gap(8),
+              const Gap(8),
               PopupMenuButton(
                 itemBuilder: (context) {
                   return <PopupMenuItem>[

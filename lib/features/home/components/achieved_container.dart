@@ -81,7 +81,7 @@ class AchievedContainer extends StatelessWidget {
                                   onPlay: (controller) =>
                                       controller.repeat(reverse: true),
                                 )
-                                .then(delay: Duration(seconds: 5))
+                                .then(delay: const Duration(seconds: 5))
                                 .shake(hz: 2, rotation: 0.09);
                           },
                     ),
@@ -89,7 +89,7 @@ class AchievedContainer extends StatelessWidget {
                 ),
               ),
             )
-          : SizedBox.shrink(),
+          : const SizedBox.shrink(),
     );
   }
 }

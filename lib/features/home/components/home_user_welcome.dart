@@ -19,15 +19,15 @@ class HomeUserWelcome extends StatelessWidget {
                 child: Row(
                   spacing: 10,
                   children: [
-                    Gap(1),
+                    const Gap(1),
                     AvatarGlow(
                       glowRadiusFactor: 0.2,
                       glowColor: Theme.of(context).primaryColor,
-                      startDelay: Duration(seconds: 1),
+                      startDelay: const Duration(seconds: 1),
                       child: CircleAvatar(
                         radius: 23,
                         backgroundImage: controller.image == null
-                            ? AssetImage("assets/images/profile.png")
+                            ? const AssetImage("assets/images/profile.png")
                             : FileImage(File(controller.image!)),
                         backgroundColor: Colors.transparent,
                       ),
@@ -71,7 +71,7 @@ class HomeUserWelcome extends StatelessWidget {
                         side: ThemeController.isDark()
                             ? BorderSide.none
                             : BorderSide(color: LightColors.border),
-                        fixedSize: Size(34, 34),
+                        fixedSize: const Size(34, 34),
                       ),
                       icon: SvgPicture.asset(
                         ThemeController.themeNotifier.value == ThemeMode.dark

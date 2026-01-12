@@ -10,24 +10,24 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: CustomScrollView(
             slivers: [
-              const SliverGap(40),
-              const HomeUserWelcome(),
-              const SliverGap(16),
-              const EncourageSentence(),
-              const SliverGap(16),
-              const AchievedContainer(),
-              const SliverGap(8),
-              const HighPriorityContainer(),
-              const SliverGap(15),
-              const MyTasksActionsRow(),
-              const SliverGap(8),
-              const MyTasksSection(),
+              SliverGap(40),
+              HomeUserWelcome(),
+              SliverGap(16),
+              EncourageSentence(),
+              SliverGap(16),
+              AchievedContainer(),
+              SliverGap(8),
+              HighPriorityContainer(),
+              SliverGap(15),
+              MyTasksActionsRow(),
+              SliverGap(8),
+              MyTasksSection(),
             ],
           ),
         ),

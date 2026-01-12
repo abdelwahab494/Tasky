@@ -12,7 +12,7 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _scaleController = AnimationController(
     vsync: this,
-    duration: Duration(milliseconds: 800),
+    duration: const Duration(milliseconds: 800),
   );
   late final Animation<double> _scaleAnimation = Tween<double>(
     begin: 0,
@@ -23,12 +23,12 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
     final String? username = await PrefHelper.getName();
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted){
         Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (c) => username == null ? WelcomeScreen() : NavRoot(),
+          builder: (c) => username == null ? const WelcomeScreen() : const NavRoot(),
         ),
       );
       }

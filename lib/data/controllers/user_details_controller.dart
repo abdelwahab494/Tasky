@@ -33,10 +33,10 @@ class UserDetailsController extends ChangeNotifier {
   }
 
   Future<void> loadUserDetails() async {
-    String fetchedName = await PrefHelper.getName() ?? "";
-    String fetchedQuote =
+    final String fetchedName = await PrefHelper.getName() ?? "";
+    final String fetchedQuote =
         await PrefHelper.getQuote() ?? "One task at a time. One step closer.";
-    String? fetchedImage = await PrefHelper.getProfileImage();
+    final String? fetchedImage = await PrefHelper.getProfileImage();
 
     _name = fetchedName;
     _usernameC.text = name;

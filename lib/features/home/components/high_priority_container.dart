@@ -12,7 +12,7 @@ class HighPriorityContainer extends StatelessWidget {
           if (controller.isLoading) {
             return Skeletonizer(
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -87,7 +87,7 @@ class HighPriorityContainer extends StatelessWidget {
           }
           return controller.highPriorityTasksList.isNotEmpty
               ? Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primaryContainer,
@@ -178,7 +178,7 @@ class HighPriorityContainer extends StatelessWidget {
                     ],
                   ),
                 )
-              : SizedBox.shrink();
+              : const SizedBox.shrink();
         },
       ),
     );
@@ -195,19 +195,19 @@ class ShowMoreButton extends StatelessWidget {
       onTap: () async {
         await Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (c) => HighPriorityScreen(),
+            builder: (c) => const HighPriorityScreen(),
           ),
         );
       },
       child: Container(
         width: 40,
         height: 40,
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           border: Border.all(width: 1, color: DarkColors.text4),
           shape: BoxShape.circle,
         ),
-        child: Icon(Icons.arrow_outward_outlined, size: 23),
+        child: const Icon(Icons.arrow_outward_outlined, size: 23),
       ),
     );
   }

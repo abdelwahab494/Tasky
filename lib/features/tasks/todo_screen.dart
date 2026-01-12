@@ -7,7 +7,7 @@ class TodoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("To Do Tasks")),
+      appBar: AppBar(title: const Text("To Do Tasks")),
       body: Consumer<HomeController>(
         builder: (context, controller, child) {
           if (controller.isLoading) {
@@ -27,7 +27,7 @@ class TodoScreen extends StatelessWidget {
                     controller: controller,
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => Gap(8),
+                separatorBuilder: (BuildContext context, int index) => const Gap(8),
               ),
             );
           }
@@ -70,7 +70,7 @@ class TodoScreen extends StatelessWidget {
                     final TaskModel task = controller.toDoTasksList[index];
                     return TaskContainer(task: task, controller: controller);
                   },
-                  separatorBuilder: (BuildContext context, int index) => Gap(8),
+                  separatorBuilder: (BuildContext context, int index) => const Gap(8),
                 );
         },
       ),

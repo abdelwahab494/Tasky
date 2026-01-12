@@ -12,13 +12,13 @@ class WelcomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Gap(40),
+              const Gap(40),
               Center(
                 child: SizedBox(
                   height: size.height * 0.95,
                   child: Column(
                     children: [
-                      Gap(16),
+                      const Gap(16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         spacing: 16,
@@ -57,7 +57,7 @@ class WelcomeScreen extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Gap(8),
+                              const Gap(8),
                               Text(
                                 "Your productivity journey starts here.",
                                 style: Theme.of(context)
@@ -66,13 +66,13 @@ class WelcomeScreen extends StatelessWidget {
                                     .copyWith(fontSize: 16),
                                 textAlign: TextAlign.center,
                               ),
-                              Gap(24),
+                              const Gap(24),
                               SvgPicture.asset(
                                 "assets/images/welcome image.svg",
                                 width: 215,
                                 height: 204.39,
                               ),
-                              Gap(28),
+                              const Gap(28),
                               Consumer<WelcomeController>(
                                 builder:
                                     (
@@ -92,7 +92,7 @@ class WelcomeScreen extends StatelessWidget {
                                       );
                                     },
                               ),
-                              Gap(30),
+                              const Gap(30),
                               Consumer<WelcomeController>(
                                 builder: (context, controller, child) {
                                   return ElevatedButton(
@@ -101,7 +101,7 @@ class WelcomeScreen extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: DarkColors.primary,
                                       foregroundColor: DarkColors.text2,
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                         vertical: 10,
                                         horizontal: 10,
                                       ),

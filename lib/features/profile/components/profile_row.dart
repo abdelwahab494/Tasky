@@ -22,7 +22,7 @@ class ProfileRow extends StatelessWidget {
             BlendMode.srcIn,
           ),
         ),
-        Gap(16),
+        const Gap(16),
         Expanded(
           child: Text(title, style: Theme.of(context).textTheme.titleMedium),
         ),

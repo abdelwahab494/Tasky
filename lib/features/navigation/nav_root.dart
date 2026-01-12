@@ -10,10 +10,10 @@ class NavRoot extends StatefulWidget {
 class _NavRootState extends State<NavRoot> {
   int currentIndex = 0;
   final List<Widget> screens = [
-    HomeScreen(),
-    TodoScreen(),
-    CompletedScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const TodoScreen(),
+    const CompletedScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
