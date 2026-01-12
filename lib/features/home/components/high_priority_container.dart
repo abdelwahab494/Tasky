@@ -193,10 +193,11 @@ class ShowMoreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (c) => HighPriorityScreen()));
-        controller.loadData();
+        await Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (c) => HighPriorityScreen(),
+          ),
+        );
       },
       child: Container(
         width: 40,

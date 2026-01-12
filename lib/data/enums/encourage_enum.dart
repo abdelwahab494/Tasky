@@ -1,1 +1,1 @@
-enum EncourageEnum { isDone, isGoing, started }
+enum EncourageEnum { isDone, isGoing, started, begin}

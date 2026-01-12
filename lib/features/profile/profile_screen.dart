@@ -9,59 +9,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late String name;
-  late String quote;
-  String? image;
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
-
-  Future<void> loadData() async {
-    String fetchedName = await PrefHelper.getName() ?? "";
-    String fetchedQuote =
-        await PrefHelper.getQuote() ?? "One task at a time. One step closer.";
-    String? fetchedImage = await PrefHelper.getProfileImage();
-
-    if (mounted) {
-      setState(() {
-        name = fetchedName;
-        quote = fetchedQuote;
-        image = fetchedImage;
-        isLoading = false;
-      });
-    }
-  }
-
-  Future<void> pickGalleryImage() async {
-    try {
-      final XFile? pickedImage = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-      );
-      if (pickedImage != null) {
-        final appDir = await getApplicationDocumentsDirectory();
-        final newFile = await File(
-          pickedImage.path,
-        ).copy("${appDir.path}/${pickedImage.name}");
-        await PrefHelper.saveProfileImage(newFile.path);
-        if (!mounted) return;
-        showSnackBar(
-          message: "Image Changed Successfully.",
-          backgroundColor: Theme.of(context).primaryColor,
-        );
-      }
-    } catch (e) {
-      if (!mounted) return;
-      showSnackBar(
-        message: "Faild to change Image!\nPlease try again.",
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,91 +19,78 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             spacing: 30,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Stack(
-                    clipBehavior: Clip.none,
+              Consumer<UserDetailsController>(
+                builder: (context, controller, child) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      AvatarGlow(
-                        glowRadiusFactor: 0.2,
-                        glowColor: Theme.of(context).primaryColor,
-                        startDelay: Duration(seconds: 1),
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage: image == null
-                              ? AssetImage("assets/images/profile.png")
-                              : FileImage(File(image!)),
-                          backgroundColor: Colors.transparent,
-                        ),
-                      ),
-                      Positioned(
-                        bottom: -12,
-                        right: -10,
-                        child: IconButton(
-                          onPressed: () async {
-                            final ImageActionsEnum? result =
-                                await Dialogs.showImageSourceDialog(
-                                  context: context,
-                                );
-                            switch (result) {
-                              case ImageActionsEnum.gallery:
-                                await pickGalleryImage();
-                                loadData();
-                                break;
-
-                              case ImageActionsEnum.camera:
-                                break;
-
-                              case ImageActionsEnum.delete:
-                                break;
-
-                              default:
-                                break;
-                            }
-                          },
-                          style: IconButton.styleFrom(
-                            backgroundColor: ThemeController.isDark()
-                                ? DarkColors.backGround2
-                                : LightColors.backGround2,
-                            foregroundColor: ThemeController.isDark()
-                                ? DarkColors.text2
-                                : LightColors.text2,
-                            side: ThemeController.isDark()
-                                ? BorderSide.none
-                                : BorderSide(color: LightColors.border),
-                            iconSize: 20,
+                      Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          AvatarGlow(
+                            glowRadiusFactor: 0.2,
+                            glowColor: Theme.of(context).primaryColor,
+                            startDelay: Duration(seconds: 1),
+                            child: CircleAvatar(
+                              radius: 50,
+                              backgroundImage: controller.image == null
+                                  ? AssetImage("assets/images/profile.png")
+                                  : FileImage(File(controller.image!)),
+                              backgroundColor: Colors.transparent,
+                            ),
                           ),
-                          icon: Icon(Icons.camera_alt_outlined),
+                          Positioned(
+                            bottom: -12,
+                            right: -10,
+                            child: IconButton(
+                              onPressed: () =>
+                                  controller.selectImageActions(context),
+                              style: IconButton.styleFrom(
+                                backgroundColor: ThemeController.isDark()
+                                    ? DarkColors.backGround2
+                                    : LightColors.backGround2,
+                                foregroundColor: ThemeController.isDark()
+                                    ? DarkColors.text2
+                                    : LightColors.text2,
+                                side: ThemeController.isDark()
+                                    ? BorderSide.none
+                                    : BorderSide(color: LightColors.border),
+                                iconSize: 20,
+                              ),
+                              icon: Icon(Icons.camera_alt_outlined),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap(16),
+                      Skeletonizer(
+                        enabled: controller.isLoading,
+                        containersColor: ThemeController.isDark()
+                            ? null
+                            : LightColors.text4,
+                        child: Column(
+                          children: [
+                            Text(
+                              controller.isLoading
+                                  ? "Abdelwahab Mo."
+                                  : controller.name,
+                              style: Theme.of(
+                                context,
+                              ).textTheme.titleMedium!.copyWith(fontSize: 20),
+                            ),
+                            Gap(4),
+                            Text(
+                              controller.isLoading
+                                  ? "One task at a time. One step closer."
+                                  : controller.quote,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ],
                         ),
                       ),
                     ],
-                  ),
-                  Gap(16),
-                  Skeletonizer(
-                    enabled: isLoading,
-                    containersColor: ThemeController.isDark()
-                        ? null
-                        : LightColors.text4,
-                    child: Column(
-                      children: [
-                        Text(
-                          isLoading ? "Abdelwahab Mo." : name,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleMedium!.copyWith(fontSize: 20),
-                        ),
-                        Gap(4),
-                        Text(
-                          isLoading
-                              ? "One task at a time. One step closer."
-                              : quote,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
               Expanded(
                 child: Column(
@@ -170,17 +104,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Gap(16),
                     GestureDetector(
-                      onTap: () async {
-                        final bool? result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const UserDetailsScreen(),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ChangeNotifierProvider.value(
+                            value: context.read<UserDetailsController>(),
+                            child: const UserDetailsScreen(),
                           ),
-                        );
-                        if (result == true) {
-                          loadData();
-                        }
-                      },
+                        ),
+                      ),
                       child: ProfileRow(
                         svgPicture: "assets/icons/profile.svg",
                         title: "User Details",
@@ -253,26 +185,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  void showSnackBar({required String message, required Color backgroundColor}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          style: Theme.of(
-            context,
-          ).textTheme.titleMedium!.copyWith(color: Colors.white),
-        ),
-        backgroundColor: backgroundColor,
-        showCloseIcon: true,
-        closeIconColor: Colors.white,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        elevation: 0,
       ),
     );
   }

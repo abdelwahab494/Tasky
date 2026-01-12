@@ -10,7 +10,6 @@ class AddTaskScreen extends StatelessWidget {
       child: ChangeNotifierProvider(
         create: (_) => AddTaskController(),
         builder: (context, _) {
-          print("Build main");
           final AddTaskController addTaskController = context
               .read<AddTaskController>();
           return Scaffold(
@@ -54,7 +53,6 @@ class AddTaskScreen extends StatelessWidget {
                                   bool value,
                                   Widget? child,
                                 ) {
-                                  print("build switch");
                                   return Switch(
                                     value: value,
                                     onChanged: (value) {

@@ -25,6 +25,7 @@ dependencies:
   avatar_glow: ^3.0.1
   path_provider: ^2.1.5
   provider: ^6.1.5+1
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +37,13 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/favicon.png"
   min_sdk_android: 21
+
+flutter_native_splash:
+  color: "#181818"
+  image: assets/images/native_splash.png
+  android: true
+  ios: true
+  web: false
 
 flutter:
   uses-material-design: true

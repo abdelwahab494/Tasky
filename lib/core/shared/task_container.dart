@@ -6,16 +6,10 @@ class TaskContainer extends StatelessWidget {
   const TaskContainer({
     super.key,
     required this.task,
-    required this.onChanged,
-    required this.onDelete,
-    required this.onEdit,
-    required this.togglePriority,
+    required this.controller,
   });
   final TaskModel task;
-  final Function(bool? value) onChanged;
-  final Function() onDelete;
-  final Function() onEdit;
-  final Function() togglePriority;
+  final HomeController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +20,8 @@ class TaskContainer extends StatelessWidget {
         motion: StretchMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) {
-              onEdit();
-            },
+            onPressed: (context) =>
+                controller.onEdit(context: context, task: task),
             icon: Icons.mode_edit_outline_rounded,
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
@@ -41,9 +34,13 @@ class TaskContainer extends StatelessWidget {
         motion: StretchMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) {
-              onDelete();
-            },
+            onPressed: (context) => controller.onDelete(
+              context: context,
+              task: task,
+              showDeletingMessage: (ctx, ctrl) {
+                Dialogs.showDeletingMessage(context: ctx, controller: ctrl);
+              },
+            ),
             icon: Icons.clear_rounded,
             backgroundColor: Colors.red.shade600,
             foregroundColor: Colors.white,
@@ -69,9 +66,8 @@ class TaskContainer extends StatelessWidget {
             children: [
               CustomCheckBox(
                 value: task.isDone,
-                onChanged: (value) async {
-                  onChanged(value);
-                },
+                onChanged: (value) =>
+                    controller.onChanged(value: value, task: task),
               ),
               Expanded(
                 child: Column(
@@ -103,7 +99,8 @@ class TaskContainer extends StatelessWidget {
                 itemBuilder: (context) {
                   return <PopupMenuItem>[
                     PopupMenuItem(
-                      onTap: () => onChanged(!task.isDone),
+                      onTap: () =>
+                          controller.onChanged(value: !task.isDone, task: task),
                       child: PopUpMenueItemChild(
                         text: task.isDone ? "Not Done" : "Done",
                         icon: task.isDone
@@ -113,7 +110,7 @@ class TaskContainer extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem(
-                      onTap: () => togglePriority(),
+                      onTap: () => controller.togglePriority(task: task),
                       child: PopUpMenueItemChild(
                         text: task.isHighPriority ? "Normal" : "High Priority",
                         icon: task.isHighPriority
@@ -123,7 +120,8 @@ class TaskContainer extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem(
-                      onTap: () => onEdit(),
+                      onTap: () =>
+                          controller.onEdit(context: context, task: task),
                       child: PopUpMenueItemChild(
                         text: "Edit Task",
                         icon: CupertinoIcons.square_pencil_fill,
@@ -131,7 +129,16 @@ class TaskContainer extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem(
-                      onTap: () => onDelete(),
+                      onTap: () => controller.onDelete(
+                        context: context,
+                        task: task,
+                        showDeletingMessage: (ctx, ctrl) {
+                          Dialogs.showDeletingMessage(
+                            context: ctx,
+                            controller: ctrl,
+                          );
+                        },
+                      ),
                       child: PopUpMenueItemChild(
                         text: "Delete Task",
                         icon: CupertinoIcons.trash,

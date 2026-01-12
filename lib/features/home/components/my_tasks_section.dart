@@ -20,10 +20,7 @@ class MyTasksSection extends StatelessWidget {
                       taskName: "taskName",
                       isHighPriority: false,
                     ),
-                    onChanged: (bool? value) {},
-                    onDelete: () {},
-                    onEdit: () {},
-                    togglePriority: () {},
+                    controller: controller,
                   );
                 },
                 separatorBuilder: (BuildContext context, int index) => Gap(8),
@@ -72,25 +69,7 @@ class MyTasksSection extends StatelessWidget {
                   itemCount: controller.tasksList.length,
                   itemBuilder: (context, index) {
                     final TaskModel task = controller.tasksList[index];
-                    return TaskContainer(
-                      task: task,
-                      onChanged: (bool? value) =>
-                          controller.onChanged(value: value, task: task),
-                      onDelete: () => controller.onDelete(
-                        context: context,
-                        task: task,
-                        showDeletingMessage: (ctx, ctrl) {
-                          Dialogs.showDeletingMessage(
-                            context: ctx,
-                            controller: ctrl,
-                          );
-                        },
-                      ),
-                      onEdit: () =>
-                          controller.onEdit(context: context, task: task),
-                      togglePriority: () =>
-                          controller.togglePriority(task: task),
-                    );
+                    return TaskContainer(task: task, controller: controller);
                   },
                   separatorBuilder: (BuildContext context, int index) => Gap(8),
                 ),

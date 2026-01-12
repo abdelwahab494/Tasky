@@ -27,6 +27,8 @@ class EncourageSentence extends StatelessWidget {
                           ? "Yuhuu! Your work Is"
                           : data.encourageEnum == EncourageEnum.isDone
                           ? "Awesome! Your work"
+                          : data.encourageEnum == EncourageEnum.begin
+                          ? "No tasks yet."
                           : "Let's go! Your work is",
                       style: Theme.of(context).textTheme.displayMedium!
                           .copyWith(fontSize: 32, letterSpacing: 0.5),
@@ -38,7 +40,9 @@ class EncourageSentence extends StatelessWidget {
                           data.encourageEnum == EncourageEnum.isGoing
                               ? "almost done !  "
                               : data.encourageEnum == EncourageEnum.isDone
-                              ? "is all done."
+                              ? "is all done.  "
+                              : data.encourageEnum == EncourageEnum.begin
+                              ? "add your first one !  "
                               : "ready to begin.  ",
                           style: Theme.of(context).textTheme.displayMedium!
                               .copyWith(fontSize: 32, letterSpacing: 0.5),

@@ -1,13 +1,13 @@
 import 'package:tasky/core/imports.dart';
 
-class RootScreen extends StatefulWidget {
-  const RootScreen({super.key});
+class NavRoot extends StatefulWidget {
+  const NavRoot({super.key});
 
   @override
-  State<RootScreen> createState() => _RootScreenState();
+  State<NavRoot> createState() => _NavRootState();
 }
 
-class _RootScreenState extends State<RootScreen> {
+class _NavRootState extends State<NavRoot> {
   int currentIndex = 0;
   final List<Widget> screens = [
     HomeScreen(),

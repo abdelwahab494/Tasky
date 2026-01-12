@@ -7,7 +7,8 @@ class HomeController extends ChangeNotifier {
   List<TaskModel> _highPriorityTasksList = [];
   List<TaskModel> _tasksListBeforeDeleting = [];
   bool _sortList = false;
-  bool _isLoading = true;
+  bool _isLoading = false;
+  EncourageEnum _encourageStatus = EncourageEnum.started;
   int _percentage() =>
       ((_tasksList.isEmpty
                   ? 0.0
@@ -17,8 +18,6 @@ class HomeController extends ChangeNotifier {
                     )) *
               100)
           .round();
-  late final Stream<bool> _buttonStream = _buttonState();
-  EncourageEnum _encourageStatus = EncourageEnum.started;
 
   List<TaskModel> get tasksList => _tasksList;
   List<TaskModel> get toDoTasksList => _toDoTasksList;
@@ -28,8 +27,8 @@ class HomeController extends ChangeNotifier {
   bool get sortList => _sortList;
   bool get isLoading => _isLoading;
   int get percentage => _percentage();
-  Stream<bool> get buttonStream => _buttonStream;
   EncourageEnum get encourageStatus => _encourageStatus;
+  Stream<bool> get buttonStream => _buttonState();
 
   set tasksListBeforeDeleting(List<TaskModel> list) {
     _tasksListBeforeDeleting = list;
@@ -41,6 +40,10 @@ class HomeController extends ChangeNotifier {
   }
 
   Future<void> loadData() async {
+    // if (_completedTasksList.isNotEmpty && _toDoTasksList.isNotEmpty) return;
+
+    _isLoading = true;
+    notifyListeners();
     final List<TaskModel> fetchedTasksList = await PrefHelper.getTasksList();
 
     _tasksList = sortList
@@ -69,8 +72,7 @@ class HomeController extends ChangeNotifier {
         .where((element) => element.isDone == true)
         .toList();
     await PrefHelper.updateTasksList(tasksList);
-    loadData();
-    notifyListeners();
+    await loadData();
   }
 
   Future<void> onDelete({
@@ -83,8 +85,7 @@ class HomeController extends ChangeNotifier {
     _tasksList.removeWhere((e) => e == task);
     showDeletingMessage(context, this);
     await PrefHelper.updateTasksList(_tasksList);
-    loadData();
-    notifyListeners();
+    await loadData();
   }
 
   Future<void> onEdit({
@@ -102,7 +103,7 @@ class HomeController extends ChangeNotifier {
     task.isHighPriority = !task.isHighPriority;
     notifyListeners();
     await PrefHelper.updateTasksList(tasksList);
-    loadData();
+    await loadData();
   }
 
   Future<void> toggleSortingList() async {
@@ -118,7 +119,7 @@ class HomeController extends ChangeNotifier {
       MaterialPageRoute(builder: (c) => AddTaskScreen()),
     );
     if (result != null && result) {
-      loadData();
+      await loadData();
     }
   }
 
@@ -132,9 +133,11 @@ class HomeController extends ChangeNotifier {
     if (_completedTasksList.isNotEmpty &&
         _completedTasksList.length == _tasksList.length) {
       return EncourageEnum.isDone;
-    } else if (completedTasksList.isNotEmpty &&
-        completedTasksList.length < tasksList.length) {
+    } else if (_completedTasksList.isNotEmpty &&
+        _completedTasksList.length < _tasksList.length) {
       return EncourageEnum.isGoing;
+    } else if (_tasksList.isEmpty) {
+      return EncourageEnum.begin;
     } else {
       return EncourageEnum.started;
     }

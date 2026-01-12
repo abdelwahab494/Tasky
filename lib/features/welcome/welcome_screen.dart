@@ -1,26 +1,7 @@
 import 'package:tasky/core/imports.dart';
 
-class WelcomeScreen extends StatefulWidget {
+class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
-
-  @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
-}
-
-class _WelcomeScreenState extends State<WelcomeScreen> {
-  final TextEditingController _nameC = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  Future<void> saveData() async {
-    await PrefHelper.saveName(_nameC.text.trim());
-    await PrefHelper.saveQuote("One task at a time. One step closer.");
-  }
-
-  @override
-  void dispose() {
-    _nameC.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,44 +73,48 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 height: 204.39,
                               ),
                               Gap(28),
-                              Form(
-                                key: _formKey,
-                                child: CustomTextField(
-                                  title: "Your Name",
-                                  controller: _nameC,
-                                  validationMessage: "Please Enter Your Name.",
-                                  hintText: "e.g. Abdelwahab Mo",
-                                ),
+                              Consumer<WelcomeController>(
+                                builder:
+                                    (
+                                      BuildContext context,
+                                      WelcomeController controller,
+                                      Widget? child,
+                                    ) {
+                                      return Form(
+                                        key: controller.formKey,
+                                        child: CustomTextField(
+                                          title: "Your Name",
+                                          controller: controller.nameC,
+                                          validationMessage:
+                                              "Please Enter Your Name.",
+                                          hintText: "e.g. Abdelwahab Mo",
+                                        ),
+                                      );
+                                    },
                               ),
                               Gap(30),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  if (!_formKey.currentState!.validate()) {
-                                    return;
-                                  }
-                                  saveData();
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (c) => RootScreen(),
+                              Consumer<WelcomeController>(
+                                builder: (context, controller, child) {
+                                  return ElevatedButton(
+                                    onPressed: () =>
+                                        controller.saveUserName(context),
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: DarkColors.primary,
+                                      foregroundColor: DarkColors.text2,
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 10,
+                                        horizontal: 10,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Let's Get Started",
+                                      style: GoogleFonts.poppins(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
                                     ),
                                   );
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: DarkColors.primary,
-                                  foregroundColor: DarkColors.text2,
-                                  padding: EdgeInsets.symmetric(
-                                    vertical: 10,
-                                    horizontal: 10,
-                                  ),
-                                ),
-                                child: Text(
-                                  "Let’s Get Started",
-                                  style: GoogleFonts.poppins(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                  ),
-                                ),
                               ),
                             ],
                           ),

@@ -216,15 +216,12 @@ class Dialogs {
 
   static Future<ImageActionsEnum?> showImageSourceDialog({
     required BuildContext context,
+    required UserDetailsController controller,
   }) async {
     return showDialog<ImageActionsEnum?>(
       context: context,
       builder: (context) {
         return SimpleDialog(
-          // title: Text("Choose Image From"),
-          // titleTextStyle: Theme.of(
-          //   context,
-          // ).textTheme.titleMedium!.copyWith(fontSize: 24),
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           children: [
             SimpleDialogOption(
@@ -238,7 +235,7 @@ class Dialogs {
                   Icon(
                     Icons.camera_alt_outlined,
                     color: Theme.of(context).primaryColor,
-                    size: 18,
+                    size: 22,
                   ),
                   Text(
                     "Open Camera",
@@ -259,7 +256,7 @@ class Dialogs {
                   Icon(
                     Icons.photo_library_outlined,
                     color: Theme.of(context).primaryColor,
-                    size: 18,
+                    size: 22,
                   ),
                   Text(
                     "Choose From Gallery",
@@ -268,28 +265,29 @@ class Dialogs {
                 ],
               ),
             ),
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.of(context).pop(ImageActionsEnum.delete);
-              },
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: Row(
-                spacing: 16,
-                children: [
-                  Icon(
-                    Icons.delete,
-                    color: Theme.of(context).colorScheme.error,
-                    size: 18,
-                  ),
-                  Text(
-                    "Remove Image",
-                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+            if (controller.image != null)
+              SimpleDialogOption(
+                onPressed: () {
+                  Navigator.of(context).pop(ImageActionsEnum.delete);
+                },
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: Row(
+                  spacing: 16,
+                  children: [
+                    Icon(
+                      Icons.delete,
                       color: Theme.of(context).colorScheme.error,
+                      size: 22,
                     ),
-                  ),
-                ],
+                    Text(
+                      "Remove Image",
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         );
       },
@@ -329,5 +327,29 @@ class Dialogs {
           ),
         ),
       );
+  }
+
+  static void showSnackBar({
+    required BuildContext context,
+    required String message,
+    required Color backgroundColor,
+  }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium!.copyWith(color: Colors.white),
+        ),
+        backgroundColor: backgroundColor,
+        showCloseIcon: true,
+        closeIconColor: Colors.white,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        elevation: 0,
+      ),
+    );
   }
 }
