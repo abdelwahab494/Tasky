@@ -13,6 +13,7 @@ class _NavRootState extends State<NavRoot> {
     const HomeScreen(),
     const TodoScreen(),
     const CompletedScreen(),
+    const NotesScreen(),
     const ProfileScreen(),
   ];
   @override
@@ -81,9 +82,25 @@ class _NavRootState extends State<NavRoot> {
               icon: Padding(
                 padding: const EdgeInsets.only(bottom: 4, top: 8),
                 child: SvgPicture.asset(
-                  "assets/icons/profile.svg",
+                  "assets/icons/notes.svg",
                   colorFilter: ColorFilter.mode(
                     currentIndex == 3
+                        ? Theme.of(context).primaryColor
+                        : Theme.of(context).colorScheme.shadow,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+              label: "Notes",
+              tooltip: "Notes",
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 4, top: 8),
+                child: SvgPicture.asset(
+                  "assets/icons/profile.svg",
+                  colorFilter: ColorFilter.mode(
+                    currentIndex == 4
                         ? Theme.of(context).primaryColor
                         : Theme.of(context).colorScheme.shadow,
                     BlendMode.srcIn,

@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: AddTaskButton(),
+      floatingActionButton: FloatingButton(title: "Add New Task"),
     );
   }
 }

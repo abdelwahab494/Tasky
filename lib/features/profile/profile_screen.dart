@@ -12,7 +12,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("My Profile")),
+      appBar: AppBar(title: const Text("Profile")),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
         child: Center(
@@ -34,7 +34,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: CircleAvatar(
                               radius: 50,
                               backgroundImage: controller.image == null
-                                  ? const AssetImage("assets/images/profile.png")
+                                  ? const AssetImage(
+                                      "assets/images/profile.png",
+                                    )
                                   : FileImage(File(controller.image!)),
                               backgroundColor: Colors.transparent,
                             ),
@@ -163,7 +165,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           await PrefHelper.clearTasksList();
                           await PrefHelper.clearProfileImage();
                           navigator.pushAndRemoveUntil(
-                            MaterialPageRoute(builder: (c) => const WelcomeScreen()),
+                            MaterialPageRoute(
+                              builder: (c) => const WelcomeScreen(),
+                            ),
                             (Route<dynamic> route) => false,
                           );
                         }

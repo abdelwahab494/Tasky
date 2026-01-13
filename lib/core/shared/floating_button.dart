@@ -1,7 +1,8 @@
 import 'package:tasky/core/imports.dart';
 
-class AddTaskButton extends StatelessWidget {
-  const AddTaskButton({super.key});
+class FloatingButton extends StatelessWidget {
+  const FloatingButton({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class AddTaskButton extends StatelessWidget {
                       width: show ? 90 : 0,
                       child: FittedBox(
                         child: Text(
-                          "Add New Task",
+                          title,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600,
                             fontSize: 15,
