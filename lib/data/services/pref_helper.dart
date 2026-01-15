@@ -6,6 +6,7 @@ class PrefHelper {
   static const String tasksListKey = "tasksList";
   static const String themeKey = "isDark";
   static const String profileImageKey = "profile image";
+  static const String notesListKey = "notesList";
   static late SharedPreferences _prefs;
 
   //* Initialize _prefs
@@ -84,5 +85,24 @@ class PrefHelper {
 
   static Future<void> clearProfileImage() async {
     await _prefs.remove(profileImageKey);
+  }
+
+  //*Notes List
+  static Future<void> updateNotesList(List<NoteModel> notesList) async {
+    final updatedList = notesList.map((e) => jsonEncode(e.toJson())).toList();
+    await _prefs.setStringList(notesListKey, updatedList);
+  }
+
+  static Future<List<NoteModel>> getNotesList() async {
+    final List<String> notesListEncoded =
+        _prefs.getStringList(notesListKey) ?? [];
+    return notesListEncoded
+        .map((e) => NoteModel.fromJson(jsonDecode(e)))
+        .toList();
+  }
+
+  static Future<void> clearNotesList() async {
+    await _prefs.remove(notesListKey);
+    print("removed");
   }
 }

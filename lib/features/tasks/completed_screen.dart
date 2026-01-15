@@ -27,30 +27,45 @@ class CompletedScreen extends StatelessWidget {
                     controller: controller,
                   );
                 },
-                separatorBuilder: (BuildContext context, int index) => const Gap(8),
+                separatorBuilder: (BuildContext context, int index) =>
+                    const Gap(8),
               ),
             );
           }
           return controller.completedTasksList.isEmpty
               ? Center(
                   child: SizedBox(
-                    width: 180,
-                    height: 170,
+                    width: 160,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         FittedBox(
-                          child: Text(
-                            "No Completed Tasks Yet",
-                            style: Theme.of(
-                              context,
-                            ).textTheme.titleMedium!.copyWith(fontSize: 500),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(60, 0, 60, 20),
+                            child: SvgPicture.asset(
+                              "assets/icons/completed.svg",
+                              colorFilter: ColorFilter.mode(
+                                Theme.of(context).primaryColor,
+                                BlendMode.srcIn,
+                              ),
+                              width: 250,
+                            ),
                           ),
                         ),
                         FittedBox(
                           child: Text(
-                            "Time to make some progress",
+                            "No Completed Tasks",
+                            style: Theme.of(context).textTheme.titleMedium!
+                                .copyWith(
+                                  fontSize: 500,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                          ),
+                        ),
+                        FittedBox(
+                          child: Text(
+                            "Time to make progress",
                             style: Theme.of(
                               context,
                             ).textTheme.titleSmall!.copyWith(fontSize: 500),
@@ -67,12 +82,8 @@ class CompletedScreen extends StatelessWidget {
                     vertical: 16,
                   ),
                   itemBuilder: (context, index) {
-                    final TaskModel task =
-                        controller.completedTasksList[index];
-                    return TaskContainer(
-                      task: task,
-                      controller: controller,
-                    );
+                    final TaskModel task = controller.completedTasksList[index];
+                    return TaskContainer(task: task, controller: controller);
                   },
                   separatorBuilder: (BuildContext context, int index) =>
                       const Gap(8),

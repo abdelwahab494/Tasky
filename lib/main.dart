@@ -18,6 +18,9 @@ Future<void> main() async {
         ChangeNotifierProvider<WelcomeController>(
           create: (_) => WelcomeController(),
         ),
+        ChangeNotifierProvider<NotesController>(
+          create: (_) => NotesController(),
+        ),
       ],
       child: MyApp(initialName: name),
     ),
