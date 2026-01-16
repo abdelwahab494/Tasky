@@ -12,17 +12,17 @@ class SliverAppbar extends StatelessWidget {
             return SliverAppBar(
               automaticallyImplyLeading: false,
               pinned: true,
-              expandedHeight: 170,
+              expandedHeight: 150,
               collapsedHeight: 80,
               flexibleSpace: FlexibleSpaceBar(
                 expandedTitleScale: 1,
-                titlePadding: EdgeInsets.zero,
-                background: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 0, left: 16),
-                      child: Text(
+                titlePadding: EdgeInsets.only(top: 15),
+                background: Padding(
+                  padding: const EdgeInsets.only(bottom: 25, left: 16),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
                         "Notes",
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
@@ -30,10 +30,10 @@ class SliverAppbar extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                       ),
-                    ),
-                    if (controller.isDeleting)
-                      CloseButton(onPressed: controller.resetNotesDeleting),
-                  ],
+                      if (controller.isDeleting)
+                        CloseButton(onPressed: controller.resetNotesDeleting),
+                    ],
+                  ),
                 ),
                 title: Padding(
                   padding: const EdgeInsets.symmetric(

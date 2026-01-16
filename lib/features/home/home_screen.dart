@@ -16,13 +16,24 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: CustomScrollView(
             slivers: [
-              SliverGap(40),
-              HomeUserWelcome(),
+              SliverGap(30),
+              SliverAppBar(
+                flexibleSpace: FlexibleSpaceBar(background: HomeUserWelcome()),
+              ),
+              // SliverGap(16),
+              // EncourageSentence(),
               SliverGap(16),
-              EncourageSentence(),
-              SliverGap(16),
-              AchievedContainer(),
-              SliverGap(8),
+              SliverAppBar(
+                pinned: true,
+                expandedHeight: 160,
+                collapsedHeight: 100,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  expandedTitleScale: 1,
+                  background: EncourageSentence(),
+                  title: AchievedContainer(),
+                ),
+              ),
               HighPriorityContainer(),
               SliverGap(15),
               MyTasksActionsRow(),

@@ -70,28 +70,32 @@ class TaskContainer extends StatelessWidget {
                     controller.onChanged(value: value, task: task),
               ),
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      task.taskName,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: task.isDone
-                          ? Theme.of(context).textTheme.labelMedium
-                          : Theme.of(context).textTheme.titleMedium,
-                    ),
-                    if (task.taskDesc != null && task.taskDesc!.isNotEmpty)
+                child: GestureDetector(
+                  onTap: () =>
+                      Dialogs.showEditTaskSheet(context: context, task: task),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                       Text(
-                        task.taskDesc ?? "",
+                        task.taskName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: task.isDone
-                            ? Theme.of(context).textTheme.labelSmall
-                            : Theme.of(context).textTheme.bodyMedium,
+                            ? Theme.of(context).textTheme.labelMedium
+                            : Theme.of(context).textTheme.titleMedium,
                       ),
-                  ],
+                      if (task.taskDesc != null && task.taskDesc!.isNotEmpty)
+                        Text(
+                          task.taskDesc ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: task.isDone
+                              ? Theme.of(context).textTheme.labelSmall
+                              : Theme.of(context).textTheme.bodyMedium,
+                        ),
+                    ],
+                  ),
                 ),
               ),
               const Gap(8),

@@ -31,8 +31,15 @@ class _NavRootState extends State<NavRoot> {
           },
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4, top: 8),
+              icon: Container(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(500),
+                  color: currentIndex == 0
+                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      : Colors.transparent,
+                ),
                 child: SvgPicture.asset(
                   "assets/icons/home.svg",
                   colorFilter: ColorFilter.mode(
@@ -47,8 +54,15 @@ class _NavRootState extends State<NavRoot> {
               tooltip: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4, top: 8),
+              icon: Container(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(500),
+                  color: currentIndex == 1
+                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      : Colors.transparent,
+                ),
                 child: SvgPicture.asset(
                   "assets/icons/todo.svg",
                   colorFilter: ColorFilter.mode(
@@ -63,8 +77,15 @@ class _NavRootState extends State<NavRoot> {
               tooltip: "To Do",
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4, top: 8),
+              icon: Container(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(500),
+                  color: currentIndex == 2
+                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      : Colors.transparent,
+                ),
                 child: SvgPicture.asset(
                   "assets/icons/completed.svg",
                   colorFilter: ColorFilter.mode(
@@ -79,8 +100,15 @@ class _NavRootState extends State<NavRoot> {
               tooltip: "Completed",
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4, top: 8),
+              icon: Container(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(500),
+                  color: currentIndex == 3
+                      ? Theme.of(context).primaryColor.withOpacity(0.1)
+                      : Colors.transparent,
+                ),
                 child: SvgPicture.asset(
                   "assets/icons/notes.svg",
                   colorFilter: ColorFilter.mode(
@@ -95,8 +123,15 @@ class _NavRootState extends State<NavRoot> {
               tooltip: "Notes",
             ),
             BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 4, top: 8),
+              icon: Container(
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(500),
+                  color: currentIndex == 4
+                      ? Theme.of(context).primaryColor.withOpacity(0.2)
+                      : Colors.transparent,
+                ),
                 child: SvgPicture.asset(
                   "assets/icons/profile.svg",
                   colorFilter: ColorFilter.mode(

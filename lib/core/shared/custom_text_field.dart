@@ -10,6 +10,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.validate = true,
     this.autofocus = false,
+    this.enableEditing = true,
   });
   final String title;
   final TextEditingController controller;
@@ -18,6 +19,7 @@ class CustomTextField extends StatelessWidget {
   final bool validate;
   final int maxLines;
   final bool autofocus;
+  final bool enableEditing;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class CustomTextField extends StatelessWidget {
           controller: controller,
           cursorHeight: 20,
           cursorErrorColor: Theme.of(context).colorScheme.error,
+          enabled: enableEditing,
           validator: (value) {
             if (validate) {
               if (value == null || value.trim().isEmpty) {

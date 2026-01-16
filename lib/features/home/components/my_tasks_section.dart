@@ -74,14 +74,29 @@ class MyTasksSection extends StatelessWidget {
               )
             : SliverPadding(
                 padding: const EdgeInsets.only(bottom: 80),
-                sliver: SliverList.separated(
-                  itemCount: controller.tasksList.length,
-                  itemBuilder: (context, index) {
-                    final TaskModel task = controller.tasksList[index];
-                    return TaskContainer(task: task, controller: controller);
-                  },
-                  separatorBuilder: (BuildContext context, int index) =>
-                      const Gap(8),
+                // sliver: SliverList.separated(
+                //   itemCount: controller.tasksList.length,
+                //   itemBuilder: (context, index) {
+                //     final TaskModel task = controller.tasksList[index];
+                //     return TaskContainer(task: task, controller: controller);
+                //   },
+                //   separatorBuilder: (BuildContext context, int index) =>
+                //       const Gap(8),
+                // ),
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    childCount: controller.tasksList.length,
+                    (context, index) {
+                      final TaskModel task = controller.tasksList[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4),
+                        child: TaskContainer(
+                          task: task,
+                          controller: controller,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               );
       },
