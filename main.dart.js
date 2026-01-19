@@ -57765,7 +57765,7 @@ o.toString
 return A.abX(p,A.iO("Download App",o.pr(q?B.b2:B.co,16,B.ac)),new A.Pj(b),new A.Pk(),r)},
 $S:138}
 A.Pk.prototype={
-$0(){var s=A.ab1("assets/Tasky.apk")
+$0(){var s=A.ab1("/Tasky.apk")
 s.setAttribute("download","Tasky.apk")
 s.click()},
 $S:0}
@@ -57780,7 +57780,7 @@ o.toString
 return A.abX(p,A.iO("Download App",o.pr(q?B.b2:B.co,25,B.ac)),new A.Ph(b),new A.Pi(),r)},
 $S:138}
 A.Pi.prototype={
-$0(){var s=A.ab1("assets/Tasky.apk")
+$0(){var s=A.ab1("/Tasky.apk")
 s.setAttribute("download","Tasky.apk")
 s.click()},
 $S:0}
@@ -57792,7 +57792,7 @@ $S:11}
 A.uH.prototype={
 S(a){var s,r=null
 if(this.c){s=A.dz(a,r,t.w).w
-return A.nk(A.zH(A.c([A.a9g(new A.a__(),new A.a_0(),t.ys,t.y),A.ady(A.MU(A.nk(r,new A.e0(r,r,r,A.eu(500),A.c([new A.cZ(1,B.cc,A.bQ(B.c.ai(127.5),B.l.M()>>>16&255,B.l.M()>>>8&255,B.l.M()&255),B.j,10)],t.xq),r,B.b1),5,B.za,r,250),new A.a_1()),B.pz,B.cv,A.cA(25e5,0),B.py)],t.E),B.ab,B.a7,20),r,r,r,B.z5,s.a.a-20)}s=A.dz(a,r,t.w).w
+return A.nk(A.zH(A.c([A.a9g(new A.a__(),new A.a_0(),t.ys,t.y),A.ady(A.MU(A.nk(r,new A.e0(r,r,r,A.eu(500),A.c([new A.cZ(1,B.cc,A.bQ(B.c.ai(127.5),B.l.M()>>>16&255,B.l.M()>>>8&255,B.l.M()&255),B.j,10)],t.xq),r,B.b1),5,B.za,r,220),new A.a_1()),B.pz,B.cv,A.cA(25e5,0),B.py)],t.E),B.ab,B.a7,20),r,r,r,B.z5,s.a.a-20)}s=A.dz(a,r,t.w).w
 return A.a9l(A.a_g(B.ij,A.c([A.a94(-25,A.ady(A.MU(A.nk(r,new A.e0(r,r,r,A.eu(500),A.c([new A.cZ(1,B.cc,A.bQ(B.c.ai(127.5),B.l.M()>>>16&255,B.l.M()>>>8&255,B.l.M()&255),B.j,10)],t.xq),r,B.b1),5,r,r,250),new A.a_2()),B.pz,B.cv,A.cA(25e5,0),B.py),r,r,r,r,r,r),A.a9g(new A.a_3(),new A.a_4(),t.ys,t.y)],t.E),B.ag,B.hU),s.a.b*0.7,r)}}
 A.a_0.prototype={
 $2(a,b){return b.a===B.bb},
