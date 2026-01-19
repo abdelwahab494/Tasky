@@ -1,21 +1,27 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:tasky/core/imports.dart';
 
 class WidgetHelper {
-  static const MethodChannel _channel = MethodChannel(
+  static const String tasksKey = "tasks";
+  static const MethodChannel channel = MethodChannel(
     'com.example.tasky/update_widget',
   );
 
-  /// Updates the Android home widget by invoking the native method channel
-  static Future<void> updateWidget() async {
+  static Future<void> updateAndroidWidget(String tasks) async {
     try {
-      await _channel.invokeMethod('updateWidget');
+      // First save data using SharedPreferences
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString(tasksKey, tasks);
+
+      // Then notify the platform to update the widget
+      await platform.invokeMethod('updateWidget');
     } catch (e) {
-      // Silently handle errors - widget update is not critical for app functionality
-      // Log error in debug mode if needed
-      if (kDebugMode) {
-        print('Error updating widget: $e');
-      }
+      null;
     }
   }
+
+  // static Future<String> loadWidgetTasks() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String tasksString = prefs.getString('tasks') ?? '';
+  //   return tasksString;
+  // }
 }

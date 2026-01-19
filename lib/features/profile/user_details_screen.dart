@@ -10,14 +10,16 @@ class UserDetailsScreen extends StatelessWidget {
       child: Consumer<UserDetailsController>(
         builder: (context, controller, child) {
           return Scaffold(
-            appBar: AppBar(title: const Text("User Details")),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Form(
+            body: CustomScrollView(
+              slivers: [
+                const SliverPadding(
+                  padding: EdgeInsets.only(top: 20),
+                  sliver: SliverCustomAppbar(title: "User Details"),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverToBoxAdapter(
+                    child: Form(
                       key: controller.formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,9 +43,9 @@ class UserDetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
             bottomNavigationBar: CustomElevatedButton(
               onPressed: () => controller.changeUserDetailes(context),

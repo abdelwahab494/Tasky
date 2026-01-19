@@ -18,6 +18,12 @@ class HomeController extends ChangeNotifier {
                     )) *
               100)
           .round();
+  String _tasks = '';
+
+  final TextEditingController _taskNameC = TextEditingController();
+  final TextEditingController _taskDescC = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isHighPriority = false;
 
   List<TaskModel> get tasksList => _tasksList;
   List<TaskModel> get toDoTasksList => _toDoTasksList;
@@ -30,9 +36,26 @@ class HomeController extends ChangeNotifier {
   EncourageEnum get encourageStatus => _encourageStatus;
   Stream<bool> get buttonStream => _buttonState();
 
+  TextEditingController get taskNameC => _taskNameC;
+  TextEditingController get taskDescC => _taskDescC;
+  GlobalKey<FormState> get formKey => _formKey;
+  bool get isHighPriority => _isHighPriority;
+
+  set isHighPriority(bool value) {
+    _isHighPriority = value;
+    notifyListeners();
+  }
+
   set tasksListBeforeDeleting(List<TaskModel> list) {
     _tasksListBeforeDeleting = list;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _taskNameC.dispose();
+    _taskDescC.dispose();
+    super.dispose();
   }
 
   Future<void> init() async {
@@ -46,6 +69,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
     final List<TaskModel> fetchedTasksList = await PrefHelper.getTasksList();
     updateLists(fetchedTasksList);
+    await WidgetHelper.updateAndroidWidget(_tasks);
   }
 
   void updateLists(List<TaskModel> list) {
@@ -61,6 +85,7 @@ class HomeController extends ChangeNotifier {
         .toList();
     _isLoading = false;
     _encourageStatus = _encourageConditions();
+    _tasks = _toDoTasksList.map((e) => e.taskName).join(",");
     notifyListeners();
   }
 
@@ -71,6 +96,7 @@ class HomeController extends ChangeNotifier {
     task.isDone = value!;
     await PrefHelper.updateTasksList(_tasksList);
     updateLists(_tasksList);
+    await WidgetHelper.updateAndroidWidget(_tasks);
   }
 
   Future<void> onDelete({
@@ -84,6 +110,7 @@ class HomeController extends ChangeNotifier {
     showDeletingMessage(context, this);
     await PrefHelper.updateTasksList(_tasksList);
     updateLists(_tasksList);
+    await WidgetHelper.updateAndroidWidget(_tasks);
   }
 
   Future<void> onEdit({
@@ -138,6 +165,46 @@ class HomeController extends ChangeNotifier {
       return EncourageEnum.begin;
     } else {
       return EncourageEnum.started;
+    }
+  }
+
+  Future<void> addNewTask(BuildContext context) async {
+    if (!_formKey.currentState!.validate()) return;
+    final String taskTitle = _taskNameC.text;
+    final navigator = Navigator.of(context);
+    _tasks = _tasks.isEmpty ? taskTitle : '$_tasks,$taskTitle';
+    await PrefHelper.addNewTask(
+      TaskModel(
+        taskName: _taskNameC.text.trim(),
+        taskDesc: _taskDescC.text.trim(),
+        isHighPriority: _isHighPriority,
+      ),
+    );
+    await WidgetHelper.updateAndroidWidget(_tasks);
+    navigator.pop(true);
+  }
+
+  Future<void> logOut(BuildContext context) async {
+    final navigator = Navigator.of(context);
+    final bool? result = await Dialogs.showDeletAlertDialog(
+      context: context,
+      title: "Log Out",
+      contentText: "All data will be permanently deleted.",
+      action: "Log out",
+    );
+    if (result == true) {
+      await PrefHelper.clearName();
+      await PrefHelper.clearQuote();
+      await PrefHelper.clearTasksList();
+      await PrefHelper.clearProfileImage();
+      await PrefHelper.clearNotesList();
+      await WidgetHelper.updateAndroidWidget("");
+      _tasksList.clear();
+      updateLists(_tasksList);
+      navigator.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (c) => const WelcomeScreen()),
+        (Route<dynamic> route) => false,
+      );
     }
   }
 }

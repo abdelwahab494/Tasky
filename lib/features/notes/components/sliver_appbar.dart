@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:tasky/core/imports.dart';
 
 class SliverAppbar extends StatelessWidget {
@@ -16,7 +15,7 @@ class SliverAppbar extends StatelessWidget {
               collapsedHeight: 80,
               flexibleSpace: FlexibleSpaceBar(
                 expandedTitleScale: 1,
-                titlePadding: EdgeInsets.only(top: 15),
+                titlePadding: const EdgeInsets.only(top: 15),
                 background: Padding(
                   padding: const EdgeInsets.only(bottom: 25, left: 16),
                   child: Row(
@@ -60,7 +59,7 @@ class SliverAppbar extends StatelessWidget {
                               onPressed: () => controller.reset(),
                               color: Colors.grey,
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                       hintText: "Search",
                       contentPadding: const EdgeInsets.symmetric(vertical: 14),
                     ),

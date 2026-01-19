@@ -11,9 +11,9 @@ class NotesScreen extends StatelessWidget {
       child: Scaffold(
         body: CustomScrollView(
           slivers: <Widget>[
-            SliverAppbar(),
+            const SliverAppbar(),
             SliverPadding(
-              padding: EdgeInsetsGeometry.all(8),
+              padding: const EdgeInsetsGeometry.all(8),
               sliver: Consumer<NotesController>(
                 builder: (context, controller, child) {
                   if (controller.notesList.isEmpty && !controller.isSearching) {
@@ -23,53 +23,55 @@ class NotesScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 200,
                         child: Center(
-                          child: SizedBox(
-                            width: 160,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                FittedBox(
-                                  child: Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                      60,
-                                      0,
-                                      60,
-                                      20,
-                                    ),
-                                    child: SvgPicture.asset(
-                                      "assets/icons/notes.svg",
-                                      colorFilter: ColorFilter.mode(
-                                        Theme.of(context).primaryColor,
-                                        BlendMode.srcIn,
+                          child: FittedBox(
+                            child: SizedBox(
+                              width: 160,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  FittedBox(
+                                    child: Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                        60,
+                                        0,
+                                        60,
+                                        20,
                                       ),
-                                      width: 250,
+                                      child: SvgPicture.asset(
+                                        "assets/icons/notes.svg",
+                                        colorFilter: ColorFilter.mode(
+                                          Theme.of(context).primaryColor,
+                                          BlendMode.srcIn,
+                                        ),
+                                        width: 250,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    "No Notes Yet",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                          fontSize: 500,
-                                          fontWeight: FontWeight.w700,
-                                        ),
+                                  FittedBox(
+                                    child: Text(
+                                      "No Notes Yet",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium!
+                                          .copyWith(
+                                            fontSize: 500,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                                FittedBox(
-                                  child: Text(
-                                    "Add your first one",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .copyWith(fontSize: 500),
+                                  FittedBox(
+                                    child: Text(
+                                      "Add your first one",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall!
+                                          .copyWith(fontSize: 500),
+                                    ),
                                   ),
-                                ),
-                                Gap(60),
-                              ],
+                                  const Gap(60),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -91,7 +93,19 @@ class NotesScreen extends StatelessWidget {
                                 note: note,
                               ),
                         onLongPress: () => controller.startDeleting(note),
-                        child: NoteCard(note: note, controller: controller),
+                        child: NoteCard(note: note, controller: controller)
+                            .animate()
+                            .fadeIn(
+                              duration: Duration(
+                                milliseconds: 100 + index * 50,
+                              ),
+                            )
+                            .scale(
+                              duration: Duration(
+                                milliseconds: 100 + index * 50,
+                              ),
+                              begin: const Offset(0.8, 0.8),
+                            ),
                       );
                     },
                   );
@@ -104,14 +118,24 @@ class NotesScreen extends StatelessWidget {
           builder: (context, controller, child) {
             return context.watch<NotesController>().isDeleting
                 ? FloatingActionButton(
-                    onPressed: () =>
-                        context.read<NotesController>().deleteNotes(),
+                    onPressed: () async {
+                      final bool? result = await Dialogs.showDeletAlertDialog(
+                        context: context,
+                        title: "Delete Notes",
+                        contentText:
+                            "The selected notes will be permanently deleted.",
+                        action: "Delete",
+                      );
+                      if (context.mounted && result == true) {
+                        context.read<NotesController>().deleteNotes();
+                      }
+                    },
                     backgroundColor: Theme.of(context).colorScheme.error,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(500),
                     ),
-                    child: Icon(CupertinoIcons.delete, size: 25),
+                    child: const Icon(CupertinoIcons.delete, size: 25),
                   )
                 : StreamBuilder<bool>(
                     stream: controller.buttonStream,

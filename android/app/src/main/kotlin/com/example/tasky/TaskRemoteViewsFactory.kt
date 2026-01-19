@@ -1,4 +1,4 @@
-package com.example.widgetnoteapp
+package com.example.tasky
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -11,33 +11,39 @@ class TaskRemoteViewsFactory(private val context: Context) : RemoteViewsService.
     private val TAG = "TaskRemoteViewsFactory"
 
     override fun onCreate() {
-        Log.d(TAG, "onCreate")
         loadTasks()
     }
 
     override fun onDataSetChanged() {
-        Log.d(TAG, "onDataSetChanged called")
         loadTasks()
-        Log.d(TAG, "Loaded ${tasks.size} tasks")
     }
 
     private fun loadTasks() {
         val prefs: SharedPreferences = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE)
         val tasksString = prefs.getString("flutter.tasks", "")
-        Log.d(TAG, "Loading tasks from prefs: $tasksString")
         tasks = tasksString?.split(",")?.filter { it.isNotEmpty() } ?: emptyList()
     }
 
     override fun onDestroy() {
-        // No cleanup needed
     }
 
     override fun getCount(): Int = tasks.size
 
     override fun getViewAt(position: Int): RemoteViews {
-        return RemoteViews(context.packageName, R.layout.task_item).apply {
-            setTextViewText(R.id.task_text, tasks[position])
+        val views = RemoteViews(context.packageName, R.layout.task_item)
+
+        views.setTextViewText(R.id.task_text, tasks[position])
+
+        val fillInIntent = android.content.Intent().apply {
+            putExtra("task_text", tasks[position])
         }
+
+        views.setOnClickFillInIntent(
+            R.id.task_item_root,
+            fillInIntent
+        )
+
+        return views
     }
 
     override fun getLoadingView(): RemoteViews? = null

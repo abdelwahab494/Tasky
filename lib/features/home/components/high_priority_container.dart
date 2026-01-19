@@ -87,7 +87,10 @@ class HighPriorityContainer extends StatelessWidget {
           }
           return controller.highPriorityTasksList.isNotEmpty
               ? Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 8,
+                  ),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primaryContainer,
@@ -131,43 +134,55 @@ class HighPriorityContainer extends StatelessWidget {
                               ),
                             ),
                             ...List.generate(
-                              controller.highPriorityTasksList.length <= 4
+                              controller.highPriorityTasksList.length <= 3
                                   ? controller.highPriorityTasksList.length
-                                  : 4,
+                                  : 3,
                               (index) {
                                 final TaskModel priorityTask =
                                     controller.highPriorityTasksList[index];
                                 return Row(
-                                  spacing: 8,
-                                  children: [
-                                    SizedBox(
-                                      width: 30,
-                                      height: 30,
-                                      child: CustomCheckBox(
-                                        value: priorityTask.isDone,
-                                        onChanged: (value) =>
-                                            controller.onChanged(
-                                              value: value,
-                                              task: priorityTask,
-                                            ),
+                                      spacing: 8,
+                                      children: [
+                                        SizedBox(
+                                          width: 30,
+                                          height: 30,
+                                          child: CustomCheckBox(
+                                            value: priorityTask.isDone,
+                                            onChanged: (value) =>
+                                                controller.onChanged(
+                                                  value: value,
+                                                  task: priorityTask,
+                                                ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            priorityTask.taskName,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: priorityTask.isDone
+                                                ? Theme.of(
+                                                    context,
+                                                  ).textTheme.labelMedium
+                                                : Theme.of(
+                                                    context,
+                                                  ).textTheme.titleMedium,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                    .animate()
+                                    .fadeIn(
+                                      duration: Duration(
+                                        milliseconds: 100 + index * 30,
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        priorityTask.taskName,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: priorityTask.isDone
-                                            ? Theme.of(
-                                                context,
-                                              ).textTheme.labelMedium
-                                            : Theme.of(
-                                                context,
-                                              ).textTheme.titleMedium,
+                                    )
+                                    .slideX(
+                                      duration: Duration(
+                                        milliseconds: 100 + index * 30,
                                       ),
-                                    ),
-                                  ],
-                                );
+                                      begin: 0.2,
+                                    );
                               },
                             ),
                           ],
@@ -193,11 +208,9 @@ class ShowMoreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (c) => const HighPriorityScreen(),
-          ),
-        );
+        await Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (c) => const HighPriorityScreen()));
       },
       child: Container(
         width: 40,

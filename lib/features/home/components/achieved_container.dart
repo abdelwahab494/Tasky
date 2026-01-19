@@ -10,7 +10,7 @@ class AchievedContainer extends StatelessWidget {
         ? Skeletonizer(
             enabled: context.watch<HomeController>().isLoading,
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 80,),
+              constraints: const BoxConstraints(maxHeight: 75),
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -26,72 +26,88 @@ class AchievedContainer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Achieved Tasks",
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 4),
-                          Consumer<HomeController>(
-                            builder:
-                                (
-                                  BuildContext context,
-                                  HomeController value,
-                                  Widget? child,
-                                ) => Text(
-                                  "${value.completedTasksList.length} Out of ${value.tasksList.length} Done",
-                                  style: Theme.of(context).textTheme.titleSmall,
-                                ),
-                          ),
-                        ],
-                      ),
-                      Selector<HomeController, int>(
-                        selector:
-                            (BuildContext context, HomeController value) =>
-                                value.percentage,
-                        builder:
-                            (BuildContext context, int value, Widget? child) {
-                              return CircularPercentIndicator(
-                                    radius: 27,
-                                    lineWidth: 5,
-                                    animation: true,
-                                    animateFromLastPercent: true,
-                                    animationDuration: 700,
-                                    percent: value / 100,
-                                    progressColor: Theme.of(
+                  child:
+                      Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "Achieved Tasks",
+                                    style: Theme.of(
                                       context,
-                                    ).primaryColor,
-                                    backgroundColor: DarkColors.text4
-                                        .withOpacity(0.2),
-                                    circularStrokeCap: CircularStrokeCap.round,
-                                    center: Text(
-                                      "$value%",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium!
-                                          .copyWith(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                    ),
-                                  )
-                                  .animate(
-                                    delay: 500.ms,
-                                    onPlay: (controller) =>
-                                        controller.repeat(reverse: true),
-                                  )
-                                  .then(delay: const Duration(seconds: 5))
-                                  .shake(hz: 2, rotation: 0.09);
-                            },
-                      ),
-                    ],
-                  ),
+                                    ).textTheme.titleMedium,
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Consumer<HomeController>(
+                                    builder:
+                                        (
+                                          BuildContext context,
+                                          HomeController value,
+                                          Widget? child,
+                                        ) => Text(
+                                          "${value.completedTasksList.length} Out of ${value.tasksList.length} Done",
+                                          style: Theme.of(
+                                            context,
+                                          ).textTheme.titleSmall,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              Selector<HomeController, int>(
+                                selector:
+                                    (
+                                      BuildContext context,
+                                      HomeController value,
+                                    ) => value.percentage,
+                                builder:
+                                    (
+                                      BuildContext context,
+                                      int value,
+                                      Widget? child,
+                                    ) {
+                                      return CircularPercentIndicator(
+                                            radius: 27,
+                                            lineWidth: 5,
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                            animationDuration: 700,
+                                            percent: value / 100,
+                                            progressColor: Theme.of(
+                                              context,
+                                            ).primaryColor,
+                                            backgroundColor: DarkColors.text4
+                                                .withOpacity(0.2),
+                                            circularStrokeCap:
+                                                CircularStrokeCap.round,
+                                            center: Text(
+                                              "$value%",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium!
+                                                  .copyWith(
+                                                    fontSize: 18,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                            ),
+                                          )
+                                          .animate(
+                                            delay: 500.ms,
+                                            onPlay: (controller) => controller
+                                                .repeat(reverse: true),
+                                          )
+                                          .then(
+                                            delay: const Duration(seconds: 5),
+                                          )
+                                          .shake(hz: 2, rotation: 0.09);
+                                    },
+                              ),
+                            ],
+                          )
+                          .animate()
+                          .fadeIn(duration: const Duration(milliseconds: 150))
                 ),
               ),
             ),

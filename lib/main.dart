@@ -1,9 +1,10 @@
 import 'package:tasky/core/imports.dart';
 
+const platform = MethodChannel('com.example.tasky/update_widget');
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PrefHelper.init();
-  await ThemeController.init();
   final String? name = await PrefHelper.getName();
 
   runApp(
@@ -21,6 +22,9 @@ Future<void> main() async {
         ChangeNotifierProvider<NotesController>(
           create: (_) => NotesController(),
         ),
+        ChangeNotifierProvider<ThemeController>(
+          create: (_) => ThemeController(),
+        ),
       ],
       child: MyApp(initialName: name),
     ),
@@ -34,8 +38,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<ThemeMode>(
-      valueListenable: ThemeController.themeNotifier,
+    return Selector<ThemeController, ThemeMode>(
+      selector: (context, controller) => controller.theme,
       builder: (context, themeMode, child) {
         return MaterialApp(
           title: 'Tasky',

@@ -18,7 +18,9 @@ class ProfileRow extends StatelessWidget {
         SvgPicture.asset(
           svgPicture,
           colorFilter: ColorFilter.mode(
-            ThemeController.isDark() ? DarkColors.text2 : LightColors.text2,
+            context.watch<ThemeController>().isDark
+                ? DarkColors.text2
+                : LightColors.text2,
             BlendMode.srcIn,
           ),
         ),

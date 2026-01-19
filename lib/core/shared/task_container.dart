@@ -71,8 +71,7 @@ class TaskContainer extends StatelessWidget {
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () =>
-                      Dialogs.showEditTaskSheet(context: context, task: task),
+                  onTap: () => controller.onEdit(context: context, task: task),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,

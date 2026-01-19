@@ -59,29 +59,33 @@ class HomeUserWelcome extends StatelessWidget {
                       ],
                     ),
                   ),
-                  IconButton.filled(
-                    onPressed: () async {
-                      await ThemeController.toggleTheme();
+                  Consumer<ThemeController>(
+                    builder: (context, controller, child) {
+                      return IconButton.filled(
+                        onPressed: () async {
+                          await controller.toggleTheme();
+                        },
+                        style: IconButton.styleFrom(
+                          backgroundColor: controller.isDark
+                              ? DarkColors.backGround2
+                              : LightColors.backGround2,
+                          foregroundColor: controller.isDark
+                              ? DarkColors.text2
+                              : LightColors.text2,
+                          side: controller.isDark
+                              ? BorderSide.none
+                              : BorderSide(color: LightColors.border),
+                          fixedSize: const Size(34, 34),
+                        ),
+                        icon: SvgPicture.asset(
+                          controller.isDark
+                              ? "assets/icons/sun.svg"
+                              : "assets/icons/moon.svg",
+                          width: 22,
+                          height: 22,
+                        ),
+                      );
                     },
-                    style: IconButton.styleFrom(
-                      backgroundColor: ThemeController.isDark()
-                          ? DarkColors.backGround2
-                          : LightColors.backGround2,
-                      foregroundColor: ThemeController.isDark()
-                          ? DarkColors.text2
-                          : LightColors.text2,
-                      side: ThemeController.isDark()
-                          ? BorderSide.none
-                          : BorderSide(color: LightColors.border),
-                      fixedSize: const Size(34, 34),
-                    ),
-                    icon: SvgPicture.asset(
-                      ThemeController.themeNotifier.value == ThemeMode.dark
-                          ? "assets/icons/sun.svg"
-                          : "assets/icons/moon.svg",
-                      width: 22,
-                      height: 22,
-                    ),
                   ),
                 ],
               ),

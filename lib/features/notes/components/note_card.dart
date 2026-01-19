@@ -9,7 +9,7 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         border: controller.deletingList.contains(note)
@@ -33,15 +33,15 @@ class NoteCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-          Gap(8),
+          const Gap(8),
           Text(
             note.body,
             style: Theme.of(context).textTheme.bodyMedium,
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
-          Gap(5),
-          Divider(),
+          const Gap(5),
+          const Divider(),
           FittedBox(
             child: Row(
               spacing: 5,
@@ -60,7 +60,7 @@ class NoteCard extends StatelessWidget {
               ],
             ),
           ),
-          Gap(5),
+          const Gap(5),
         ],
       ),
     );

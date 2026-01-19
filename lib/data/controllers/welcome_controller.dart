@@ -24,6 +24,9 @@ class WelcomeController extends ChangeNotifier {
     }
     final navigator = Navigator.of(context);
     await saveData();
-    navigator.pushReplacement(MaterialPageRoute(builder: (c) => const NavRoot()));
+    _nameC.clear();
+    navigator.pushReplacement(
+      MaterialPageRoute(builder: (c) => const NavRoot()),
+    );
   }
 }

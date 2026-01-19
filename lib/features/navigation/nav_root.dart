@@ -16,6 +16,7 @@ class _NavRootState extends State<NavRoot> {
     const NotesScreen(),
     const ProfileScreen(),
   ];
+  
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -32,7 +33,10 @@ class _NavRootState extends State<NavRoot> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Container(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 6,
+                ),
                 margin: const EdgeInsets.only(bottom: 4, top: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(500),
@@ -55,7 +59,10 @@ class _NavRootState extends State<NavRoot> {
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 6,
+                ),
                 margin: const EdgeInsets.only(bottom: 4, top: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(500),
@@ -78,7 +85,10 @@ class _NavRootState extends State<NavRoot> {
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 6,
+                ),
                 margin: const EdgeInsets.only(bottom: 4, top: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(500),
@@ -101,7 +111,10 @@ class _NavRootState extends State<NavRoot> {
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 6,
+                ),
                 margin: const EdgeInsets.only(bottom: 4, top: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(500),
@@ -124,7 +137,10 @@ class _NavRootState extends State<NavRoot> {
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 18,
+                  vertical: 6,
+                ),
                 margin: const EdgeInsets.only(bottom: 4, top: 4),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(500),

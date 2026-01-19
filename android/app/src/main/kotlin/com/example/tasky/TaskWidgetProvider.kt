@@ -1,4 +1,4 @@
-package com.example.widgetnoteapp
+package com.example.tasky
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -28,6 +28,20 @@ class TaskWidgetProvider : AppWidgetProvider() {
 
         val views = RemoteViews(context.packageName, R.layout.widget_layout)
 
+        // Open app when clicking on the widget
+        val openAppIntent = Intent(context, MainActivity::class.java)
+        val openAppPendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            openAppIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        views.setOnClickPendingIntent(
+            R.id.widget_root,
+            openAppPendingIntent
+        )
+
         // Set up the intent for the service
         val serviceIntent = Intent(context, TaskWidgetService::class.java)
         views.setRemoteAdapter(R.id.task_list_view, serviceIntent)
@@ -54,7 +68,7 @@ class TaskWidgetProvider : AppWidgetProvider() {
         Log.d(TAG, "onReceive called with action: ${intent?.action}")
         super.onReceive(context, intent)
 
-        if (intent?.action == "com.example.widgetnoteapp.UPDATE_WIDGET") {
+        if (intent?.action == "com.example.tasky.UPDATE_WIDGET") {
             Log.d(TAG, "Received custom action to update widget")
             val appWidgetManager = AppWidgetManager.getInstance(context)
             val componentName = android.content.ComponentName(context!!, TaskWidgetProvider::class.java)

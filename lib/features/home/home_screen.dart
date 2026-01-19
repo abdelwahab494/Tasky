@@ -1,49 +1,51 @@
 import 'package:tasky/core/imports.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
           child: CustomScrollView(
             slivers: [
-              SliverGap(30),
-              SliverAppBar(
+              const SliverGap(30),
+              const SliverAppBar(
                 flexibleSpace: FlexibleSpaceBar(background: HomeUserWelcome()),
               ),
-              // SliverGap(16),
-              // EncourageSentence(),
-              SliverGap(16),
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: 160,
-                collapsedHeight: 100,
-                flexibleSpace: FlexibleSpaceBar(
-                  centerTitle: true,
-                  expandedTitleScale: 1,
-                  background: EncourageSentence(),
-                  title: AchievedContainer(),
-                ),
+              const SliverGap(10),
+              const EncourageSentence(),
+              Selector<HomeController, bool>(
+                selector: (BuildContext context, HomeController controller) =>
+                    controller.tasksList.isEmpty,
+                builder: (BuildContext context, bool value, Widget? child) {
+                  if (value) {
+                    return const SliverToBoxAdapter(child: SizedBox.shrink());
+                  }
+                  return SliverAppBar(
+                    pinned: !value,
+                    collapsedHeight: 80,
+                    flexibleSpace: const FlexibleSpaceBar(
+                      centerTitle: true,
+                      titlePadding: EdgeInsets.only(bottom: 8),
+                      expandedTitleScale: 1,
+                      title: AchievedContainer(),
+                    ),
+                  );
+                },
               ),
-              HighPriorityContainer(),
-              SliverGap(15),
-              MyTasksActionsRow(),
-              SliverGap(8),
-              MyTasksSection(),
+              const HighPriorityContainer(),
+              const SliverGap(15),
+              const MyTasksActionsRow(),
+              const SliverGap(8),
+              const MyTasksSection(),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingButton(title: "Add New Task"),
+      floatingActionButton: const FloatingButton(title: "Add New Task"),
     );
   }
 }

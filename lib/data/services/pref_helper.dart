@@ -103,6 +103,5 @@ class PrefHelper {
 
   static Future<void> clearNotesList() async {
     await _prefs.remove(notesListKey);
-    print("removed");
   }
 }

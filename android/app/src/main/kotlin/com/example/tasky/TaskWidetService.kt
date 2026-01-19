@@ -1,4 +1,4 @@
-package com.example.widgetnoteapp
+package com.example.tasky
 
 import android.content.Intent
 import android.widget.RemoteViewsService

@@ -1,4 +1,4 @@
-package com.example.widgetnoteapp
+package com.example.tasky
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 
 class MainActivity: FlutterActivity() {
-    private val CHANNEL = "com.example.widgetnoteapp/update_widget"
+    private val CHANNEL = "com.example.tasky/update_widget"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)

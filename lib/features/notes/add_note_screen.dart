@@ -16,13 +16,13 @@ class AddNoteScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () => Navigator.of(context).pop(false),
-              icon: Icon(Icons.check, size: 30),
+              icon: const Icon(Icons.check, size: 30),
             ),
           ],
-          actionsPadding: EdgeInsets.only(right: 8),
+          actionsPadding: const EdgeInsets.only(right: 8),
         ),
         body: Padding(
-          padding: EdgeInsetsGeometry.fromLTRB(16, 5, 16, 30),
+          padding: const EdgeInsetsGeometry.fromLTRB(16, 5, 16, 30),
           child: Consumer<NotesController>(
             builder:
                 (
@@ -40,7 +40,7 @@ class AddNoteScreen extends StatelessWidget {
                           fontSize: 12,
                         ),
                       ),
-                      Gap(5),
+                      const Gap(5),
                       Directionality(
                         textDirection: isArabic(controller.titleC.text)
                             ? ui.TextDirection.rtl

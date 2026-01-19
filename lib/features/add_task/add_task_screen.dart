@@ -8,69 +8,77 @@ class AddTaskScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: ChangeNotifierProvider(
-        create: (_) => AddTaskController(),
+        create: (_) => HomeController(),
         builder: (context, _) {
-          final AddTaskController addTaskController = context
-              .read<AddTaskController>();
+          final HomeController addTaskController = context
+              .read<HomeController>();
           return Scaffold(
-            appBar: AppBar(title: const Text("New Task")),
-            body: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: addTaskController.formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomTextField(
-                        title: "Title",
-                        controller: addTaskController.taskNameC,
-                        validationMessage: "Please Enter The Task Name.",
-                        autofocus: true,
-                      ),
-                      const Gap(20),
-                      CustomTextField(
-                        title: "Description",
-                        controller: addTaskController.taskDescC,
-                        validationMessage: '',
-                        maxLines: 5,
-                        validate: false,
-                      ),
-                      const Gap(20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            body: CustomScrollView(
+              slivers: [
+                const SliverPadding(
+                  padding: EdgeInsets.only(top: 20),
+                  sliver: SliverCustomAppbar(title: "To Do Tasks"),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  sliver: SliverToBoxAdapter(
+                    child: Form(
+                      key: addTaskController.formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "High Priority",
-                            style: Theme.of(context).textTheme.titleMedium,
+                          CustomTextField(
+                            title: "Title",
+                            controller: addTaskController.taskNameC,
+                            validationMessage: "Please Enter The Task Name.",
+                            autofocus: true,
                           ),
-                          Selector<AddTaskController, bool>(
-                            selector: (BuildContext context, controller) =>
-                                controller.isHighPriority,
-                            builder:
-                                (
-                                  BuildContext context,
-                                  bool value,
-                                  Widget? child,
-                                ) {
-                                  return Switch(
-                                    value: value,
-                                    onChanged: (value) {
-                                      addTaskController.isHighPriority = value;
+                          const Gap(20),
+                          CustomTextField(
+                            title: "Description",
+                            controller: addTaskController.taskDescC,
+                            validationMessage: '',
+                            maxLines: 5,
+                            validate: false,
+                          ),
+                          const Gap(20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "High Priority",
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              Selector<HomeController, bool>(
+                                selector: (BuildContext context, controller) =>
+                                    controller.isHighPriority,
+                                builder:
+                                    (
+                                      BuildContext context,
+                                      bool value,
+                                      Widget? child,
+                                    ) {
+                                      return Switch(
+                                        value: value,
+                                        onChanged: (value) {
+                                          addTaskController.isHighPriority =
+                                              value;
+                                        },
+                                      );
                                     },
-                                  );
-                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
             bottomNavigationBar: CustomElevatedButton(
               onPressed: () =>
-                  context.read<AddTaskController>().addNewTask(context),
+                  context.read<HomeController>().addNewTask(context),
               title: "Add Task",
               icon: Icons.add_rounded,
             ),

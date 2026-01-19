@@ -12,73 +12,77 @@ class MyTasksActionsRow extends StatelessWidget {
         builder: (context, controller, child) {
           return Skeletonizer(
             enabled: controller.isLoading,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    "My Tasks",
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium!.copyWith(fontSize: 20),
-                  ),
-                ),
-                if (controller.tasksList.isNotEmpty)
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
+            child: controller.tasksList.isNotEmpty
+                ? Row(
                     children: [
-                      IconButton(
-                        onPressed: () => controller.toggleSortingList(),
-                        icon: Icon(
-                          controller.sortList
-                              ? CupertinoIcons.sort_down
-                              : CupertinoIcons.sort_up,
-                        ),
-                        tooltip: controller.sortList ? "Sort Down" : "Sort Up",
-                        style: IconButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          foregroundColor: Theme.of(
+                      Expanded(
+                        child: Text(
+                          "My Tasks",
+                          style: Theme.of(
                             context,
-                          ).textTheme.titleMedium!.color,
+                          ).textTheme.titleMedium!.copyWith(fontSize: 20),
                         ),
                       ),
-                      Container(
-                        height: 22,
-                        width: 1,
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).iconTheme.color,
+                      if (controller.tasksList.isNotEmpty)
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () => controller.toggleSortingList(),
+                              icon: Icon(
+                                controller.sortList
+                                    ? CupertinoIcons.sort_down
+                                    : CupertinoIcons.sort_up,
+                              ),
+                              tooltip: controller.sortList
+                                  ? "Sort Down"
+                                  : "Sort Up",
+                              style: IconButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                foregroundColor: Theme.of(
+                                  context,
+                                ).textTheme.titleMedium!.color,
+                              ),
+                            ),
+                            Container(
+                              height: 22,
+                              width: 1,
+                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () async {
+                                if (controller.tasksList.isNotEmpty) {
+                                  final bool?
+                                  result = await Dialogs.showDeletAlertDialog(
+                                    context: context,
+                                    title: "Delete All Tasks",
+                                    contentText:
+                                        "All tasks will be deleted permanently.",
+                                    action: "Delete",
+                                  );
+                                  if (result == true) {
+                                    await PrefHelper.clearTasksList();
+                                    controller.loadData();
+                                  }
+                                }
+                              },
+                              tooltip: "Delete All Tasks",
+                              icon: const Icon(Icons.clear_all_rounded),
+                              style: IconButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                foregroundColor: Theme.of(
+                                  context,
+                                ).textTheme.titleMedium!.color,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      IconButton(
-                        onPressed: () async {
-                          if (controller.tasksList.isNotEmpty) {
-                            final bool? result =
-                                await Dialogs.showDeletAlertDialog(
-                                  context: context,
-                                  title: "Delete All Tasks",
-                                  contentText:
-                                      "All tasks will be deleted permanently.",
-                                  action: "Delete",
-                                );
-                            if (result == true) {
-                              await PrefHelper.clearTasksList();
-                              controller.loadData();
-                            }
-                          }
-                        },
-                        tooltip: "Delete All Tasks",
-                        icon: const Icon(Icons.clear_all_rounded),
-                        style: IconButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          foregroundColor: Theme.of(
-                            context,
-                          ).textTheme.titleMedium!.color,
-                        ),
-                      ),
                     ],
-                  ),
-              ],
-            ),
+                  )
+                : const SizedBox.shrink(),
           );
         },
       ),

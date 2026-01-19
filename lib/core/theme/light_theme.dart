@@ -13,6 +13,7 @@ ThemeData lightTheme = ThemeData(
     error: Colors.red.shade700,
   ),
   appBarTheme: AppBarTheme(
+    toolbarHeight: 40,
     backgroundColor: LightColors.backGround,
     titleTextStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
