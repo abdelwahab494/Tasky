@@ -1,22 +1,23 @@
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tasky/core/imports.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+        padding: EdgeInsets.fromLTRB(
+          AppSizes.w16,
+          AppSizes.h20,
+          AppSizes.w16,
+          AppSizes.h0,
+        ),
         child: CustomScrollView(
           slivers: [
-            const SliverCustomAppbar(title: "Profile"),
+            SliverCustomAppbar(title: s.profile),
             Consumer<UserDetailsController>(
               builder: (context, controller, child) {
                 return SliverToBoxAdapter(
@@ -42,7 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               glowColor: Theme.of(context).primaryColor,
                               startDelay: const Duration(seconds: 1),
                               child: CircleAvatar(
-                                radius: 50,
+                                radius: AppSizes.r50,
                                 backgroundImage: controller.image == null
                                     ? const AssetImage(
                                         "assets/images/profile.png",
@@ -53,8 +54,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           Positioned(
-                            bottom: -12,
-                            right: -10,
+                            bottom: -AppSizes.h12,
+                            right: -AppSizes.w10,
                             child: Selector<ThemeController, bool>(
                               selector: (context, controller) =>
                                   controller.isDark,
@@ -72,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     side: value
                                         ? BorderSide.none
                                         : BorderSide(color: LightColors.border),
-                                    iconSize: 20,
+                                    iconSize: AppSizes.w20,
                                   ),
                                   icon: const Icon(Icons.camera_alt_outlined),
                                 );
@@ -81,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      const Gap(16),
+                      Gap(AppSizes.h16),
                       Selector<ThemeController, bool>(
                         selector: (context, controller) => controller.isDark,
                         builder: (context, value, child) {
@@ -97,9 +98,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleMedium!
-                                      .copyWith(fontSize: 20),
+                                      .copyWith(fontSize: AppSizes.sp20),
                                 ),
-                                const Gap(4),
+                                Gap(AppSizes.h4),
                                 Text(
                                   controller.isLoading
                                       ? "One task at a time. One step closer."
@@ -116,8 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               },
             ),
-            const SliverGap(30),
-
+            SliverGap(AppSizes.h30),
             SliverFillRemaining(
               hasScrollBody: false,
               child: Consumer<ThemeController>(
@@ -127,12 +127,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "Profile Info",
-                        style: Theme.of(
-                          context,
-                        ).textTheme.titleMedium!.copyWith(fontSize: 20),
+                        s.profileInfo,
+                        style: Theme.of(context).textTheme.titleMedium!
+                            .copyWith(fontSize: AppSizes.sp20),
                       ),
-                      const Gap(16),
+                      Gap(AppSizes.h16),
                       GestureDetector(
                         onTap: () => Navigator.push(
                           context,
@@ -145,7 +144,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: ProfileRow(
                           svgPicture: "assets/icons/profile.svg",
-                          title: "User Details",
+                          title: s.userDetails,
                           trailing: Icon(
                             Icons.arrow_forward_rounded,
                             color: controller.isDark
@@ -154,11 +153,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                       ),
-                      const Gap(10),
+                      Gap(AppSizes.h10),
                       const Divider(),
                       ProfileRow(
                         svgPicture: "assets/icons/darkmode.svg",
-                        title: "Dark Mode",
+                        title: s.darkMode,
                         trailing: Switch(
                           value: controller.isDark,
                           onChanged: (value) async {
@@ -167,13 +166,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       const Divider(),
-                      const Gap(10),
+                      Gap(AppSizes.h10),
                       GestureDetector(
                         onTap: () =>
                             context.read<HomeController>().logOut(context),
                         child: ProfileRow(
                           svgPicture: "assets/icons/logout.svg",
-                          title: "Log Out",
+                          title: s.logOut,
                           trailing: Icon(
                             Icons.arrow_forward_rounded,
                             color: controller.isDark

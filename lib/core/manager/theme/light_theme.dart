@@ -13,12 +13,12 @@ ThemeData lightTheme = ThemeData(
     error: Colors.red.shade700,
   ),
   appBarTheme: AppBarTheme(
-    toolbarHeight: 40,
+    toolbarHeight: AppSizes.h40,
     backgroundColor: LightColors.backGround,
     titleTextStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
       color: LightColors.text1,
-      fontSize: 22,
+      fontSize: AppSizes.sp22,
     ),
     iconTheme: IconThemeData(color: LightColors.text1),
     elevation: 0,
@@ -27,23 +27,23 @@ ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(
     displayMedium: GoogleFonts.plusJakartaSans(
       color: LightColors.text1,
-      fontSize: 28,
+      fontSize: AppSizes.sp28,
       fontWeight: FontWeight.w400,
     ),
     titleMedium: GoogleFonts.poppins(
       color: LightColors.text2,
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       fontWeight: FontWeight.w400,
     ),
     titleSmall: GoogleFonts.poppins(
       color: LightColors.text3,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       fontWeight: FontWeight.w400,
     ),
     bodyMedium: GoogleFonts.roboto(
       color: LightColors.text3,
       fontWeight: FontWeight.w400,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       decoration: TextDecoration.none,
       decorationColor: LightColors.hashedText,
       decorationThickness: 2,
@@ -52,7 +52,7 @@ ThemeData lightTheme = ThemeData(
     labelMedium: GoogleFonts.poppins(
       color: LightColors.hashedText,
       fontWeight: FontWeight.w400,
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       decoration: TextDecoration.lineThrough,
       decorationColor: LightColors.hashedText,
       decorationThickness: 2,
@@ -60,7 +60,7 @@ ThemeData lightTheme = ThemeData(
     labelSmall: GoogleFonts.roboto(
       color: LightColors.hashedText,
       fontWeight: FontWeight.w400,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       decoration: TextDecoration.lineThrough,
       decorationColor: LightColors.hashedText,
       decorationThickness: 2,
@@ -71,20 +71,23 @@ ThemeData lightTheme = ThemeData(
     fillColor: LightColors.backGround2,
     hintStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
-      fontSize: 18,
+      fontSize: AppSizes.sp18,
       color: const Color(0xff9E9E9E),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: LightColors.border, width: 1),
-      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(color: LightColors.border, width: AppSizes.w1),
+      borderRadius: BorderRadius.circular(AppSizes.r20),
     ),
     border: OutlineInputBorder(
-      borderSide: BorderSide(color: LightColors.border, width: 1),
-      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(color: LightColors.border, width: AppSizes.w1),
+      borderRadius: BorderRadius.circular(AppSizes.r20),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: LightColors.primary, width: 1.5),
-      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(
+        color: LightColors.primary,
+        width: AppSizes.w1half,
+      ),
+      borderRadius: BorderRadius.circular(AppSizes.r20),
     ),
   ),
   textSelectionTheme: TextSelectionThemeData(
@@ -107,9 +110,9 @@ ThemeData lightTheme = ThemeData(
   ),
   checkboxTheme: CheckboxThemeData(
     checkColor: WidgetStateProperty.all(Colors.white),
-    side: BorderSide(color: LightColors.border, width: 2),
+    side: BorderSide(color: LightColors.border, width: AppSizes.w2),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadiusGeometry.circular(4),
+      borderRadius: BorderRadiusGeometry.circular(AppSizes.r4),
     ),
   ),
   iconTheme: IconThemeData(color: LightColors.text3.withOpacity(0.8)),
@@ -144,11 +147,11 @@ ThemeData lightTheme = ThemeData(
     unselectedItemColor: LightColors.text4,
     selectedLabelStyle: GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
-      fontSize: 12,
+      fontSize: AppSizes.sp12,
     ),
     unselectedLabelStyle: GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
-      fontSize: 12,
+      fontSize: AppSizes.sp12,
     ),
   ),
   dividerTheme: DividerThemeData(color: LightColors.border),

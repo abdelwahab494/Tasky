@@ -6,6 +6,7 @@ class NotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        final S s = S.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -13,7 +14,7 @@ class NotesScreen extends StatelessWidget {
           slivers: <Widget>[
             const SliverAppbar(),
             SliverPadding(
-              padding: const EdgeInsetsGeometry.all(8),
+              padding: EdgeInsetsGeometry.all(AppSizes.w8),
               sliver: Consumer<NotesController>(
                 builder: (context, controller, child) {
                   if (controller.notesList.isEmpty && !controller.isSearching) {
@@ -21,22 +22,22 @@ class NotesScreen extends StatelessWidget {
                       hasScrollBody: false,
                       child: SizedBox(
                         width: double.infinity,
-                        height: 200,
+                        height: AppSizes.h200,
                         child: Center(
                           child: FittedBox(
                             child: SizedBox(
-                              width: 160,
+                              width: AppSizes.w160,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   FittedBox(
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        60,
-                                        0,
-                                        60,
-                                        20,
+                                      padding: EdgeInsets.fromLTRB(
+                                        AppSizes.w60,
+                                        AppSizes.h0,
+                                        AppSizes.w60,
+                                        AppSizes.h20,
                                       ),
                                       child: SvgPicture.asset(
                                         "assets/icons/notes.svg",
@@ -44,32 +45,32 @@ class NotesScreen extends StatelessWidget {
                                           Theme.of(context).primaryColor,
                                           BlendMode.srcIn,
                                         ),
-                                        width: 250,
+                                        width: AppSizes.w250,
                                       ),
                                     ),
                                   ),
                                   FittedBox(
                                     child: Text(
-                                      "No Notes Yet",
+                                      s.noNotesYet,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
                                           .copyWith(
-                                            fontSize: 500,
+                                            fontSize: AppSizes.sp500,
                                             fontWeight: FontWeight.w700,
                                           ),
                                     ),
                                   ),
                                   FittedBox(
                                     child: Text(
-                                      "Add your first one",
+                                      s.addyourfirstone,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
-                                          .copyWith(fontSize: 500),
+                                          .copyWith(fontSize: AppSizes.sp500),
                                     ),
                                   ),
-                                  const Gap(60),
+                                  Gap(AppSizes.h60),
                                 ],
                               ),
                             ),
@@ -80,8 +81,8 @@ class NotesScreen extends StatelessWidget {
                   }
                   return SliverMasonryGrid.count(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
+                    mainAxisSpacing: AppSizes.h8,
+                    crossAxisSpacing: AppSizes.w8,
                     childCount: controller.notesList.length,
                     itemBuilder: (context, index) {
                       final NoteModel note = controller.notesList[index];
@@ -121,10 +122,10 @@ class NotesScreen extends StatelessWidget {
                     onPressed: () async {
                       final bool? result = await Dialogs.showDeletAlertDialog(
                         context: context,
-                        title: "Delete Notes",
+                        title: s.deleteNotes,
                         contentText:
-                            "The selected notes will be permanently deleted.",
-                        action: "Delete",
+                            s.theselectednoteswillbepermanentlydeleted,
+                        action: s.delete,
                       );
                       if (context.mounted && result == true) {
                         context.read<NotesController>().deleteNotes();
@@ -133,9 +134,9 @@ class NotesScreen extends StatelessWidget {
                     backgroundColor: Theme.of(context).colorScheme.error,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(500),
+                      borderRadius: BorderRadius.circular(AppSizes.r500),
                     ),
-                    child: const Icon(CupertinoIcons.delete, size: 25),
+                    child: Icon(CupertinoIcons.delete, size: AppSizes.r25),
                   )
                 : StreamBuilder<bool>(
                     stream: controller.buttonStream,
@@ -144,7 +145,7 @@ class NotesScreen extends StatelessWidget {
                       final bool show = snapshot.data!;
                       return AnimatedContainer(
                         duration: const Duration(milliseconds: 500),
-                        width: show ? 170 : 57,
+                        width: show ? AppSizes.w170 : AppSizes.w57,
                         decoration: BoxDecoration(
                           shape: show ? BoxShape.rectangle : BoxShape.circle,
                         ),
@@ -155,25 +156,25 @@ class NotesScreen extends StatelessWidget {
                           backgroundColor: DarkColors.primary,
                           foregroundColor: DarkColors.text2,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(500),
+                            borderRadius: BorderRadius.circular(AppSizes.r500),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.add_rounded,
-                                size: 25,
+                                size: AppSizes.r25,
                               ).animate().scale(end: const Offset(1.1, 1.1)),
-                              if (show) const Gap(5),
+                              if (show) Gap(AppSizes.w5),
                               AnimatedContainer(
                                 duration: const Duration(milliseconds: 500),
-                                width: show ? 90 : 0,
+                                width: show ? AppSizes.w90 : AppSizes.w0,
                                 child: FittedBox(
                                   child: Text(
-                                    "Add New Note",
+                                    s.addNewNote,
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 15,
+                                      fontSize: AppSizes.sp15,
                                     ),
                                   ),
                                 ),

@@ -9,14 +9,20 @@ class NoteCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: EdgeInsets.symmetric(
+        horizontal: AppSizes.w16,
+        vertical: AppSizes.h16,
+      ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         border: controller.deletingList.contains(note)
-            ? Border.all(color: Theme.of(context).colorScheme.error, width: 3)
+            ? Border.all(
+                color: Theme.of(context).colorScheme.error,
+                width: AppSizes.w3,
+              )
             : Border.all(
                 color: Theme.of(context).colorScheme.outline,
-                width: 1,
+                width: AppSizes.w1,
               ),
         borderRadius: BorderRadius.circular(20),
       ),
@@ -28,7 +34,7 @@ class NoteCard extends StatelessWidget {
               note.title,
               style: Theme.of(context).textTheme.titleMedium!.copyWith(
                 fontWeight: FontWeight.bold,
-                fontSize: 17,
+                fontSize: AppSizes.sp17,
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -40,15 +46,15 @@ class NoteCard extends StatelessWidget {
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
           ),
-          const Gap(5),
+          Gap(AppSizes.h5),
           const Divider(),
           FittedBox(
             child: Row(
-              spacing: 5,
+              spacing: AppSizes.w5,
               children: [
                 Icon(
                   Icons.watch_later_outlined,
-                  size: 12,
+                  size: AppSizes.r12,
                   color: Theme.of(context).primaryColor,
                 ),
                 Text(
@@ -60,7 +66,7 @@ class NoteCard extends StatelessWidget {
               ],
             ),
           ),
-          const Gap(5),
+          Gap(AppSizes.h5),
         ],
       ),
     );

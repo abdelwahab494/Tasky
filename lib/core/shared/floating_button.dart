@@ -15,7 +15,7 @@ class FloatingButton extends StatelessWidget {
             final bool show = snapshot.data!;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 500),
-              width: show ? 170 : 57,
+              width: show ? AppSizes.w170 : AppSizes.w57,
               decoration: BoxDecoration(
                 shape: show ? BoxShape.rectangle : BoxShape.circle,
               ),
@@ -25,27 +25,27 @@ class FloatingButton extends StatelessWidget {
                 backgroundColor: DarkColors.primary,
                 foregroundColor: DarkColors.text2,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(500),
+                  borderRadius: BorderRadius.circular(AppSizes.r500),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.add_rounded,
-                      size: 25,
+                      size: AppSizes.r25,
                     ).animate().scale(end: const Offset(1.1, 1.1)),
 
-                    if (show) const Gap(5),
+                    if (show) Gap(AppSizes.w5),
 
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
-                      width: show ? 90 : 0,
+                      width: show ? AppSizes.w90 : AppSizes.w0,
                       child: FittedBox(
                         child: Text(
                           title,
                           style: GoogleFonts.poppins(
                             fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                            fontSize: AppSizes.sp15,
                           ),
                         ),
                       ),

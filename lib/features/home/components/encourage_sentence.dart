@@ -31,7 +31,10 @@ class EncourageSentence extends StatelessWidget {
                           ? "No tasks yet."
                           : "Let's go! Your work is",
                       style: Theme.of(context).textTheme.displayMedium!
-                          .copyWith(fontSize: 32, letterSpacing: 0.5),
+                          .copyWith(
+                            fontSize: AppSizes.sp32,
+                            letterSpacing: 0.5,
+                          ),
                       textAlign: TextAlign.left,
                     ),
                     Row(
@@ -45,7 +48,10 @@ class EncourageSentence extends StatelessWidget {
                               ? "add your first one !  "
                               : "ready to begin.  ",
                           style: Theme.of(context).textTheme.displayMedium!
-                              .copyWith(fontSize: 32, letterSpacing: 0.5),
+                              .copyWith(
+                                fontSize: AppSizes.sp32,
+                                letterSpacing: 0.5,
+                              ),
                           textAlign: TextAlign.left,
                         ),
                         if (!context.watch<HomeController>().isLoading)

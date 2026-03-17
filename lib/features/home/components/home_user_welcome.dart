@@ -6,6 +6,7 @@ class HomeUserWelcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     return Consumer<UserDetailsController>(
       builder:
           (
@@ -16,15 +17,15 @@ class HomeUserWelcome extends StatelessWidget {
             return Skeletonizer(
               enabled: controller.isLoading,
               child: Row(
-                spacing: 11,
+                spacing: AppSizes.w11,
                 children: [
-                  const Gap(1),
+                  Gap(AppSizes.w1),
                   AvatarGlow(
                     glowRadiusFactor: 0.2,
                     glowColor: Theme.of(context).primaryColor,
                     startDelay: const Duration(seconds: 1),
                     child: CircleAvatar(
-                      radius: 23,
+                      radius: AppSizes.r23,
                       backgroundImage: controller.image == null
                           ? const AssetImage("assets/images/profile.png")
                           : FileImage(File(controller.image!)),
@@ -38,8 +39,8 @@ class HomeUserWelcome extends StatelessWidget {
                       children: [
                         Text(
                           controller.isLoading
-                              ? "Hello,"
-                              : "Hello, ${controller.name}",
+                              ? s.hello
+                              : "${s.hello} ${controller.name}",
                           style: Theme.of(
                             context,
                           ).textTheme.titleMedium!.copyWith(letterSpacing: 0.5),
@@ -48,7 +49,7 @@ class HomeUserWelcome extends StatelessWidget {
                         ),
                         Text(
                           controller.isLoading
-                              ? "One task at a time. One step closer."
+                              ? s.onetaskatatimeOnestepcloser
                               : controller.quote,
                           style: Theme.of(
                             context,
@@ -75,14 +76,14 @@ class HomeUserWelcome extends StatelessWidget {
                           side: controller.isDark
                               ? BorderSide.none
                               : BorderSide(color: LightColors.border),
-                          fixedSize: const Size(34, 34),
+                          fixedSize: Size(AppSizes.w34, AppSizes.h34),
                         ),
                         icon: SvgPicture.asset(
                           controller.isDark
                               ? "assets/icons/sun.svg"
                               : "assets/icons/moon.svg",
-                          width: 22,
-                          height: 22,
+                          width: AppSizes.w22,
+                          height: AppSizes.h22,
                         ),
                       );
                     },

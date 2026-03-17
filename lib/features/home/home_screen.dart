@@ -8,14 +8,19 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          padding: EdgeInsets.fromLTRB(
+            AppSizes.w16,
+            AppSizes.h16,
+            AppSizes.w16,
+            AppSizes.h0,
+          ),
           child: CustomScrollView(
             slivers: [
-              const SliverGap(30),
+              SliverGap(AppSizes.h30),
               const SliverAppBar(
                 flexibleSpace: FlexibleSpaceBar(background: HomeUserWelcome()),
               ),
-              const SliverGap(10),
+              SliverGap(AppSizes.h10),
               const EncourageSentence(),
               Selector<HomeController, bool>(
                 selector: (BuildContext context, HomeController controller) =>
@@ -26,26 +31,26 @@ class HomeScreen extends StatelessWidget {
                   }
                   return SliverAppBar(
                     pinned: !value,
-                    collapsedHeight: 80,
-                    flexibleSpace: const FlexibleSpaceBar(
+                    collapsedHeight: AppSizes.h80,
+                    flexibleSpace: FlexibleSpaceBar(
                       centerTitle: true,
-                      titlePadding: EdgeInsets.only(bottom: 8),
+                      titlePadding: EdgeInsets.only(bottom: AppSizes.h8),
                       expandedTitleScale: 1,
-                      title: AchievedContainer(),
+                      title: const AchievedContainer(),
                     ),
                   );
                 },
               ),
               const HighPriorityContainer(),
-              const SliverGap(15),
+              SliverGap(AppSizes.h15),
               const MyTasksActionsRow(),
-              const SliverGap(8),
+              SliverGap(AppSizes.h8),
               const MyTasksSection(),
             ],
           ),
         ),
       ),
-      floatingActionButton: const FloatingButton(title: "Add New Task"),
+      floatingActionButton:  FloatingButton(title: S.of(context).addNewTask),
     );
   }
 }

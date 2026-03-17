@@ -7,6 +7,7 @@ class MyTasksActionsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     return SliverToBoxAdapter(
       child: Consumer<HomeController>(
         builder: (context, controller, child) {
@@ -17,10 +18,9 @@ class MyTasksActionsRow extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          "My Tasks",
-                          style: Theme.of(
-                            context,
-                          ).textTheme.titleMedium!.copyWith(fontSize: 20),
+                          s.myTasks,
+                          style: Theme.of(context).textTheme.titleMedium!
+                              .copyWith(fontSize: AppSizes.sp20),
                         ),
                       ),
                       if (controller.tasksList.isNotEmpty)
@@ -35,8 +35,8 @@ class MyTasksActionsRow extends StatelessWidget {
                                     : CupertinoIcons.sort_up,
                               ),
                               tooltip: controller.sortList
-                                  ? "Sort Down"
-                                  : "Sort Up",
+                                  ? s.sortDown
+                                  : s.sortUp,
                               style: IconButton.styleFrom(
                                 padding: EdgeInsets.zero,
                                 foregroundColor: Theme.of(
@@ -45,9 +45,11 @@ class MyTasksActionsRow extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              height: 22,
-                              width: 1,
-                              margin: const EdgeInsets.symmetric(horizontal: 5),
+                              height: AppSizes.h22,
+                              width: AppSizes.w1,
+                              margin: EdgeInsets.symmetric(
+                                horizontal: AppSizes.w5,
+                              ),
                               decoration: BoxDecoration(
                                 color: Theme.of(context).iconTheme.color,
                               ),
@@ -58,10 +60,10 @@ class MyTasksActionsRow extends StatelessWidget {
                                   final bool?
                                   result = await Dialogs.showDeletAlertDialog(
                                     context: context,
-                                    title: "Delete All Tasks",
+                                    title: s.deleteAllTasks,
                                     contentText:
-                                        "All tasks will be deleted permanently.",
-                                    action: "Delete",
+                                        s.alltaskswillbedeletedpermanently,
+                                    action: s.delete,
                                   );
                                   if (result == true) {
                                     await PrefHelper.clearTasksList();
@@ -69,7 +71,7 @@ class MyTasksActionsRow extends StatelessWidget {
                                   }
                                 }
                               },
-                              tooltip: "Delete All Tasks",
+                              tooltip: s.deleteAllTasks,
                               icon: const Icon(Icons.clear_all_rounded),
                               style: IconButton.styleFrom(
                                 padding: EdgeInsets.zero,

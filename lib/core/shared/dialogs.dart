@@ -54,13 +54,13 @@ class Dialogs {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(AppSizes.r20),
+                        topRight: Radius.circular(AppSizes.r20),
                       ),
                       border: Border.all(
                         color: Theme.of(context).colorScheme.outline,
-                        width: 1,
+                        width: AppSizes.w1,
                       ),
                     ),
                     child: Column(
@@ -68,25 +68,25 @@ class Dialogs {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 60,
-                          height: 5,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 8,
+                          width: AppSizes.w60,
+                          height: AppSizes.h5,
+                          margin: EdgeInsets.symmetric(
+                            horizontal: AppSizes.w16,
+                            vertical: AppSizes.h8,
                           ),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(1000),
+                            borderRadius: BorderRadius.circular(AppSizes.r1000),
                             color: Theme.of(
                               context,
                             ).colorScheme.primaryContainer,
                           ),
                         ),
-                        const Gap(16),
+                        Gap(AppSizes.h16),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 8,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSizes.w16,
+                              vertical: AppSizes.h8,
                             ),
                             child: Form(
                               key: formKey,
@@ -101,7 +101,7 @@ class Dialogs {
                                           "Please Enter The Task Name.",
                                       // autofocus: true,
                                     ),
-                                    const Gap(20),
+                                    Gap(AppSizes.h20),
                                     CustomTextField(
                                       title: "Task Description",
                                       controller: taskDescC,
@@ -109,7 +109,7 @@ class Dialogs {
                                       maxLines: 5,
                                       validate: false,
                                     ),
-                                    const Gap(20),
+                                    Gap(AppSizes.h20),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -179,7 +179,7 @@ class Dialogs {
           title: Text(title),
           titleTextStyle: Theme.of(
             context,
-          ).textTheme.titleMedium!.copyWith(fontSize: 24),
+          ).textTheme.titleMedium!.copyWith(fontSize: AppSizes.sp24),
           content: Text(contentText),
           contentTextStyle: Theme.of(context).textTheme.titleSmall,
           actions: [
@@ -189,7 +189,7 @@ class Dialogs {
                 foregroundColor: Theme.of(context).textTheme.bodyMedium!.color,
                 textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                  fontSize: AppSizes.sp16,
                 ),
               ),
               child: const Text("Cancel"),
@@ -200,15 +200,25 @@ class Dialogs {
                 foregroundColor: Theme.of(context).colorScheme.error,
                 textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w600,
-                  fontSize: 16,
+                  fontSize: AppSizes.sp16,
                 ),
               ),
               child: Text(action),
             ),
           ],
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          contentPadding: const EdgeInsetsGeometry.fromLTRB(25, 12, 25, 12),
-          actionsPadding: const EdgeInsetsGeometry.fromLTRB(25, 0, 25, 16),
+          contentPadding: EdgeInsetsGeometry.fromLTRB(
+            AppSizes.w25,
+            AppSizes.h12,
+            AppSizes.w25,
+            AppSizes.h12,
+          ),
+          actionsPadding: EdgeInsetsGeometry.fromLTRB(
+            AppSizes.w25,
+            AppSizes.h0,
+            AppSizes.w25,
+            AppSizes.h16,
+          ),
         );
       },
     );
@@ -228,14 +238,17 @@ class Dialogs {
               onPressed: () {
                 Navigator.of(context).pop(ImageActionsEnum.camera);
               },
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.w16,
+                vertical: AppSizes.h16,
+              ),
               child: Row(
-                spacing: 16,
+                spacing: AppSizes.w16,
                 children: [
                   Icon(
                     Icons.camera_alt_outlined,
                     color: Theme.of(context).primaryColor,
-                    size: 22,
+                    size: AppSizes.r22,
                   ),
                   Text(
                     "Open Camera",
@@ -248,15 +261,17 @@ class Dialogs {
               onPressed: () {
                 Navigator.of(context).pop(ImageActionsEnum.gallery);
               },
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSizes.w16,
+                vertical: AppSizes.h16,
+              ),
               child: Row(
-                spacing: 16,
+                spacing: AppSizes.w16,
                 children: [
                   Icon(
                     Icons.photo_library_outlined,
                     color: Theme.of(context).primaryColor,
-                    size: 22,
+                    size: AppSizes.r22,
                   ),
                   Text(
                     "Choose From Gallery",
@@ -270,14 +285,17 @@ class Dialogs {
                 onPressed: () {
                   Navigator.of(context).pop(ImageActionsEnum.delete);
                 },
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w16,
+                  vertical: AppSizes.h16,
+                ),
                 child: Row(
-                  spacing: 16,
+                  spacing: AppSizes.w16,
                   children: [
                     Icon(
                       Icons.delete,
                       color: Theme.of(context).colorScheme.error,
-                      size: 22,
+                      size: AppSizes.r22,
                     ),
                     Text(
                       "Remove Image",
@@ -309,10 +327,13 @@ class Dialogs {
             style: Theme.of(context).textTheme.titleMedium,
           ),
           backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          margin: EdgeInsets.symmetric(
+            horizontal: AppSizes.w16,
+            vertical: AppSizes.h8,
+          ),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(AppSizes.r12),
           ),
           elevation: 0,
           action: SnackBarAction(
@@ -345,9 +366,14 @@ class Dialogs {
         backgroundColor: backgroundColor,
         showCloseIcon: true,
         closeIconColor: Colors.white,
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        margin: EdgeInsets.symmetric(
+          horizontal: AppSizes.w16,
+          vertical: AppSizes.h8,
+        ),
         behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppSizes.r12),
+        ),
         elevation: 0,
       ),
     );

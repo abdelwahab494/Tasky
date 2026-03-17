@@ -14,9 +14,9 @@ class SliverCustomAppbar extends StatelessWidget {
             style: Theme.of(context).appBarTheme.titleTextStyle,
           ),
           titleSpacing: 0,
-          toolbarHeight: 40,
+          toolbarHeight: AppSizes.h40,
         ),
-        const SliverGap(20),
+        SliverGap(AppSizes.h20),
       ],
     );
   }

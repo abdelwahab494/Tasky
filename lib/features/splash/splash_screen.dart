@@ -14,10 +14,10 @@ class _SplashScreenState extends State<SplashScreen>
     vsync: this,
     duration: const Duration(milliseconds: 800),
   );
-  late final Animation<double> _scaleAnimation = Tween<double>(
-    begin: 0,
-    end: 1,
-  ).animate(CurvedAnimation(parent: _scaleController, curve: Curves.bounceOut));
+  // late final Animation<double> _scaleAnimation = Tween<double>(
+  //   begin: 0,
+  //   end: 1,
+  // ).animate(CurvedAnimation(parent: _scaleController, curve: Curves.bounceOut));
 
   @override
   Future<void> didChangeDependencies() async {
@@ -91,12 +91,6 @@ class _SplashScreenState extends State<SplashScreen>
           //   end: Offset(1, 1),
           //   duration: Duration(milliseconds: 1),
           // ),
-          ScaleTransition(
-            scale: _scaleAnimation,
-            child: Center(
-              child: SvgPicture.asset("assets/images/logo.svg", width: 120),
-            ),
-          ),
         ],
       ),
     );

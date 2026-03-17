@@ -30,12 +30,12 @@ class CustomTextField extends StatelessWidget {
           title,
           style: Theme.of(
             context,
-          ).textTheme.displayMedium!.copyWith(fontSize: 16),
+          ).textTheme.displayMedium!.copyWith(fontSize: AppSizes.sp16),
         ),
-        const Gap(8),
+        Gap(AppSizes.h8),
         TextFormField(
           controller: controller,
-          cursorHeight: 20,
+          cursorHeight: AppSizes.h20,
           cursorErrorColor: Theme.of(context).colorScheme.error,
           enabled: enableEditing,
           validator: (value) {
@@ -49,27 +49,27 @@ class CustomTextField extends StatelessWidget {
           autofocus: autofocus,
           style: Theme.of(
             context,
-          ).textTheme.displayMedium!.copyWith(fontSize: 16),
+          ).textTheme.displayMedium!.copyWith(fontSize: AppSizes.sp16),
           decoration: InputDecoration(
             hintText: hintText,
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.error,
-                width: 1.5,
+                width: AppSizes.w1half,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(AppSizes.r20),
             ),
             errorStyle: GoogleFonts.plusJakartaSans(
               color: Theme.of(context).colorScheme.error,
-              fontSize: 12,
+              fontSize: AppSizes.sp12,
               fontWeight: FontWeight.w600,
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.error,
-                width: 1.5,
+                width: AppSizes.w1half,
               ),
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(AppSizes.r20),
             ),
           ),
           maxLines: maxLines,

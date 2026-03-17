@@ -13,12 +13,12 @@ ThemeData darkTheme = ThemeData(
     error: Colors.red.shade700,
   ),
   appBarTheme: AppBarTheme(
-    toolbarHeight: 40,
+    toolbarHeight: AppSizes.h40,
     backgroundColor: DarkColors.backGround,
     titleTextStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w500,
       color: DarkColors.text2,
-      fontSize: 22,
+      fontSize: AppSizes.sp22,
     ),
     iconTheme: IconThemeData(color: DarkColors.text2),
     elevation: 0,
@@ -27,23 +27,23 @@ ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(
     displayMedium: GoogleFonts.plusJakartaSans(
       color: DarkColors.text1,
-      fontSize: 28,
+      fontSize: AppSizes.sp28,
       fontWeight: FontWeight.w400,
     ),
     titleMedium: GoogleFonts.poppins(
       color: DarkColors.text2,
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       fontWeight: FontWeight.w400,
     ),
     titleSmall: GoogleFonts.poppins(
       color: DarkColors.text3,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       fontWeight: FontWeight.w400,
     ),
     bodyMedium: GoogleFonts.roboto(
       color: DarkColors.text3,
       fontWeight: FontWeight.w400,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       decoration: TextDecoration.none,
       decorationColor: DarkColors.text4,
       decorationThickness: 2,
@@ -52,7 +52,7 @@ ThemeData darkTheme = ThemeData(
     labelMedium: GoogleFonts.poppins(
       color: DarkColors.text4,
       fontWeight: FontWeight.w400,
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       decoration: TextDecoration.lineThrough,
       decorationColor: DarkColors.text4,
       decorationThickness: 2,
@@ -60,7 +60,7 @@ ThemeData darkTheme = ThemeData(
     labelSmall: GoogleFonts.roboto(
       color: DarkColors.text4.withOpacity(0.5),
       fontWeight: FontWeight.w400,
-      fontSize: 14,
+      fontSize: AppSizes.sp14,
       decoration: TextDecoration.lineThrough,
       decorationColor: DarkColors.text4.withOpacity(0.5),
       decorationThickness: 2,
@@ -71,20 +71,20 @@ ThemeData darkTheme = ThemeData(
     fillColor: DarkColors.backGround2,
     hintStyle: GoogleFonts.poppins(
       fontWeight: FontWeight.w400,
-      fontSize: 16,
+      fontSize: AppSizes.sp16,
       color: const Color(0xff6D6D6D),
     ),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide.none,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(AppSizes.r20),
     ),
     border: OutlineInputBorder(
       borderSide: BorderSide.none,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(AppSizes.r20),
     ),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: DarkColors.primary, width: 2),
-      borderRadius: BorderRadius.circular(20),
+      borderSide: BorderSide(color: DarkColors.primary, width: AppSizes.w2),
+      borderRadius: BorderRadius.circular(AppSizes.r20),
     ),
   ),
   textSelectionTheme: TextSelectionThemeData(
@@ -108,9 +108,9 @@ ThemeData darkTheme = ThemeData(
   ),
   checkboxTheme: CheckboxThemeData(
     checkColor: WidgetStateProperty.all(Colors.white),
-    side: BorderSide(color: DarkColors.border, width: 2),
+    side: BorderSide(color: DarkColors.border, width: AppSizes.w2),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadiusGeometry.circular(4),
+      borderRadius: BorderRadiusGeometry.circular(AppSizes.r4),
     ),
   ),
   iconTheme: IconThemeData(color: DarkColors.text3),
@@ -134,11 +134,11 @@ ThemeData darkTheme = ThemeData(
     unselectedItemColor: DarkColors.text3,
     selectedLabelStyle: GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
-      fontSize: 12,
+      fontSize: AppSizes.sp12,
     ),
     unselectedLabelStyle: GoogleFonts.roboto(
       fontWeight: FontWeight.w500,
-      fontSize: 12,
+      fontSize: AppSizes.sp12,
     ),
   ),
   dividerTheme: DividerThemeData(color: DarkColors.border),

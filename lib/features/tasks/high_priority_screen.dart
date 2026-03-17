@@ -6,36 +6,37 @@ class HighPriorityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          const SliverPadding(
-            padding: EdgeInsets.only(top: 20),
-            sliver: SliverCustomAppbar(title: "High Priority Tasks"),
+          SliverPadding(
+            padding: EdgeInsets.only(top: AppSizes.h20),
+            sliver: SliverCustomAppbar(title: s.highPriorityTasks),
           ),
           SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: AppSizes.w16),
             sliver: Consumer<HomeController>(
               builder: (context, controller, child) {
                 if (controller.isLoading) {
                   return SliverSkeletonizer(
                     child: ListView.separated(
                       itemCount: 4,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 16,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppSizes.w16,
+                        vertical: AppSizes.h16,
                       ),
                       itemBuilder: (context, index) {
                         return TaskContainer(
                           task: TaskModel(
-                            taskName: "taskName",
+                            taskName: s.taskName,
                             isHighPriority: false,
                           ),
                           controller: controller,
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) =>
-                          const Gap(8),
+                          Gap(AppSizes.h8),
                     ),
                   );
                 }
@@ -44,18 +45,18 @@ class HighPriorityScreen extends StatelessWidget {
                         child: Center(
                           child: FittedBox(
                             child: SizedBox(
-                              width: 160,
+                              width: AppSizes.w160,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   FittedBox(
                                     child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        60,
-                                        0,
-                                        60,
-                                        20,
+                                      padding: EdgeInsets.fromLTRB(
+                                        AppSizes.w60,
+                                        AppSizes.h0,
+                                        AppSizes.w60,
+                                        AppSizes.h20,
                                       ),
                                       child: SvgPicture.asset(
                                         "assets/icons/todo.svg",
@@ -63,29 +64,29 @@ class HighPriorityScreen extends StatelessWidget {
                                           Theme.of(context).primaryColor,
                                           BlendMode.srcIn,
                                         ),
-                                        width: 250,
+                                        width: AppSizes.w250,
                                       ),
                                     ),
                                   ),
                                   FittedBox(
                                     child: Text(
-                                      "No High Priority Tasks",
+                                      s.noHighPriorityTasks,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium!
                                           .copyWith(
-                                            fontSize: 500,
+                                            fontSize: AppSizes.sp500,
                                             fontWeight: FontWeight.w700,
                                           ),
                                     ),
                                   ),
                                   FittedBox(
                                     child: Text(
-                                      "Relax for now",
+                                      s.relaxfornow,
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall!
-                                          .copyWith(fontSize: 500),
+                                          .copyWith(fontSize: AppSizes.sp500),
                                     ),
                                   ),
                                 ],
@@ -117,7 +118,7 @@ class HighPriorityScreen extends StatelessWidget {
                               );
                         },
                         separatorBuilder: (BuildContext context, int index) =>
-                            const Gap(8),
+                            Gap(AppSizes.h8),
                       );
               },
             ),

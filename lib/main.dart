@@ -26,7 +26,11 @@ Future<void> main() async {
           create: (_) => ThemeController(),
         ),
       ],
-      child: MyApp(initialName: name),
+      // child: DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => MyApp(initialName: name),
+      // ),
+      child: MyApp(initialName: name,),
     ),
   );
 }
@@ -41,15 +45,33 @@ class MyApp extends StatelessWidget {
     return Selector<ThemeController, ThemeMode>(
       selector: (context, controller) => controller.theme,
       builder: (context, themeMode, child) {
-        return MaterialApp(
-          title: 'Tasky',
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: themeMode,
-          debugShowCheckedModeBanner: false,
-          home: initialName == null || initialName!.isEmpty
-              ? const WelcomeScreen()
-              : const NavRoot(),
+        return ScreenUtilInit(
+          designSize: const Size(360, 690),
+          minTextAdapt: true,
+          splitScreenMode: true,
+          builder: (context, child) {
+            return MaterialApp(
+              locale: const Locale("en"),
+              localizationsDelegates: [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
+              // useInheritedMediaQuery: true,
+              // locale: DevicePreview.locale(context),
+              // builder: DevicePreview.appBuilder,
+              title: 'Tasky',
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: themeMode,
+              debugShowCheckedModeBanner: false,
+              home: initialName == null || initialName!.isEmpty
+                  ? const WelcomeScreen()
+                  : const NavRoot(),
+            );
+          },
         );
       },
     );

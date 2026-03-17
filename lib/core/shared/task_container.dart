@@ -25,7 +25,7 @@ class TaskContainer extends StatelessWidget {
             icon: Icons.mode_edit_outline_rounded,
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(AppSizes.r20),
           ),
         ],
       ),
@@ -44,7 +44,7 @@ class TaskContainer extends StatelessWidget {
             icon: Icons.clear_rounded,
             backgroundColor: Colors.red.shade600,
             foregroundColor: Colors.white,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(AppSizes.r20),
           ),
         ],
       ),
@@ -55,14 +55,19 @@ class TaskContainer extends StatelessWidget {
           color: Theme.of(context).colorScheme.primaryContainer,
           border: Border.all(
             color: Theme.of(context).colorScheme.outline,
-            width: 1,
+            width: AppSizes.w1,
           ),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(AppSizes.r20),
         ),
         child: Padding(
-          padding: const EdgeInsets.only(top: 7, bottom: 7, right: 4, left: 4),
+          padding: EdgeInsets.only(
+            top: AppSizes.h7,
+            bottom: AppSizes.h7,
+            right: AppSizes.w4,
+            left: AppSizes.w4,
+          ),
           child: Row(
-            spacing: 8,
+            spacing: AppSizes.w8,
             children: [
               CustomCheckBox(
                 value: task.isDone,
@@ -97,7 +102,7 @@ class TaskContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              const Gap(8),
+              Gap(AppSizes.w8),
               PopupMenuButton(
                 itemBuilder: (context) {
                   return <PopupMenuItem>[
@@ -178,7 +183,7 @@ class PopUpMenueItemChild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 15,
+      spacing: AppSizes.w15,
       children: [
         Icon(icon, color: color),
         Text(

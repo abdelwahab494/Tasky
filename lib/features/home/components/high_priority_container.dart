@@ -6,13 +6,17 @@ class HighPriorityContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     return SliverToBoxAdapter(
       child: Consumer<HomeController>(
         builder: (context, controller, child) {
           if (controller.isLoading) {
             return Skeletonizer(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w8,
+                  vertical: AppSizes.h8,
+                ),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -20,7 +24,7 @@ class HighPriorityContainer extends StatelessWidget {
                     color: Theme.of(context).colorScheme.outline,
                     width: 1,
                   ),
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(AppSizes.r20),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -30,14 +34,17 @@ class HighPriorityContainer extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 8, bottom: 8),
+                            padding: EdgeInsets.only(
+                              left: AppSizes.w8,
+                              bottom: AppSizes.h8,
+                            ),
                             child: Row(
-                              spacing: 8,
+                              spacing: AppSizes.w8,
                               children: [
                                 Text(
-                                  "High Priority Tasks",
+                                  s.highPriorityTasks,
                                   style: GoogleFonts.poppins(
-                                    fontSize: 14,
+                                    fontSize: AppSizes.sp14,
                                     fontWeight: FontWeight.w400,
                                     color: Theme.of(context).primaryColor,
                                   ),
@@ -45,18 +52,18 @@ class HighPriorityContainer extends StatelessWidget {
                                 Text(
                                   "(5 tasks)",
                                   style: Theme.of(context).textTheme.titleSmall!
-                                      .copyWith(fontSize: 10),
+                                      .copyWith(fontSize: AppSizes.sp10),
                                 ),
                               ],
                             ),
                           ),
                           ...List.generate(2, (index) {
                             return Row(
-                              spacing: 8,
+                              spacing: AppSizes.w8,
                               children: [
                                 SizedBox(
-                                  width: 30,
-                                  height: 30,
+                                  width: AppSizes.w30,
+                                  height: AppSizes.h30,
                                   child: CustomCheckBox(
                                     value: false,
                                     onChanged: (value) {},
@@ -87,9 +94,9 @@ class HighPriorityContainer extends StatelessWidget {
           }
           return controller.highPriorityTasksList.isNotEmpty
               ? Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 8,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: AppSizes.w8,
+                    vertical: AppSizes.w8,
                   ),
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -98,7 +105,7 @@ class HighPriorityContainer extends StatelessWidget {
                       color: Theme.of(context).colorScheme.outline,
                       width: 1,
                     ),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppSizes.r20),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -108,27 +115,27 @@ class HighPriorityContainer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(
-                                left: 8,
-                                bottom: 8,
+                              padding: EdgeInsets.only(
+                                left: AppSizes.w8,
+                                bottom: AppSizes.h8,
                               ),
                               child: Row(
-                                spacing: 8,
+                                spacing: AppSizes.w8,
                                 children: [
                                   Text(
-                                    "High Priority Tasks",
+                                    s.highPriorityTasks,
                                     style: GoogleFonts.poppins(
-                                      fontSize: 14,
+                                      fontSize: AppSizes.sp14,
                                       fontWeight: FontWeight.w400,
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ),
                                   Text(
-                                    "(${controller.highPriorityTasksList.length} tasks)",
+                                    "(${controller.highPriorityTasksList.length} ${s.tasks})",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall!
-                                        .copyWith(fontSize: 10),
+                                        .copyWith(fontSize: AppSizes.sp10),
                                   ),
                                 ],
                               ),
@@ -141,11 +148,11 @@ class HighPriorityContainer extends StatelessWidget {
                                 final TaskModel priorityTask =
                                     controller.highPriorityTasksList[index];
                                 return Row(
-                                      spacing: 8,
+                                      spacing: AppSizes.w8,
                                       children: [
                                         SizedBox(
-                                          width: 30,
-                                          height: 30,
+                                          width: AppSizes.w30,
+                                          height: AppSizes.h30,
                                           child: CustomCheckBox(
                                             value: priorityTask.isDone,
                                             onChanged: (value) =>
@@ -213,14 +220,14 @@ class ShowMoreButton extends StatelessWidget {
         ).push(MaterialPageRoute(builder: (c) => const HighPriorityScreen()));
       },
       child: Container(
-        width: 40,
-        height: 40,
-        margin: const EdgeInsets.all(8),
+        width: AppSizes.w40,
+        height: AppSizes.h40,
+        margin: EdgeInsets.all(AppSizes.w8),
         decoration: BoxDecoration(
-          border: Border.all(width: 1, color: DarkColors.text4),
+          border: Border.all(width: AppSizes.w1, color: DarkColors.text4),
           shape: BoxShape.circle,
         ),
-        child: const Icon(Icons.arrow_outward_outlined, size: 23),
+        child: Icon(Icons.arrow_outward_outlined, size: AppSizes.r23),
       ),
     );
   }

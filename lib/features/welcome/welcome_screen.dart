@@ -5,6 +5,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     final Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -12,67 +13,69 @@ class WelcomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              const Gap(40),
+              Gap(AppSizes.h40),
               Center(
                 child: SizedBox(
                   height: size.height * 0.95,
                   child: Column(
                     children: [
-                      const Gap(16),
+                      Gap(AppSizes.h16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        spacing: 16,
+                        spacing: AppSizes.w16,
                         children: [
                           SvgPicture.asset(
                             "assets/images/logo.svg",
-                            height: 42,
-                            width: 42,
+                            height: AppSizes.h42,
+                            width: AppSizes.w42,
                           ),
                           Text(
-                            "Tasky",
+                            s.tasky,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ],
                       ),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSizes.w16,
+                          ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                spacing: 10,
+                                spacing: AppSizes.w10,
                                 children: [
                                   Text(
-                                    "Welcome To Tasky",
+                                    s.welcomeToTasky,
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayMedium!
-                                        .copyWith(fontSize: 24),
+                                        .copyWith(fontSize: AppSizes.sp24),
                                   ),
                                   SvgPicture.asset(
                                     "assets/images/welcome icon.svg",
                                   ),
                                 ],
                               ),
-                              const Gap(8),
+                              Gap(AppSizes.h8),
                               Text(
-                                "Your productivity journey starts here.",
+                                s.yourProductivityJourneyStartsHere,
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
-                                    .copyWith(fontSize: 16),
+                                    .copyWith(fontSize: AppSizes.sp16),
                                 textAlign: TextAlign.center,
                               ),
-                              const Gap(24),
+                              Gap(AppSizes.h24),
                               SvgPicture.asset(
                                 "assets/images/welcome image.svg",
-                                width: 215,
-                                height: 204.39,
+                                width: AppSizes.w215,
+                                height: AppSizes.h204,
                               ),
-                              const Gap(28),
+                              Gap(AppSizes.h28),
                               Consumer<WelcomeController>(
                                 builder:
                                     (
@@ -83,16 +86,17 @@ class WelcomeScreen extends StatelessWidget {
                                       return Form(
                                         key: controller.formKey,
                                         child: CustomTextField(
-                                          title: "Your Name",
+                                          title: s.yourName,
                                           controller: controller.nameC,
-                                          validationMessage:
-                                              "Please Enter Your Name.",
-                                          hintText: "e.g. Abdelwahab Mo",
+                                          validationMessage: S
+                                              .of(context)
+                                              .pleaseEnterYourName,
+                                          hintText: s.egAbdelwahabMo,
                                         ),
                                       );
                                     },
                               ),
-                              const Gap(30),
+                              Gap(AppSizes.h30),
                               Consumer<WelcomeController>(
                                 builder: (context, controller, child) {
                                   return ElevatedButton(
@@ -101,16 +105,16 @@ class WelcomeScreen extends StatelessWidget {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: DarkColors.primary,
                                       foregroundColor: DarkColors.text2,
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 10,
-                                        horizontal: 10,
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: AppSizes.h10,
+                                        horizontal: AppSizes.w10,
                                       ),
                                     ),
                                     child: Text(
-                                      "Let's Get Started",
+                                      s.letsGetStarted,
                                       style: GoogleFonts.poppins(
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 18,
+                                        fontSize: AppSizes.sp18,
                                       ),
                                     ),
                                   );

@@ -14,13 +14,16 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(AppSizes.w16),
       child: ElevatedButton.icon(
         onPressed: onPressed,
         style: Theme.of(context).elevatedButtonTheme.style,
         label: Text(
           title,
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 14),
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.w600,
+            fontSize: AppSizes.sp14,
+          ),
         ),
         icon: icon != null ? Icon(icon) : null,
       ),

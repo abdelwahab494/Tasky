@@ -24,7 +24,7 @@ class ProfileRow extends StatelessWidget {
             BlendMode.srcIn,
           ),
         ),
-        const Gap(16),
+        Gap(AppSizes.w16),
         Expanded(
           child: Text(title, style: Theme.of(context).textTheme.titleMedium),
         ),

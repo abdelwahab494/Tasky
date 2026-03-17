@@ -5,6 +5,7 @@ class AddTaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+            final S s = S.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: ChangeNotifierProvider(
@@ -15,12 +16,12 @@ class AddTaskScreen extends StatelessWidget {
           return Scaffold(
             body: CustomScrollView(
               slivers: [
-                const SliverPadding(
-                  padding: EdgeInsets.only(top: 20),
-                  sliver: SliverCustomAppbar(title: "To Do Tasks"),
+                SliverPadding(
+                  padding: EdgeInsets.only(top: AppSizes.h20),
+                  sliver:  SliverCustomAppbar(title: s.toDoTasks),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.w16),
                   sliver: SliverToBoxAdapter(
                     child: Form(
                       key: addTaskController.formKey,
@@ -28,25 +29,25 @@ class AddTaskScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextField(
-                            title: "Title",
+                            title: s.title,
                             controller: addTaskController.taskNameC,
-                            validationMessage: "Please Enter The Task Name.",
+                            validationMessage: s.pleaseEnterTheTaskName,
                             autofocus: true,
                           ),
-                          const Gap(20),
+                          Gap(AppSizes.h20),
                           CustomTextField(
-                            title: "Description",
+                            title: s.description,
                             controller: addTaskController.taskDescC,
                             validationMessage: '',
                             maxLines: 5,
                             validate: false,
                           ),
-                          const Gap(20),
+                          Gap(AppSizes.h20),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "High Priority",
+                                s.highPriority,
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               Selector<HomeController, bool>(
@@ -79,7 +80,7 @@ class AddTaskScreen extends StatelessWidget {
             bottomNavigationBar: CustomElevatedButton(
               onPressed: () =>
                   context.read<HomeController>().addNewTask(context),
-              title: "Add Task",
+              title: s.addTask,
               icon: Icons.add_rounded,
             ),
           );

@@ -16,9 +16,10 @@ class _NavRootState extends State<NavRoot> {
     const NotesScreen(),
     const ProfileScreen(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
+            final S s = S.of(context);
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -33,13 +34,13 @@ class _NavRootState extends State<NavRoot> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w18,
+                  vertical: AppSizes.h6,
                 ),
-                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                margin: EdgeInsets.only(bottom: AppSizes.w4, top: AppSizes.h4),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(500),
+                  borderRadius: BorderRadius.circular(AppSizes.r500),
                   color: currentIndex == 0
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Colors.transparent,
@@ -54,18 +55,18 @@ class _NavRootState extends State<NavRoot> {
                   ),
                 ),
               ),
-              label: "Home",
-              tooltip: "Home",
+              label: s.home,
+              tooltip: s.home,
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w18,
+                  vertical: AppSizes.h6,
                 ),
-                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                margin: EdgeInsets.only(bottom: AppSizes.w4, top: AppSizes.h4),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(500),
+                  borderRadius: BorderRadius.circular(AppSizes.r500),
                   color: currentIndex == 1
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Colors.transparent,
@@ -80,18 +81,18 @@ class _NavRootState extends State<NavRoot> {
                   ),
                 ),
               ),
-              label: "To Do",
-              tooltip: "To Do",
+              label: s.toDo,
+              tooltip: s.toDo,
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w18,
+                  vertical: AppSizes.h6,
                 ),
-                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                margin: EdgeInsets.only(bottom: AppSizes.w4, top: AppSizes.h4),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(500),
+                  borderRadius: BorderRadius.circular(AppSizes.r500),
                   color: currentIndex == 2
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Colors.transparent,
@@ -106,18 +107,18 @@ class _NavRootState extends State<NavRoot> {
                   ),
                 ),
               ),
-              label: "Completed",
-              tooltip: "Completed",
+              label: s.completed,
+              tooltip: s.completed,
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w18,
+                  vertical: AppSizes.h6,
                 ),
-                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                margin: EdgeInsets.only(bottom: AppSizes.w4, top: AppSizes.h4),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(500),
+                  borderRadius: BorderRadius.circular(AppSizes.r500),
                   color: currentIndex == 3
                       ? Theme.of(context).primaryColor.withOpacity(0.1)
                       : Colors.transparent,
@@ -132,18 +133,18 @@ class _NavRootState extends State<NavRoot> {
                   ),
                 ),
               ),
-              label: "Notes",
-              tooltip: "Notes",
+              label: s.notes,
+              tooltip: s.notes,
             ),
             BottomNavigationBarItem(
               icon: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 18,
-                  vertical: 6,
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSizes.w18,
+                  vertical: AppSizes.h6,
                 ),
-                margin: const EdgeInsets.only(bottom: 4, top: 4),
+                margin: EdgeInsets.only(bottom: AppSizes.w4, top: AppSizes.h4),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(500),
+                  borderRadius: BorderRadius.circular(AppSizes.r500),
                   color: currentIndex == 4
                       ? Theme.of(context).primaryColor.withOpacity(0.2)
                       : Colors.transparent,
@@ -158,8 +159,8 @@ class _NavRootState extends State<NavRoot> {
                   ),
                 ),
               ),
-              label: "Profile",
-              tooltip: "Profile",
+              label: s.profile,
+              tooltip: s.profile,
             ),
           ],
         ),

@@ -5,6 +5,7 @@ class UserDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final S s = S.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Consumer<UserDetailsController>(
@@ -12,12 +13,12 @@ class UserDetailsScreen extends StatelessWidget {
           return Scaffold(
             body: CustomScrollView(
               slivers: [
-                const SliverPadding(
-                  padding: EdgeInsets.only(top: 20),
-                  sliver: SliverCustomAppbar(title: "User Details"),
+                SliverPadding(
+                  padding: EdgeInsets.only(top: AppSizes.h20),
+                  sliver: SliverCustomAppbar(title: s.userDetails),
                 ),
                 SliverPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.w16),
                   sliver: SliverToBoxAdapter(
                     child: Form(
                       key: controller.formKey,
@@ -25,19 +26,18 @@ class UserDetailsScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomTextField(
-                            title: "User Name",
+                            title: s.userName,
                             controller: controller.usernameC,
-                            validationMessage: "Please Enter Your Name.",
-                            hintText: "e.g. Abdelwahab Mo.",
+                            validationMessage: s.pleaseEnterYourName,
+                            hintText: s.egAbdelwahabMo,
                           ),
-                          const Gap(20),
+                          Gap(AppSizes.h20),
                           CustomTextField(
-                            title: "Motivation Quote",
+                            title: s.motivationQuote,
                             controller: controller.quoteC,
                             validationMessage: '',
                             maxLines: 5,
-                            hintText:
-                                "e.g. One task at a time. One step closer.",
+                            hintText: s.egOnetaskatatimeOnestepcloser,
                             validate: false,
                           ),
                         ],
@@ -49,7 +49,7 @@ class UserDetailsScreen extends StatelessWidget {
             ),
             bottomNavigationBar: CustomElevatedButton(
               onPressed: () => controller.changeUserDetailes(context),
-              title: "Save Changes",
+              title: s.saveChanges,
               icon: Icons.check_rounded,
             ),
           );

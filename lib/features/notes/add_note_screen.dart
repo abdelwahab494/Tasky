@@ -8,21 +8,27 @@ class AddNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+            final S s = S.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 70,
+          toolbarHeight: AppSizes.h70,
           actions: [
             IconButton(
               onPressed: () => Navigator.of(context).pop(false),
-              icon: const Icon(Icons.check, size: 30),
+              icon: Icon(Icons.check, size: AppSizes.r30),
             ),
           ],
-          actionsPadding: const EdgeInsets.only(right: 8),
+          actionsPadding: EdgeInsets.only(right: AppSizes.w8),
         ),
         body: Padding(
-          padding: const EdgeInsetsGeometry.fromLTRB(16, 5, 16, 30),
+          padding: EdgeInsetsGeometry.fromLTRB(
+            AppSizes.w16,
+            AppSizes.h5,
+            AppSizes.w16,
+            AppSizes.h30,
+          ),
           child: Consumer<NotesController>(
             builder:
                 (
@@ -37,10 +43,10 @@ class AddNoteScreen extends StatelessWidget {
                         formatNoteDate(note?.dateTime),
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: Colors.grey,
-                          fontSize: 12,
+                          fontSize: AppSizes.sp12,
                         ),
                       ),
-                      const Gap(5),
+                      Gap(AppSizes.h5),
                       Directionality(
                         textDirection: isArabic(controller.titleC.text)
                             ? ui.TextDirection.rtl
@@ -49,15 +55,15 @@ class AddNoteScreen extends StatelessWidget {
                           controller: controller.titleC,
                           style: Theme.of(context).textTheme.displayMedium!
                               .copyWith(
-                                fontSize: 20,
+                                fontSize: AppSizes.sp20,
                                 fontWeight: FontWeight.bold,
                               ),
-                          decoration: const InputDecoration(
-                            hintText: "Title",
+                          decoration: InputDecoration(
+                            hintText: s.title,
                             hintStyle: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Color(0xff9E9E9E),
+                              fontSize: AppSizes.sp20,
+                              color: const Color(0xff9E9E9E),
                             ),
                             filled: false,
                             border: InputBorder.none,
@@ -82,17 +88,17 @@ class AddNoteScreen extends StatelessWidget {
                             autofocus: true,
                             style: Theme.of(context).textTheme.displayMedium!
                                 .copyWith(
-                                  fontSize: 16,
+                                  fontSize: AppSizes.sp16,
                                   fontWeight: FontWeight.w400,
                                   height: 1.5,
                                   letterSpacing: 0.3,
                                 ),
-                            decoration: const InputDecoration(
-                              hintText: "Note something down ..",
+                            decoration: InputDecoration(
+                              hintText: s.notesomethingdown,
                               hintStyle: TextStyle(
                                 fontWeight: FontWeight.w400,
-                                fontSize: 16,
-                                color: Color(0xff9E9E9E),
+                                fontSize: AppSizes.sp16,
+                                color: const Color(0xff9E9E9E),
                               ),
                               filled: false,
                               border: InputBorder.none,
