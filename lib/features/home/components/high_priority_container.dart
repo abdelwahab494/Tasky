@@ -1,5 +1,6 @@
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:tasky/core/imports.dart' hide ShimmerEffect;
+import 'package:tasky/features/tasks/presentation/pages/priority_page.dart';
 
 class HighPriorityContainer extends StatelessWidget {
   const HighPriorityContainer({super.key});
@@ -217,7 +218,7 @@ class ShowMoreButton extends StatelessWidget {
       onTap: () async {
         await Navigator.of(
           context,
-        ).push(MaterialPageRoute(builder: (c) => const HighPriorityScreen()));
+        ).push(MaterialPageRoute(builder: (c) => const PriorityPage()));
       },
       child: Container(
         width: AppSizes.w40,

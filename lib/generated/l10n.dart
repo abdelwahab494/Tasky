@@ -18,8 +18,10 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
@@ -41,8 +43,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,12 +56,7 @@ class S {
 
   /// `Tasky`
   String get tasky {
-    return Intl.message(
-      'Tasky',
-      name: 'tasky',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Tasky', name: 'tasky', desc: '', args: []);
   }
 
   /// `Welcome To Tasky`
@@ -82,12 +81,7 @@ class S {
 
   /// `Your Name`
   String get yourName {
-    return Intl.message(
-      'Your Name',
-      name: 'yourName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Your Name', name: 'yourName', desc: '', args: []);
   }
 
   /// `Please Enter Your Name.`
@@ -122,22 +116,12 @@ class S {
 
   /// `To Do Tasks`
   String get toDoTasks {
-    return Intl.message(
-      'To Do Tasks',
-      name: 'toDoTasks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('To Do Tasks', name: 'toDoTasks', desc: '', args: []);
   }
 
   /// `taskName`
   String get taskName {
-    return Intl.message(
-      'taskName',
-      name: 'taskName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('taskName', name: 'taskName', desc: '', args: []);
   }
 
   /// `No Tasks To Do`
@@ -232,12 +216,7 @@ class S {
 
   /// `User Name`
   String get userName {
-    return Intl.message(
-      'User Name',
-      name: 'userName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('User Name', name: 'userName', desc: '', args: []);
   }
 
   /// `Motivation Quote`
@@ -272,12 +251,7 @@ class S {
 
   /// `Profile`
   String get profile {
-    return Intl.message(
-      'Profile',
-      name: 'profile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Profile', name: 'profile', desc: '', args: []);
   }
 
   /// `Profile Info`
@@ -292,32 +266,17 @@ class S {
 
   /// `Dark Mode`
   String get darkMode {
-    return Intl.message(
-      'Dark Mode',
-      name: 'darkMode',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dark Mode', name: 'darkMode', desc: '', args: []);
   }
 
   /// `Log Out`
   String get logOut {
-    return Intl.message(
-      'Log Out',
-      name: 'logOut',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Log Out', name: 'logOut', desc: '', args: []);
   }
 
   /// `No Notes Yet`
   String get noNotesYet {
-    return Intl.message(
-      'No Notes Yet',
-      name: 'noNotesYet',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('No Notes Yet', name: 'noNotesYet', desc: '', args: []);
   }
 
   /// `Add your first one`
@@ -352,32 +311,17 @@ class S {
 
   /// `Delete`
   String get delete {
-    return Intl.message(
-      'Delete',
-      name: 'delete',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Delete', name: 'delete', desc: '', args: []);
   }
 
   /// `Add New Note`
   String get addNewNote {
-    return Intl.message(
-      'Add New Note',
-      name: 'addNewNote',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add New Note', name: 'addNewNote', desc: '', args: []);
   }
 
   /// `Title`
   String get title {
-    return Intl.message(
-      'Title',
-      name: 'title',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Title', name: 'title', desc: '', args: []);
   }
 
   /// `Note something down ..`
@@ -392,52 +336,27 @@ class S {
 
   /// `Notes`
   String get notes {
-    return Intl.message(
-      'Notes',
-      name: 'notes',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Notes', name: 'notes', desc: '', args: []);
   }
 
   /// `Search`
   String get search {
-    return Intl.message(
-      'Search',
-      name: 'search',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Search', name: 'search', desc: '', args: []);
   }
 
   /// `Home`
   String get home {
-    return Intl.message(
-      'Home',
-      name: 'home',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Home', name: 'home', desc: '', args: []);
   }
 
   /// `To Do`
   String get toDo {
-    return Intl.message(
-      'To Do',
-      name: 'toDo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('To Do', name: 'toDo', desc: '', args: []);
   }
 
   /// `Completed`
   String get completed {
-    return Intl.message(
-      'Completed',
-      name: 'completed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Completed', name: 'completed', desc: '', args: []);
   }
 
   /// `Please Enter The Task Name.`
@@ -452,12 +371,7 @@ class S {
 
   /// `Description`
   String get description {
-    return Intl.message(
-      'Description',
-      name: 'description',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Description', name: 'description', desc: '', args: []);
   }
 
   /// `High Priority`
@@ -472,32 +386,17 @@ class S {
 
   /// `Add Task`
   String get addTask {
-    return Intl.message(
-      'Add Task',
-      name: 'addTask',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add Task', name: 'addTask', desc: '', args: []);
   }
 
   /// `Add New Task`
   String get addNewTask {
-    return Intl.message(
-      'Add New Task',
-      name: 'addNewTask',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add New Task', name: 'addNewTask', desc: '', args: []);
   }
 
   /// `No Tasks Yet`
   String get noTasksYet {
-    return Intl.message(
-      'No Tasks Yet',
-      name: 'noTasksYet',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('No Tasks Yet', name: 'noTasksYet', desc: '', args: []);
   }
 
   /// `Start your first one`
@@ -512,32 +411,17 @@ class S {
 
   /// `My Tasks`
   String get myTasks {
-    return Intl.message(
-      'My Tasks',
-      name: 'myTasks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('My Tasks', name: 'myTasks', desc: '', args: []);
   }
 
   /// `Sort Down`
   String get sortDown {
-    return Intl.message(
-      'Sort Down',
-      name: 'sortDown',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sort Down', name: 'sortDown', desc: '', args: []);
   }
 
   /// `Sort Up`
   String get sortUp {
-    return Intl.message(
-      'Sort Up',
-      name: 'sortUp',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sort Up', name: 'sortUp', desc: '', args: []);
   }
 
   /// `Delete All Tasks`
@@ -562,12 +446,7 @@ class S {
 
   /// `Hello,`
   String get hello {
-    return Intl.message(
-      'Hello,',
-      name: 'hello',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Hello,', name: 'hello', desc: '', args: []);
   }
 
   /// `One task at a time. One step closer.`
@@ -582,12 +461,7 @@ class S {
 
   /// `tasks`
   String get tasks {
-    return Intl.message(
-      'tasks',
-      name: 'tasks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('tasks', name: 'tasks', desc: '', args: []);
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:tasky/core/imports.dart';
+import 'package:tasky/features/tasks/presentation/pages/todo_page.dart';
 
 class NavRoot extends StatefulWidget {
   const NavRoot({super.key});
@@ -11,8 +12,8 @@ class _NavRootState extends State<NavRoot> {
   int currentIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
-    const TodoScreen(),
-    const DoneTasksPage(),
+    const TodoPage(),
+    const DonePage(),
     const NotesScreen(),
     const ProfileScreen(),
   ];
