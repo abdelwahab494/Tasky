@@ -1,9 +1,9 @@
 import 'package:tasky/core/imports.dart';
 
 class Dialogs {
-  static Future<bool?> showEditTaskSheet({
+  static Future<void> showEditTaskSheet({
     required BuildContext context,
-    required TaskModel task,
+    required TaskEntity task,
   }) {
     final TextEditingController taskNameC = TextEditingController(
       text: task.taskName,
@@ -15,30 +15,22 @@ class Dialogs {
     bool isHighPriority = task.isHighPriority;
 
     Future<void> editTask(
-      TaskModel task,
+      TaskEntity task,
       TextEditingController taskNameC,
       TextEditingController taskDescC,
       bool isHighPriority,
     ) async {
-      final List<TaskModel> tasksList = await PrefHelper.getTasksList();
-      final oldTaskIndex = tasksList.indexWhere(
-        (element) =>
-            element.taskName == task.taskName &&
-            element.taskDesc == task.taskDesc &&
-            element.isHighPriority == task.isHighPriority &&
-            element.isDone == task.isDone,
-      );
-      final TaskModel editedTask = TaskModel(
+      final TaskParams editedTask = TaskParams(
+        id: task.id,
         taskName: taskNameC.text.trim(),
         taskDesc: taskDescC.text.trim(),
         isHighPriority: isHighPriority,
         isDone: task.isDone,
       );
-      tasksList[oldTaskIndex] = editedTask;
-      await PrefHelper.updateTasksList(tasksList);
+      context.read<TasksBloc>().add(TaskUpdateRequested(editedTask));
     }
 
-    return showModalBottomSheet<bool?>(
+    return showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (context) {
@@ -148,7 +140,9 @@ class Dialogs {
                                 taskDescC,
                                 isHighPriority,
                               );
-                              navigator.pop(true);
+                              navigator.pop();
+                              taskNameC.dispose();
+                              taskDescC.dispose();
                             },
                             title: "Edit Task",
                             icon: Icons.mode_edit_rounded,

@@ -4,6 +4,7 @@ const platform = MethodChannel('com.example.tasky/update_widget');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HiveHelper.init();
   await PrefHelper.init();
   final String? name = await PrefHelper.getName();
 
@@ -26,11 +27,7 @@ Future<void> main() async {
           create: (_) => ThemeController(),
         ),
       ],
-      // child: DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => MyApp(initialName: name),
-      // ),
-      child: MyApp(initialName: name,),
+      child: MyApp(initialName: name),
     ),
   );
 }
@@ -59,9 +56,6 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              // useInheritedMediaQuery: true,
-              // locale: DevicePreview.locale(context),
-              // builder: DevicePreview.appBuilder,
               title: 'Tasky',
               theme: lightTheme,
               darkTheme: darkTheme,

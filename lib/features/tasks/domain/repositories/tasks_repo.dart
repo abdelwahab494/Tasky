@@ -1,0 +1,12 @@
+import 'package:dartz/dartz.dart';
+import 'package:tasky/core/imports.dart';
+
+abstract class TasksRepo {
+  Future<Either<Failure, Unit>> addTask(TaskEntity task);
+
+  Future<Either<Failure, Unit>> updateTask(TaskEntity task);
+
+  Future<Either<Failure, Unit>> deleteTask(TaskEntity task);
+
+  Future<Either<Failure, List<TaskEntity>>> loadTasks();
+}

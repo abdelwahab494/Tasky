@@ -12,7 +12,7 @@ class _NavRootState extends State<NavRoot> {
   final List<Widget> screens = [
     const HomeScreen(),
     const TodoScreen(),
-    const CompletedScreen(),
+    const DoneTasksPage(),
     const NotesScreen(),
     const ProfileScreen(),
   ];

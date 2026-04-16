@@ -1,15 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tasky/core/imports.dart';
+import 'package:tasky/data/enums/task_pop_up_enum.dart';
 
 class TaskContainer extends StatelessWidget {
   const TaskContainer({
     super.key,
     required this.task,
-    required this.controller,
   });
-  final TaskModel task;
-  final HomeController controller;
+  final TaskEntity task;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class TaskContainer extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) =>
-                controller.onEdit(context: context, task: task),
+                Dialogs.showEditTaskSheet(context: context, task: task),
             icon: Icons.mode_edit_outline_rounded,
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
@@ -34,12 +33,8 @@ class TaskContainer extends StatelessWidget {
         motion: const StretchMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) => controller.onDelete(
-              context: context,
-              task: task,
-              showDeletingMessage: (ctx, ctrl) {
-                Dialogs.showDeletingMessage(context: ctx, controller: ctrl);
-              },
+            onPressed: (context) => context.read<TasksBloc>().add(
+              TaskDeleteRequested(TaskParams.fromEntity(task)),
             ),
             icon: Icons.clear_rounded,
             backgroundColor: Colors.red.shade600,
@@ -71,12 +66,16 @@ class TaskContainer extends StatelessWidget {
             children: [
               CustomCheckBox(
                 value: task.isDone,
-                onChanged: (value) =>
-                    controller.onChanged(value: value, task: task),
+                onChanged: (value) => context.read<TasksBloc>().add(
+                  TaskUpdateRequested(
+                    TaskParams.fromEntity(task).copyWith(isDone: !task.isDone),
+                  ),
+                ),
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () => controller.onEdit(context: context, task: task),
+                  onTap: () =>
+                      Dialogs.showEditTaskSheet(context: context, task: task),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -104,11 +103,40 @@ class TaskContainer extends StatelessWidget {
               ),
               Gap(AppSizes.w8),
               PopupMenuButton(
+                onSelected: (value) {
+                  switch (value) {
+                    case TaskPopUpEnum.done:
+                      context.read<TasksBloc>().add(
+                        TaskUpdateRequested(
+                          TaskParams.fromEntity(
+                            task,
+                          ).copyWith(isDone: !task.isDone),
+                        ),
+                      );
+                      break;
+                    case TaskPopUpEnum.priority:
+                      context.read<TasksBloc>().add(
+                        TaskUpdateRequested(
+                          TaskParams.fromEntity(
+                            task,
+                          ).copyWith(isHighPriority: !task.isHighPriority),
+                        ),
+                      );
+                      break;
+                    case TaskPopUpEnum.edit:
+                      Dialogs.showEditTaskSheet(context: context, task: task);
+                      break;
+                    case TaskPopUpEnum.delete:
+                      context.read<TasksBloc>().add(
+                        TaskDeleteRequested(TaskParams.fromEntity(task)),
+                      );
+                      break;
+                  }
+                },
                 itemBuilder: (context) {
                   return <PopupMenuItem>[
                     PopupMenuItem(
-                      onTap: () =>
-                          controller.onChanged(value: !task.isDone, task: task),
+                      value: TaskPopUpEnum.done,
                       child: PopUpMenueItemChild(
                         text: task.isDone ? "Not Done" : "Done",
                         icon: task.isDone
@@ -118,7 +146,7 @@ class TaskContainer extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem(
-                      onTap: () => controller.togglePriority(task: task),
+                      value: TaskPopUpEnum.priority,
                       child: PopUpMenueItemChild(
                         text: task.isHighPriority ? "Normal" : "High Priority",
                         icon: task.isHighPriority
@@ -128,8 +156,7 @@ class TaskContainer extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem(
-                      onTap: () =>
-                          controller.onEdit(context: context, task: task),
+                      value: TaskPopUpEnum.edit,
                       child: PopUpMenueItemChild(
                         text: "Edit Task",
                         icon: CupertinoIcons.square_pencil_fill,
@@ -137,16 +164,7 @@ class TaskContainer extends StatelessWidget {
                       ),
                     ),
                     PopupMenuItem(
-                      onTap: () => controller.onDelete(
-                        context: context,
-                        task: task,
-                        showDeletingMessage: (ctx, ctrl) {
-                          Dialogs.showDeletingMessage(
-                            context: ctx,
-                            controller: ctrl,
-                          );
-                        },
-                      ),
+                      value: TaskPopUpEnum.delete,
                       child: PopUpMenueItemChild(
                         text: "Delete Task",
                         icon: CupertinoIcons.trash,
