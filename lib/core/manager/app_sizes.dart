@@ -1,6 +1,8 @@
 import 'package:tasky/core/imports.dart';
 
 class AppSizes {
+  const AppSizes._();
+
   //* Height Utils
   static final double h0 = 0.h;
   static final double h4 = 4.h;
@@ -22,7 +24,9 @@ class AppSizes {
   static final double h34 = 34.h;
   static final double h40 = 40.h;
   static final double h42 = 42.h;
+  static final double h46 = 46.h;
   static final double h60 = 60.h;
+  static final double h50 = 50.h;
   static final double h70 = 70.h;
   static final double h75 = 75.h;
   static final double h80 = 80.h;
@@ -77,7 +81,6 @@ class AppSizes {
   static final double sp32 = 32.sp;
   static final double sp40 = 40.sp;
   static final double sp500 = 500.sp;
-
 
   //* Radius Utils
   static final double r4 = 4.r;

@@ -59,4 +59,16 @@ class TasksRepoImpl extends TasksRepo {
       return Left(UnexpectedFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, Unit>> deleteAllTasks() async {
+    try {
+      await source.deleteAllTasks();
+      return const Right(unit);
+    } on CacheException {
+      return Left(CacheFailure());
+    } catch (e) {
+      return Left(UnexpectedFailure());
+    }
+  }
 }

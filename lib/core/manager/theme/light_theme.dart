@@ -157,4 +157,7 @@ ThemeData lightTheme = ThemeData(
   dividerTheme: DividerThemeData(color: LightColors.border),
   splashFactory: NoSplash.splashFactory,
   popupMenuTheme: PopupMenuThemeData(color: LightColors.backGround),
+  iconButtonTheme: IconButtonThemeData(
+    style: IconButton.styleFrom(shape: const CircleBorder()),
+  ),
 );

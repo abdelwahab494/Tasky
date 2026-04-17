@@ -1,11 +1,11 @@
 import 'package:tasky/core/imports.dart';
 
 class HomeController extends ChangeNotifier {
-  List<TaskModel> _tasksList = [];
-  List<TaskModel> _toDoTasksList = [];
-  List<TaskModel> _completedTasksList = [];
-  List<TaskModel> _highPriorityTasksList = [];
-  List<TaskModel> _tasksListBeforeDeleting = [];
+  List<TasksModel> _tasksList = [];
+  List<TasksModel> _toDoTasksList = [];
+  List<TasksModel> _completedTasksList = [];
+  List<TasksModel> _highPriorityTasksList = [];
+  List<TasksModel> _tasksListBeforeDeleting = [];
   bool _sortList = false;
   bool _isLoading = false;
   EncourageEnum _encourageStatus = EncourageEnum.started;
@@ -25,11 +25,11 @@ class HomeController extends ChangeNotifier {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _isHighPriority = false;
 
-  List<TaskModel> get tasksList => _tasksList;
-  List<TaskModel> get toDoTasksList => _toDoTasksList;
-  List<TaskModel> get completedTasksList => _completedTasksList;
-  List<TaskModel> get highPriorityTasksList => _highPriorityTasksList;
-  List<TaskModel> get tasksListBeforeDeleting => _tasksListBeforeDeleting;
+  List<TasksModel> get tasksList => _tasksList;
+  List<TasksModel> get toDoTasksList => _toDoTasksList;
+  List<TasksModel> get completedTasksList => _completedTasksList;
+  List<TasksModel> get highPriorityTasksList => _highPriorityTasksList;
+  List<TasksModel> get tasksListBeforeDeleting => _tasksListBeforeDeleting;
   bool get sortList => _sortList;
   bool get isLoading => _isLoading;
   int get percentage => _percentage();
@@ -46,7 +46,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  set tasksListBeforeDeleting(List<TaskModel> list) {
+  set tasksListBeforeDeleting(List<TasksModel> list) {
     _tasksListBeforeDeleting = list;
     notifyListeners();
   }
@@ -67,12 +67,12 @@ class HomeController extends ChangeNotifier {
 
     _isLoading = true;
     notifyListeners();
-    final List<TaskModel> fetchedTasksList = await PrefHelper.getTasksList();
+    final List<TasksModel> fetchedTasksList = await PrefHelper.getTasksList();
     updateLists(fetchedTasksList);
     await WidgetHelper.updateAndroidWidget(_tasks);
   }
 
-  void updateLists(List<TaskModel> list) {
+  void updateLists(List<TasksModel> list) {
     _tasksList = sortList ? list.reversed.toList() : list;
     _toDoTasksList = tasksList
         .where((element) => element.isDone == false)
@@ -91,7 +91,7 @@ class HomeController extends ChangeNotifier {
 
   Future<void> onChanged({
     required bool? value,
-    required TaskModel task,
+    required TasksModel task,
   }) async {
     task.isDone = value!;
     await PrefHelper.updateTasksList(_tasksList);
@@ -101,7 +101,7 @@ class HomeController extends ChangeNotifier {
 
   Future<void> onDelete({
     required BuildContext context,
-    required TaskModel task,
+    required TasksModel task,
     required Function(BuildContext context, HomeController controller)
     showDeletingMessage,
   }) async {
@@ -115,16 +115,13 @@ class HomeController extends ChangeNotifier {
 
   Future<void> onEdit({
     required BuildContext context,
-    required TaskModel task,
+    required TasksModel task,
   }) async {
-    final bool? result = await Dialogs.showEditTaskSheet(
-      context: context,
-      task: task,
-    );
-    if (result == true) loadData();
+    await Dialogs.showEditTaskSheet(context: context, task: task.toEntity());
+    loadData();
   }
 
-  Future<void> togglePriority({required TaskModel task}) async {
+  Future<void> togglePriority({required TasksModel task}) async {
     task.isHighPriority = !task.isHighPriority;
     // notifyListeners();
     await PrefHelper.updateTasksList(tasksList);
@@ -174,7 +171,7 @@ class HomeController extends ChangeNotifier {
     final navigator = Navigator.of(context);
     _tasks = _tasks.isEmpty ? taskTitle : '$_tasks,$taskTitle';
     await PrefHelper.addNewTask(
-      TaskModel(
+      TasksModel(
         taskName: _taskNameC.text.trim(),
         taskDesc: _taskDescC.text.trim(),
         isHighPriority: _isHighPriority,

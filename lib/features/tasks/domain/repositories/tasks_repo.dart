@@ -9,4 +9,6 @@ abstract class TasksRepo {
   Future<Either<Failure, Unit>> deleteTask(TaskEntity task);
 
   Future<Either<Failure, List<TaskEntity>>> loadTasks();
+
+  Future<Either<Failure, Unit>> deleteAllTasks();
 }

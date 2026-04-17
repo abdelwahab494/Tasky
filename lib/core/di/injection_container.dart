@@ -1,7 +1,7 @@
-import 'package:get_it/get_it.dart';
+import 'package:tasky/core/imports.dart';
 
 final getIt = GetIt.instance;
 
-Future<void> init()async{
-  
+Future<void> init() async {
+  tasksInjection();
 }

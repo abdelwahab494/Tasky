@@ -8,6 +8,8 @@ abstract class TasksLocalDatasource {
   Future<void> updateTask(TaskModel task);
 
   Future<List<TaskModel>> getTasks();
+
+  Future<void> deleteAllTasks();
 }
 
 class TasksHiveDatasource extends TasksLocalDatasource {
@@ -46,6 +48,15 @@ class TasksHiveDatasource extends TasksLocalDatasource {
   Future<void> updateTask(TaskModel task) async {
     try {
       await task.save();
+    } catch (e) {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> deleteAllTasks() async {
+    try {
+      await box.clear();
     } catch (e) {
       throw CacheException();
     }

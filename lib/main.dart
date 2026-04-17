@@ -1,10 +1,12 @@
 import 'package:tasky/core/imports.dart';
+import 'package:tasky/core/di/injection_container.dart' as ic;
 
 const platform = MethodChannel('com.example.tasky/update_widget');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HiveHelper.init();
+  ic.init();
   await PrefHelper.init();
   final String? name = await PrefHelper.getName();
 

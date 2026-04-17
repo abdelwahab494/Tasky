@@ -1,5 +1,4 @@
 import 'package:tasky/core/imports.dart';
-import 'package:tasky/features/tasks/presentation/pages/todo_page.dart';
 
 class NavRoot extends StatefulWidget {
   const NavRoot({super.key});
@@ -11,7 +10,7 @@ class NavRoot extends StatefulWidget {
 class _NavRootState extends State<NavRoot> {
   int currentIndex = 0;
   final List<Widget> screens = [
-    const HomeScreen(),
+    const HomePage(),
     const TodoPage(),
     const DonePage(),
     const NotesScreen(),
@@ -20,7 +19,7 @@ class _NavRootState extends State<NavRoot> {
 
   @override
   Widget build(BuildContext context) {
-            final S s = S.of(context);
+    final S s = S.of(context);
     return PopScope(
       canPop: false,
       child: Scaffold(
@@ -47,7 +46,7 @@ class _NavRootState extends State<NavRoot> {
                       : Colors.transparent,
                 ),
                 child: SvgPicture.asset(
-                  "assets/icons/home.svg",
+                  AppAssets.iconsHome,
                   colorFilter: ColorFilter.mode(
                     currentIndex == 0
                         ? Theme.of(context).primaryColor
@@ -99,7 +98,7 @@ class _NavRootState extends State<NavRoot> {
                       : Colors.transparent,
                 ),
                 child: SvgPicture.asset(
-                  "assets/icons/completed.svg",
+                  AppAssets.iconsCompleted,
                   colorFilter: ColorFilter.mode(
                     currentIndex == 2
                         ? Theme.of(context).primaryColor

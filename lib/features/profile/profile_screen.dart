@@ -45,9 +45,7 @@ class ProfileScreen extends StatelessWidget {
                               child: CircleAvatar(
                                 radius: AppSizes.r50,
                                 backgroundImage: controller.image == null
-                                    ? const AssetImage(
-                                        "assets/images/profile.png",
-                                      )
+                                    ? const AssetImage(AppAssets.imagesProfile)
                                     : FileImage(File(controller.image!)),
                                 backgroundColor: Colors.transparent,
                               ),
@@ -156,7 +154,7 @@ class ProfileScreen extends StatelessWidget {
                       Gap(AppSizes.h10),
                       const Divider(),
                       ProfileRow(
-                        svgPicture: "assets/icons/darkmode.svg",
+                        svgPicture: AppAssets.iconsDarkmode,
                         title: s.darkMode,
                         trailing: Switch(
                           value: controller.isDark,
@@ -171,7 +169,7 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () =>
                             context.read<HomeController>().logOut(context),
                         child: ProfileRow(
-                          svgPicture: "assets/icons/logout.svg",
+                          svgPicture: AppAssets.iconsLogout,
                           title: s.logOut,
                           trailing: Icon(
                             Icons.arrow_forward_rounded,

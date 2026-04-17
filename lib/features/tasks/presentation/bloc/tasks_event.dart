@@ -35,3 +35,7 @@ class TaskDeleteRequested extends TasksEvent {
   @override
   List<Object> get props => [task];
 }
+
+class TasksSortToggled extends TasksEvent{}
+
+class TasksDeleteAll extends TasksEvent{}

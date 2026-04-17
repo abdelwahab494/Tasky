@@ -41,16 +41,16 @@ class PrefHelper {
   }
 
   //* Task List
-  static Future<void> updateTasksList(List<TaskModel> tasksList) async {
+  static Future<void> updateTasksList(List<TasksModel> tasksList) async {
     final updatedList = tasksList.map((e) => jsonEncode(e.toJson())).toList();
     await _prefs.setStringList(tasksListKey, updatedList);
   }
 
-  static Future<List<TaskModel>> getTasksList() async {
+  static Future<List<TasksModel>> getTasksList() async {
     final List<String> tasksListEncoded =
         _prefs.getStringList(tasksListKey) ?? [];
     return tasksListEncoded
-        .map((e) => TaskModel.fromJson(jsonDecode(e)))
+        .map((e) => TasksModel.fromJson(jsonDecode(e)))
         .toList();
   }
 
@@ -59,8 +59,8 @@ class PrefHelper {
   }
 
   //* Add New Task
-  static Future<void> addNewTask(TaskModel task) async {
-    final List<TaskModel> tasksList = await getTasksList();
+  static Future<void> addNewTask(TasksModel task) async {
+    final List<TasksModel> tasksList = await getTasksList();
     tasksList.add(task);
     await updateTasksList(tasksList);
   }
