@@ -2,13 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tasky/core/imports.dart';
 import 'package:tasky/data/enums/task_pop_up_enum.dart';
+import 'package:tasky/features/tasks/presentation/widgets/edit_bottom_sheet.dart';
 
 class TaskContainer extends StatelessWidget {
-  const TaskContainer({
-    super.key,
-    required this.task,
-  });
+  const TaskContainer({super.key, required this.task});
   final TaskEntity task;
+
+  Future<void> editTask(BuildContext context) async {
+    final TasksBloc bloc = context.read<TasksBloc>();
+
+    final bool? result = await showModalBottomSheet<bool?>(
+      context: context,
+      isScrollControlled: true,
+      builder: (bottomSheetContext) => BlocProvider.value(
+        value: bloc,
+        child: EditBottomSheet(task: task),
+      ),
+    );
+
+    if (result == true) {
+      bloc.add(TasksLoadRequested());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +34,7 @@ class TaskContainer extends StatelessWidget {
         motion: const StretchMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) =>
-                Dialogs.showEditTaskSheet(context: context, task: task),
+            onPressed: (context) => editTask(context),
             icon: Icons.mode_edit_outline_rounded,
             backgroundColor: Theme.of(context).primaryColor,
             foregroundColor: Colors.white,
@@ -33,9 +47,8 @@ class TaskContainer extends StatelessWidget {
         motion: const StretchMotion(),
         children: [
           SlidableAction(
-            onPressed: (context) => context.read<TasksBloc>().add(
-              TaskDeleteRequested(TaskParams.fromEntity(task)),
-            ),
+            onPressed: (context) =>
+                context.read<TasksBloc>().add(TaskDeleteRequested(task.id)),
             icon: Icons.clear_rounded,
             backgroundColor: Colors.red.shade600,
             foregroundColor: Colors.white,
@@ -45,7 +58,6 @@ class TaskContainer extends StatelessWidget {
       ),
       child: Container(
         width: double.infinity,
-        // padding: EdgeInsets.only(top: 7, bottom: 7, right: 4, left: 4),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
           border: Border.all(
@@ -68,14 +80,19 @@ class TaskContainer extends StatelessWidget {
                 value: task.isDone,
                 onChanged: (value) => context.read<TasksBloc>().add(
                   TaskUpdateRequested(
-                    TaskParams.fromEntity(task).copyWith(isDone: !task.isDone),
+                    TaskParams(
+                      id: task.id,
+                      taskName: task.taskName,
+                      taskDesc: task.taskDesc,
+                      isDone: !task.isDone,
+                      isHighPriority: task.isHighPriority,
+                    ),
                   ),
                 ),
               ),
               Expanded(
                 child: GestureDetector(
-                  onTap: () =>
-                      Dialogs.showEditTaskSheet(context: context, task: task),
+                  onTap: () => editTask(context),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -103,33 +120,42 @@ class TaskContainer extends StatelessWidget {
               ),
               Gap(AppSizes.w8),
               PopupMenuButton(
-                onSelected: (value) {
+                onSelected: (value) async {
+                  final TasksBloc bloc = context.read<TasksBloc>();
                   switch (value) {
                     case TaskPopUpEnum.done:
-                      context.read<TasksBloc>().add(
+                      bloc.add(
                         TaskUpdateRequested(
-                          TaskParams.fromEntity(
-                            task,
-                          ).copyWith(isDone: !task.isDone),
+                          TaskParams(
+                            id: task.id,
+                            taskName: task.taskName,
+                            taskDesc: task.taskDesc,
+                            isHighPriority: task.isHighPriority,
+                            isDone: !task.isDone,
+                            createdAt: task.createdAt,
+                          ),
                         ),
                       );
                       break;
                     case TaskPopUpEnum.priority:
-                      context.read<TasksBloc>().add(
+                      bloc.add(
                         TaskUpdateRequested(
-                          TaskParams.fromEntity(
-                            task,
-                          ).copyWith(isHighPriority: !task.isHighPriority),
+                          TaskParams(
+                            id: task.id,
+                            taskName: task.taskName,
+                            taskDesc: task.taskDesc,
+                            isHighPriority: !task.isHighPriority,
+                            isDone: task.isDone,
+                            createdAt: task.createdAt,
+                          ),
                         ),
                       );
                       break;
                     case TaskPopUpEnum.edit:
-                      Dialogs.showEditTaskSheet(context: context, task: task);
+                      editTask(context);
                       break;
                     case TaskPopUpEnum.delete:
-                      context.read<TasksBloc>().add(
-                        TaskDeleteRequested(TaskParams.fromEntity(task)),
-                      );
+                      bloc.add(TaskDeleteRequested(task.id));
                       break;
                   }
                 },

@@ -1,15 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:tasky/core/imports.dart';
 
-class TaskParams {
-  final String? id;
+class TaskParams extends Equatable {
+  final String? id;                
   final String taskName;
   final String? taskDesc;
   final bool isHighPriority;
   final bool isDone;
-  final DateTime? createdAt;
+  final DateTime? createdAt;       
 
-  TaskParams({
+  const TaskParams({
     this.id,
     required this.taskName,
     this.taskDesc,
@@ -18,15 +17,15 @@ class TaskParams {
     this.createdAt,
   });
 
-  factory TaskParams.fromEntity(TaskEntity task) {
-    return TaskParams(
-      id: task.id,
-      taskName: task.taskName,
-      taskDesc: task.taskDesc,
-      isHighPriority: task.isHighPriority,
-      isDone: task.isDone,
-    );
-  }
+  @override
+  List<Object?> get props => [
+        id,
+        taskName,
+        taskDesc,
+        isHighPriority,
+        isDone,
+        createdAt,
+      ];
 
   TaskParams copyWith({
     String? id,
@@ -34,7 +33,6 @@ class TaskParams {
     String? taskDesc,
     bool? isHighPriority,
     bool? isDone,
-    DateTime? createdAt,
   }) {
     return TaskParams(
       id: id ?? this.id,
@@ -42,7 +40,7 @@ class TaskParams {
       taskDesc: taskDesc ?? this.taskDesc,
       isHighPriority: isHighPriority ?? this.isHighPriority,
       isDone: isDone ?? this.isDone,
-      createdAt: createdAt ?? this.createdAt,
+      createdAt: createdAt,
     );
   }
 }

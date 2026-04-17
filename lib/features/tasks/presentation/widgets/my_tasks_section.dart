@@ -6,7 +6,18 @@ class MyTasksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final S s = S.of(context);
-    return BlocBuilder<TasksBloc, TasksState>(
+    return BlocConsumer<TasksBloc, TasksState>(
+      listenWhen: (previous, current) =>
+          current is TasksSuccess || current is TasksError,
+      listener: (context, state) {
+        if (state is TasksSuccess) {
+          context.showSuccess(state.message);
+        }
+        if (state is TasksError) {
+          context.showError(state.message);
+        }
+      },
+      buildWhen: (previous, current) => current is TasksLoaded,
       builder: (context, state) {
         if (state is TasksLoaded) {
           if (state.sortedTasks.isEmpty) {

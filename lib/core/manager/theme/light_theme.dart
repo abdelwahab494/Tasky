@@ -106,6 +106,7 @@ ThemeData lightTheme = ThemeData(
       foregroundColor: LightColors.backGround2,
       elevation: 0,
       shadowColor: Colors.transparent,
+      padding: EdgeInsets.all(AppSizes.w12),
     ),
   ),
   checkboxTheme: CheckboxThemeData(

@@ -11,7 +11,7 @@ class TaskEntity extends Equatable {
   const TaskEntity({
     required this.id,
     required this.taskName,
-    required this.taskDesc,
+    this.taskDesc,
     required this.isHighPriority,
     required this.isDone,
     required this.createdAt,

@@ -19,6 +19,7 @@ final class TasksLoaded extends TasksState {
     }
     return tasksList;
   }
+
   List<TaskEntity> get doneTasks =>
       tasksList.where((task) => task.isDone).toList();
   List<TaskEntity> get todoTasks =>
@@ -45,6 +46,7 @@ final class TasksLoaded extends TasksState {
     doneTasks,
     todoTasks,
     highPriorityTasks,
+    sortType,
   ];
 }
 
@@ -58,7 +60,10 @@ final class TasksError extends TasksState {
 }
 
 final class TasksSuccess extends TasksState {
-  final String? message;
+  final String message;
 
   const TasksSuccess({required this.message});
+
+  @override
+  List<Object> get props => [message];
 }

@@ -20,9 +20,8 @@ class HomeUserWelcome extends StatelessWidget {
                 return Skeletonizer(
                   enabled: controller.isLoading,
                   child: Row(
-                    spacing: AppSizes.w11,
                     children: [
-                      Gap(AppSizes.w1),
+                      Gap(AppSizes.w8),
                       AvatarGlow(
                         glowRadiusFactor: 0.2,
                         glowColor: Theme.of(context).primaryColor,
@@ -35,6 +34,7 @@ class HomeUserWelcome extends StatelessWidget {
                           backgroundColor: Colors.transparent,
                         ),
                       ),
+                      Gap(AppSizes.w11),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,6 +61,7 @@ class HomeUserWelcome extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Gap(AppSizes.w11),
                       Consumer<ThemeController>(
                         builder: (context, controller, child) {
                           return IconButton.filled(

@@ -98,6 +98,9 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "The selected notes will be permanently deleted.",
         ),
+    "thisFieldIsRequired": MessageLookupByLibrary.simpleMessage(
+      "This Field Is Required",
+    ),
     "timetomakeprogress": MessageLookupByLibrary.simpleMessage(
       "Time to make progress",
     ),

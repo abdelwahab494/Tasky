@@ -6,6 +6,7 @@ class AchievedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TasksBloc, TasksState>(
+      buildWhen: (previous, current) => current is TasksLoaded,
       builder: (context, state) {
         if (state is TasksLoaded) {
           if (state.tasksList.isEmpty) {

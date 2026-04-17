@@ -3,7 +3,7 @@ import 'package:tasky/core/imports.dart';
 abstract class TasksLocalDatasource {
   Future<void> addTask(TaskModel task);
 
-  Future<void> deleteTask(TaskModel task);
+  Future<void> deleteTask(String id);
 
   Future<void> updateTask(TaskModel task);
 
@@ -20,16 +20,16 @@ class TasksHiveDatasource extends TasksLocalDatasource {
   @override
   Future<void> addTask(TaskModel task) async {
     try {
-      await box.add(task);
+      await box.put(task.id, task);
     } catch (e) {
       throw CacheException();
     }
   }
 
   @override
-  Future<void> deleteTask(TaskModel task) async {
+  Future<void> deleteTask(String id) async {
     try {
-      await task.delete();
+      await box.delete(id);
     } catch (e) {
       throw CacheException();
     }
@@ -38,7 +38,8 @@ class TasksHiveDatasource extends TasksLocalDatasource {
   @override
   Future<List<TaskModel>> getTasks() async {
     try {
-      return box.values.toList(growable: false).reversed.toList();
+      final tasksList = box.values.toList(growable: false).reversed.toList();
+      return tasksList;
     } catch (e) {
       throw CacheException();
     }
@@ -47,7 +48,7 @@ class TasksHiveDatasource extends TasksLocalDatasource {
   @override
   Future<void> updateTask(TaskModel task) async {
     try {
-      await task.save();
+      await box.put(task.id, task);
     } catch (e) {
       throw CacheException();
     }

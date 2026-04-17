@@ -7,6 +7,7 @@ class EncourageSentence extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: BlocBuilder<TasksBloc, TasksState>(
+        buildWhen: (previous, current) => current is TasksLoaded,
         builder: (context, state) {
           if (state is TasksLoaded) {
             return Column(

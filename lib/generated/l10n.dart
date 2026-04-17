@@ -463,6 +463,16 @@ class S {
   String get tasks {
     return Intl.message('tasks', name: 'tasks', desc: '', args: []);
   }
+
+  /// `This Field Is Required`
+  String get thisFieldIsRequired {
+    return Intl.message(
+      'This Field Is Required',
+      name: 'thisFieldIsRequired',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

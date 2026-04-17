@@ -16,12 +16,19 @@ class FloatingButton extends StatelessWidget {
             return AnimatedContainer(
               duration: const Duration(milliseconds: 500),
               width: show ? AppSizes.w170 : AppSizes.w57,
+              height: AppSizes.w57,
               decoration: BoxDecoration(
                 shape: show ? BoxShape.rectangle : BoxShape.circle,
               ),
               child: FloatingActionButton(
-                onPressed: () =>
-                    controller.addTaskButtonOnPressed(context: context),
+                onPressed: () async {
+                  final bool? result = await Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const AddTaskPage()),
+                  );
+                  if (context.mounted && result == true) {
+                    context.read<TasksBloc>().add(TasksLoadRequested());
+                  }
+                },
                 backgroundColor: DarkColors.primary,
                 foregroundColor: DarkColors.text2,
                 shape: RoundedRectangleBorder(

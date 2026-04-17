@@ -20,22 +20,23 @@ class TaskAddRequested extends TasksEvent {
 
 class TaskUpdateRequested extends TasksEvent {
   final TaskParams task;
+  final bool? silent;
 
-  const TaskUpdateRequested(this.task);
+  const TaskUpdateRequested(this.task, {this.silent});
 
   @override
   List<Object> get props => [task];
 }
 
 class TaskDeleteRequested extends TasksEvent {
-  final TaskParams task;
+  final String id;
 
-  const TaskDeleteRequested(this.task);
+  const TaskDeleteRequested(this.id);
 
   @override
-  List<Object> get props => [task];
+  List<Object> get props => [id];
 }
 
-class TasksSortToggled extends TasksEvent{}
+class TasksSortToggled extends TasksEvent {}
 
-class TasksDeleteAll extends TasksEvent{}
+class TasksDeleteAll extends TasksEvent {}

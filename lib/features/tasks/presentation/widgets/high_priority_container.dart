@@ -8,9 +8,14 @@ class HighPriorityContainer extends StatelessWidget {
     final S s = S.of(context);
     return SliverToBoxAdapter(
       child: BlocBuilder<TasksBloc, TasksState>(
+        buildWhen: (previous, current) => current is TasksLoaded,
         builder: (context, state) {
           if (state is TasksLoaded) {
-            if (state.highPriorityTasks.isNotEmpty) {
+            if (state.highPriorityTasks.isNotEmpty &&
+                state.highPriorityTasks
+                    .where((task) => !task.isDone)
+                    .toList()
+                    .isNotEmpty) {
               return Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppSizes.w8,
@@ -57,12 +62,16 @@ class HighPriorityContainer extends StatelessWidget {
                             ),
                           ),
                           ...List.generate(
-                            state.highPriorityTasks.length <= 3
-                                ? state.highPriorityTasks.length
-                                : 3,
+                            state.highPriorityTasks
+                                .where((task) => !task.isDone)
+                                .toList()
+                                .take(3)
+                                .length,
                             (index) {
-                              final TaskEntity priorityTask =
-                                  state.highPriorityTasks[index];
+                              final TaskEntity priorityTask = state
+                                  .highPriorityTasks
+                                  .where((task) => !task.isDone)
+                                  .toList()[index];
                               return Row(
                                     spacing: AppSizes.w8,
                                     children: [
@@ -74,11 +83,18 @@ class HighPriorityContainer extends StatelessWidget {
                                           onChanged: (value) =>
                                               context.read<TasksBloc>().add(
                                                 TaskUpdateRequested(
-                                                  TaskParams.fromEntity(
-                                                    priorityTask,
-                                                  ).copyWith(
+                                                  TaskParams(
+                                                    id: priorityTask.id,
+                                                    taskName:
+                                                        priorityTask.taskName,
+                                                    taskDesc:
+                                                        priorityTask.taskDesc,
+                                                    isHighPriority: priorityTask
+                                                        .isHighPriority,
                                                     isDone:
                                                         !priorityTask.isDone,
+                                                    createdAt:
+                                                        priorityTask.createdAt,
                                                   ),
                                                 ),
                                               ),
@@ -138,9 +154,11 @@ class ShowMoreButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        final TasksBloc bloc = context.read<TasksBloc>();
         await Navigator.of(
           context,
         ).push(MaterialPageRoute(builder: (c) => const PriorityPage()));
+        bloc.add(TasksLoadRequested());
       },
       child: Container(
         width: AppSizes.w40,

@@ -9,6 +9,7 @@ class MyTasksActionsRow extends StatelessWidget {
     final S s = S.of(context);
     return SliverToBoxAdapter(
       child: BlocBuilder<TasksBloc, TasksState>(
+        buildWhen: (previous, current) => current is TasksLoaded,
         builder: (context, state) {
           if (state is TasksLoaded && state.sortedTasks.isNotEmpty) {
             return Row(

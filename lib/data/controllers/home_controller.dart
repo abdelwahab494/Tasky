@@ -135,15 +135,15 @@ class HomeController extends ChangeNotifier {
     await PrefHelper.updateTasksList(_tasksList);
   }
 
-  Future<void> addTaskButtonOnPressed({required BuildContext context}) async {
-    final bool? result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (c) => const AddTaskScreen()),
-    );
-    if (result != null && result) {
-      await loadData();
-    }
-  }
+  // Future<void> addTaskButtonOnPressed({required BuildContext context}) async {
+  //   final bool? result = await Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (c) => const AddTaskScreen()),
+  //   );
+  //   if (result != null && result) {
+  //     await loadData();
+  //   }
+  // }
 
   Stream<bool> _buttonState() async* {
     yield true;

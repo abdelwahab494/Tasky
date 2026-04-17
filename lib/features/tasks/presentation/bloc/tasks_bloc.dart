@@ -46,12 +46,24 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     TaskAddRequested event,
     Emitter<TasksState> emit,
   ) async {
-    final addTaskResult = await addTaskUsecase(event.task);
+    final String newId = const Uuid().v4();
+    final DateTime now = DateTime.now();
 
-    if (addTaskResult.isLeft()) {
-      emit(const TasksError("Failed To Add This Task!"));
-      return;
-    }
+    final TaskEntity newTask = TaskEntity(
+      id: newId,
+      taskName: event.task.taskName,
+      taskDesc: event.task.taskDesc,
+      isHighPriority: event.task.isHighPriority,
+      isDone: event.task.isDone,
+      createdAt: now,
+    );
+
+    final addTaskResult = await addTaskUsecase(newTask);
+
+    addTaskResult.fold(
+      (failure) => emit(const TasksError("Failed To Add This Task!")),
+      (_) => emit(const TasksSuccess(message: "Task Added Successfully.")),
+    );
 
     await _reload(emit);
   }
@@ -60,12 +72,27 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     TaskUpdateRequested event,
     Emitter<TasksState> emit,
   ) async {
-    final updateTaskResult = await updateTaskUsecase(event.task);
+    final DateTime now = DateTime.now();
 
-    if (updateTaskResult.isLeft()) {
-      emit(const TasksError("Failed To Edit This Task!"));
-      return;
-    }
+    final TaskEntity updatedTask = TaskEntity(
+      id: event.task.id!,
+      taskName: event.task.taskName,
+      taskDesc: event.task.taskDesc,
+      isHighPriority: event.task.isHighPriority,
+      isDone: event.task.isDone,
+      createdAt: now,
+    );
+
+    final updateTaskResult = await updateTaskUsecase(updatedTask);
+
+    updateTaskResult.fold(
+      (failure) => emit(const TasksError("Failed To Edit This Task!")),
+      (_) {
+        if (event.silent == true) {
+          emit(const TasksSuccess(message: "Task Updated Successfully."));
+        }
+      },
+    );
 
     await _reload(emit);
   }
@@ -74,12 +101,12 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     TaskDeleteRequested event,
     Emitter<TasksState> emit,
   ) async {
-    final deleteTaskResult = await deleteTaskUsecase(event.task);
+    final deleteTaskResult = await deleteTaskUsecase(event.id);
 
-    if (deleteTaskResult.isLeft()) {
-      emit(const TasksError("Failed To Delete This Task!"));
-      return;
-    }
+    deleteTaskResult.fold(
+      (failure) => emit(const TasksError("Failed To Delete This Task!")),
+      (_) => emit(const TasksSuccess(message: "Task Deleted Successfully.")),
+    );
 
     await _reload(emit);
   }
@@ -105,10 +132,11 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   ) async {
     final deleteAllResult = await deleteAllTasksUsecase(NoParams());
 
-    if (deleteAllResult.isLeft()) {
-      emit(const TasksError("Failed To Delete All Tasks!"));
-      return;
-    }
+    deleteAllResult.fold(
+      (failure) => emit(const TasksError("Failed To Delete All Tasks!")),
+      (_) =>
+          emit(const TasksSuccess(message: "All Tasks Deleted Successfully.")),
+    );
 
     await _reload(emit);
   }

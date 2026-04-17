@@ -18,7 +18,18 @@ class TodoView extends StatelessWidget {
           slivers: <Widget>[
             SliverCustomAppbar(title: s.toDoTasks),
             SliverGap(AppSizes.h20),
-            BlocBuilder<TasksBloc, TasksState>(
+            BlocConsumer<TasksBloc, TasksState>(
+              listenWhen: (previous, current) =>
+                  current is TasksSuccess || current is TasksError,
+              listener: (context, state) {
+                if (state is TasksSuccess) {
+                  context.showSuccess(state.message);
+                }
+                if (state is TasksError) {
+                  context.showError(state.message);
+                }
+              },
+              buildWhen: (previous, current) => current is TasksLoaded,
               builder: (context, state) {
                 if (state is TasksLoaded) {
                   if (state.todoTasks.isEmpty) {
