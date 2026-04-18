@@ -1,12 +1,12 @@
 import 'package:tasky/core/imports.dart';
 
 class TaskParams extends Equatable {
-  final String? id;                
+  final String? id;
   final String taskName;
   final String? taskDesc;
   final bool isHighPriority;
   final bool isDone;
-  final DateTime? createdAt;       
+  final DateTime? createdAt;
 
   const TaskParams({
     this.id,
@@ -19,13 +19,13 @@ class TaskParams extends Equatable {
 
   @override
   List<Object?> get props => [
-        id,
-        taskName,
-        taskDesc,
-        isHighPriority,
-        isDone,
-        createdAt,
-      ];
+    id,
+    taskName,
+    taskDesc,
+    isHighPriority,
+    isDone,
+    createdAt,
+  ];
 
   TaskParams copyWith({
     String? id,

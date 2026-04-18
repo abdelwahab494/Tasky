@@ -1,5 +1,4 @@
-import 'package:hive/hive.dart';
-import 'package:tasky/features/tasks/domain/entities/task_entity.dart';
+import 'package:tasky/core/imports.dart';
 
 part 'task_model.g.dart';
 
@@ -24,7 +23,7 @@ class TaskModel extends HiveObject {
     required this.taskDesc,
     required this.isHighPriority,
     required this.isDone,
-    required this.createdAt
+    required this.createdAt,
   });
 
   factory TaskModel.fromEntity(TaskEntity task) {
@@ -34,7 +33,7 @@ class TaskModel extends HiveObject {
       taskDesc: task.taskDesc,
       isHighPriority: task.isHighPriority,
       isDone: task.isDone,
-      createdAt: task.createdAt
+      createdAt: task.createdAt,
     );
   }
 
@@ -45,7 +44,7 @@ class TaskModel extends HiveObject {
       taskDesc: taskDesc,
       isHighPriority: isHighPriority,
       isDone: isDone,
-      createdAt: createdAt
+      createdAt: createdAt,
     );
   }
 }

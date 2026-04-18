@@ -12,7 +12,7 @@ abstract class TasksLocalDatasource {
   Future<void> deleteAllTasks();
 }
 
-class TasksHiveDatasource extends TasksLocalDatasource {
+class TasksHiveDatasource implements TasksLocalDatasource {
   final Box<TaskModel> box;
 
   TasksHiveDatasource(this.box);
@@ -61,5 +61,41 @@ class TasksHiveDatasource extends TasksLocalDatasource {
     } catch (e) {
       throw CacheException();
     }
+  }
+}
+
+class TasksIsarDatasource implements TasksLocalDatasource {
+  final Isar isar;
+
+  TasksIsarDatasource(this.isar);
+  
+  @override
+  Future<void> addTask(TaskModel task) {
+    // TODO: implement addTask
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> deleteAllTasks() {
+    // TODO: implement deleteAllTasks
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> deleteTask(String id) {
+    // TODO: implement deleteTask
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<List<TaskModel>> getTasks() {
+    // TODO: implement getTasks
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<void> updateTask(TaskModel task) {
+    // TODO: implement updateTask
+    throw UnimplementedError();
   }
 }

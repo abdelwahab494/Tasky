@@ -6,7 +6,7 @@ class NotesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        final S s = S.of(context);
+    final S s = S.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -123,8 +123,7 @@ class NotesScreen extends StatelessWidget {
                       final bool? result = await Dialogs.showDeletAlertDialog(
                         context: context,
                         title: s.deleteNotes,
-                        contentText:
-                            s.theselectednoteswillbepermanentlydeleted,
+                        contentText: s.theselectednoteswillbepermanentlydeleted,
                         action: s.delete,
                       );
                       if (context.mounted && result == true) {

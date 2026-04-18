@@ -14,7 +14,7 @@ class WidgetHelper {
 
       // Then notify the platform to update the widget
       await platform.invokeMethod('updateWidget');
-    } catch (e) { 
+    } catch (e) {
       null;
     }
   }

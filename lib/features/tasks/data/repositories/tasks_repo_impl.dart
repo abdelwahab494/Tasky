@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
-class TasksRepoImpl extends TasksRepo {
+class TasksRepoImpl implements TasksRepo {
   final TasksLocalDatasource source;
 
   TasksRepoImpl(this.source);

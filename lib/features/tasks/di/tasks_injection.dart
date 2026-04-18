@@ -21,7 +21,7 @@ Future<void> tasksInjection() async {
       updateTaskUsecase: getIt(),
       deleteTaskUsecase: getIt(),
       getTasksUsecase: getIt(),
-      deleteAllTasksUsecase: getIt()
+      deleteAllTasksUsecase: getIt(),
     ),
   );
 }

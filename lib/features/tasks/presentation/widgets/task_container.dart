@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tasky/core/imports.dart';
-import 'package:tasky/data/enums/task_pop_up_enum.dart';
+import 'package:tasky/core/enums/task_pop_up_enum.dart';
 import 'package:tasky/features/tasks/presentation/widgets/edit_bottom_sheet.dart';
 
 class TaskContainer extends StatelessWidget {

@@ -1,1 +1,0 @@
-enum SortTypeEnum { ascending, descending }

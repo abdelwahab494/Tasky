@@ -8,7 +8,7 @@ class AddNoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-            final S s = S.of(context);
+    final S s = S.of(context);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
