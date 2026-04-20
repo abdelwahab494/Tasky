@@ -32,14 +32,14 @@ class _AddTaskViewState extends State<AddTaskView> with FormHelperMixin {
                     children: [
                       CustomTextField(
                         title: s.title,
-                        controller: taskNameC,
+                        controller: firstC,
                         validationMessage: s.pleaseEnterTheTaskName,
                         autofocus: true,
                       ),
                       Gap(AppSizes.h20),
                       CustomTextField(
                         title: s.description,
-                        controller: taskDescC,
+                        controller: secC,
                         validationMessage: '',
                         maxLines: 5,
                         validate: false,
@@ -80,9 +80,9 @@ class _AddTaskViewState extends State<AddTaskView> with FormHelperMixin {
             onPressed: () => context.read<TasksBloc>().add(
               TaskAddRequested(
                 TaskParams(
-                  taskName: taskNameC.text.trim(),
-                  taskDesc: taskDescC.text.trim().isNotEmpty
-                      ? taskDescC.text.trim()
+                  taskName: firstC.text.trim(),
+                  taskDesc: secC.text.trim().isNotEmpty
+                      ? secC.text.trim()
                       : null,
                   isHighPriority: isHighPriority,
                   isDone: false,

@@ -14,7 +14,7 @@ class AppAssets {
 
   static const String iconsMoon = "assets/icons/moon.svg";
 
-  static const String iconsNotes = "assets/icons/notes.png";
+  static const String iconsNotes = "assets/icons/notes.svg";
 
   static const String iconsProfile = "assets/icons/profile.png";
 

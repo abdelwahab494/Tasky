@@ -5,10 +5,10 @@ class Dialogs {
     required BuildContext context,
     required TaskEntity task,
   }) {
-    final TextEditingController taskNameC = TextEditingController(
+    final TextEditingController firstC = TextEditingController(
       text: task.taskName,
     );
-    final TextEditingController taskDescC = TextEditingController(
+    final TextEditingController secC = TextEditingController(
       text: task.taskDesc,
     );
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -16,14 +16,15 @@ class Dialogs {
 
     Future<void> editTask(
       TaskEntity task,
-      TextEditingController taskNameC,
-      TextEditingController taskDescC,
+      TextEditingController firstC,
+      TextEditingController secC,
       bool isHighPriority,
     ) async {
       final TaskParams editedTask = TaskParams(
+        isarId: task.isarId,
         id: task.id,
-        taskName: taskNameC.text.trim(),
-        taskDesc: taskDescC.text.trim(),
+        taskName: firstC.text.trim(),
+        taskDesc: secC.text.trim(),
         isHighPriority: isHighPriority,
         isDone: task.isDone,
       );
@@ -88,7 +89,7 @@ class Dialogs {
                                   children: [
                                     CustomTextField(
                                       title: "Task Name",
-                                      controller: taskNameC,
+                                      controller: firstC,
                                       validationMessage:
                                           "Please Enter The Task Name.",
                                       // autofocus: true,
@@ -96,7 +97,7 @@ class Dialogs {
                                     Gap(AppSizes.h20),
                                     CustomTextField(
                                       title: "Task Description",
-                                      controller: taskDescC,
+                                      controller: secC,
                                       validationMessage: '',
                                       maxLines: 5,
                                       validate: false,
@@ -136,13 +137,13 @@ class Dialogs {
                               final navigator = Navigator.of(context);
                               await editTask(
                                 task,
-                                taskNameC,
-                                taskDescC,
+                                firstC,
+                                secC,
                                 isHighPriority,
                               );
                               navigator.pop();
-                              taskNameC.dispose();
-                              taskDescC.dispose();
+                              firstC.dispose();
+                              secC.dispose();
                             },
                             title: "Edit Task",
                             icon: Icons.mode_edit_rounded,

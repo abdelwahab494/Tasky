@@ -27,7 +27,17 @@ class HomeView extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingButton(title: S.of(context).addNewTask),
+      floatingActionButton: FloatingButton(
+        title: S.of(context).addNewTask,
+        onPressed: () async {
+          final bool? result = await Navigator.of(
+            context,
+          ).push(MaterialPageRoute(builder: (_) => const AddTaskPage()));
+          if (context.mounted && result == true) {
+            context.read<TasksBloc>().add(TasksLoadRequested());
+          }
+        },
+      ),
     );
   }
 }

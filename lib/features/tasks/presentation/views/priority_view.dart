@@ -33,7 +33,7 @@ class PriorityView extends StatelessWidget {
               builder: (context, state) {
                 if (state is TasksLoaded) {
                   if (state.highPriorityTasks.isEmpty) {
-                    return TaskEmptyView(
+                    return EmptyView(
                       svgPath: AppAssets.iconsTodo,
                       title: s.noHighPriorityTasks,
                       subTitle: s.relaxfornow,

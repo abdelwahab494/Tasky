@@ -1,7 +1,7 @@
 import 'package:tasky/core/imports.dart';
 
-class TaskEmptyView extends StatelessWidget {
-  const TaskEmptyView({
+class EmptyView extends StatelessWidget {
+  const EmptyView({
     super.key,
     required this.svgPath,
     required this.title,

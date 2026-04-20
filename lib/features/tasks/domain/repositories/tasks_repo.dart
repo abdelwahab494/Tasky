@@ -6,7 +6,7 @@ abstract class TasksRepo {
 
   Future<Either<Failure, Unit>> updateTask(TaskEntity task);
 
-  Future<Either<Failure, Unit>> deleteTask(String id);
+  Future<Either<Failure, Unit>> deleteTask(int? isarId);
 
   Future<Either<Failure, List<TaskEntity>>> loadTasks();
 

@@ -2,43 +2,39 @@ import 'package:tasky/core/imports.dart';
 
 part 'task_model.g.dart';
 
-@HiveType(typeId: 0)
-class TaskModel extends HiveObject {
-  @HiveField(0)
-  final String id;
-  @HiveField(1)
-  final String taskName;
-  @HiveField(2)
-  final String? taskDesc;
-  @HiveField(3)
-  final bool isHighPriority;
-  @HiveField(4)
-  final bool isDone;
-  @HiveField(5)
-  final DateTime createdAt;
+@collection
+class TaskModel {
+  Id isarId = Isar.autoIncrement;
 
-  TaskModel({
-    required this.id,
-    required this.taskName,
-    required this.taskDesc,
-    required this.isHighPriority,
-    required this.isDone,
-    required this.createdAt,
-  });
+  late String id;
+
+  @Index()
+  late String taskName;
+
+  String? taskDesc;
+
+  late bool isHighPriority;
+
+  late bool isDone;
+
+  late DateTime createdAt;
+
+  TaskModel();
 
   factory TaskModel.fromEntity(TaskEntity task) {
-    return TaskModel(
-      id: task.id,
-      taskName: task.taskName,
-      taskDesc: task.taskDesc,
-      isHighPriority: task.isHighPriority,
-      isDone: task.isDone,
-      createdAt: task.createdAt,
-    );
+    return TaskModel()
+      ..isarId = task.isarId ?? Isar.autoIncrement
+      ..id = task.id
+      ..taskName = task.taskName
+      ..taskDesc = task.taskDesc
+      ..isHighPriority = task.isHighPriority
+      ..isDone = task.isDone
+      ..createdAt = task.createdAt;
   }
 
   TaskEntity toEntity() {
     return TaskEntity(
+      isarId: isarId,
       id: id,
       taskName: taskName,
       taskDesc: taskDesc,

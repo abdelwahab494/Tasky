@@ -13,7 +13,7 @@ class _NavRootState extends State<NavRoot> {
     const HomePage(),
     const TodoPage(),
     const DonePage(),
-    const NotesScreen(),
+    const NotesPage(),
     const ProfileScreen(),
   ];
 
@@ -72,7 +72,7 @@ class _NavRootState extends State<NavRoot> {
                       : Colors.transparent,
                 ),
                 child: SvgPicture.asset(
-                  "assets/icons/todo.svg",
+                  AppAssets.iconsTodo,
                   colorFilter: ColorFilter.mode(
                     currentIndex == 1
                         ? Theme.of(context).primaryColor

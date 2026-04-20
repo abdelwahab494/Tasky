@@ -1,10 +1,9 @@
-import 'package:intl/intl.dart';
 import 'package:tasky/core/imports.dart';
 import 'dart:ui' as ui;
 
 class AddNoteScreen extends StatelessWidget {
   const AddNoteScreen({super.key, this.note});
-  final NoteModel? note;
+  final NoteEntity? note;
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +38,17 @@ class AddNoteScreen extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        formatNoteDate(note?.dateTime),
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: Colors.grey,
-                          fontSize: AppSizes.sp12,
+                      if (note != null)
+                        Text(
+                          note!.createdAt.formatDate(
+                            formatType: FormatDateEnum.dateTime,
+                          ),
+                          style: Theme.of(context).textTheme.bodyMedium!
+                              .copyWith(
+                                color: Colors.grey,
+                                fontSize: AppSizes.sp12,
+                              ),
                         ),
-                      ),
                       Gap(AppSizes.h5),
                       Directionality(
                         textDirection: isArabic(controller.titleC.text)
@@ -117,12 +120,6 @@ class AddNoteScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String formatNoteDate(DateTime? dateTime) {
-    final date = DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now());
-    final time = DateFormat('h:mm a').format(dateTime ?? DateTime.now());
-    return '$date • $time';
   }
 
   bool isArabic(String text) {

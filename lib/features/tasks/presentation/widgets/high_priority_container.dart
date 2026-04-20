@@ -84,6 +84,7 @@ class HighPriorityContainer extends StatelessWidget {
                                               context.read<TasksBloc>().add(
                                                 TaskUpdateRequested(
                                                   TaskParams(
+                                                    isarId: priorityTask.isarId,
                                                     id: priorityTask.id,
                                                     taskName:
                                                         priorityTask.taskName,

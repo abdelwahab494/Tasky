@@ -21,7 +21,7 @@ class MyTasksSection extends StatelessWidget {
       builder: (context, state) {
         if (state is TasksLoaded) {
           if (state.sortedTasks.isEmpty) {
-            return TaskEmptyView(
+            return EmptyView(
               svgPath: AppAssets.iconsTodo,
               title: s.noTasksYet,
               subTitle: s.startyourfirstone,

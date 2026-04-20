@@ -1,10 +1,9 @@
-import 'package:intl/intl.dart';
 import 'package:tasky/core/imports.dart';
 
 class NoteCard extends StatelessWidget {
-  const NoteCard({super.key, required this.note, required this.controller});
-  final NoteModel note;
-  final NotesController controller;
+  const NoteCard({super.key, required this.note, required this.state});
+  final NoteEntity note;
+  final NotesLoaded state;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,11 @@ class NoteCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
-        border: controller.deletingList.contains(note)
+        borderRadius: BorderRadius.circular(20),
+      ),
+      foregroundDecoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        border: state.deletingList.contains(note)
             ? Border.all(
                 color: Theme.of(context).colorScheme.error,
                 width: AppSizes.w3,
@@ -24,7 +27,6 @@ class NoteCard extends StatelessWidget {
                 color: Theme.of(context).colorScheme.outline,
                 width: AppSizes.w1,
               ),
-        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +60,9 @@ class NoteCard extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
                 Text(
-                  formatNoteDate(note.dateTime),
+                  note.createdAt.formatDate(
+                    formatType: FormatDateEnum.dateTime,
+                  ),
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: Theme.of(context).primaryColor,
                   ),
@@ -70,11 +74,5 @@ class NoteCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String formatNoteDate(DateTime dateTime) {
-    final date = DateFormat('yyyy-MM-dd').format(dateTime);
-    final time = DateFormat('h:mm a').format(dateTime);
-    return '$date • $time';
   }
 }

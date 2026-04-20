@@ -36,8 +36,8 @@ class HomeController extends ChangeNotifier {
   EncourageEnum get encourageStatus => _encourageStatus;
   Stream<bool> get buttonStream => _buttonState();
 
-  TextEditingController get taskNameC => _taskNameC;
-  TextEditingController get taskDescC => _taskDescC;
+  TextEditingController get firstC => _taskNameC;
+  TextEditingController get secC => _taskDescC;
   GlobalKey<FormState> get formKey => _formKey;
   bool get isHighPriority => _isHighPriority;
 

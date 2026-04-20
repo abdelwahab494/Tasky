@@ -20,9 +20,9 @@ class TasksRepoImpl implements TasksRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteTask(String id) async {
+  Future<Either<Failure, Unit>> deleteTask(int? isarId) async {
     try {
-      await source.deleteTask(id);
+      await source.deleteTask(isarId);
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());

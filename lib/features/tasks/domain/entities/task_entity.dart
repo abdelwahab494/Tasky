@@ -1,6 +1,7 @@
 import 'package:tasky/core/imports.dart';
 
 class TaskEntity extends Equatable {
+  final int? isarId;
   final String id;
   final String taskName;
   final String? taskDesc;
@@ -9,6 +10,7 @@ class TaskEntity extends Equatable {
   final DateTime createdAt;
 
   const TaskEntity({
+    this.isarId,
     required this.id,
     required this.taskName,
     this.taskDesc,
@@ -19,6 +21,7 @@ class TaskEntity extends Equatable {
 
   @override
   List<Object?> get props => [
+    isarId,
     id,
     taskName,
     taskDesc,

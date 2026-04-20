@@ -89,17 +89,17 @@ class PrefHelper {
 
   //*Notes List
   static Future<void> updateNotesList(List<NoteModel> notesList) async {
-    final updatedList = notesList.map((e) => jsonEncode(e.toJson())).toList();
-    await _prefs.setStringList(notesListKey, updatedList);
+    // final updatedList = notesList.map((e) => jsonEncode(e.toJson())).toList();
+    // await _prefs.setStringList(notesListKey, updatedList);
   }
 
-  static Future<List<NoteModel>> getNotesList() async {
-    final List<String> notesListEncoded =
-        _prefs.getStringList(notesListKey) ?? [];
-    return notesListEncoded
-        .map((e) => NoteModel.fromJson(jsonDecode(e)))
-        .toList();
-  }
+  // static Future<List<NoteModel>> getNotesList() async {
+  //   final List<String> notesListEncoded =
+  //       _prefs.getStringList(notesListKey) ?? [];
+  //   return notesListEncoded
+  //       .map((e) => NoteModel.fromJson(jsonDecode(e)))
+  //       .toList();
+  // }
 
   static Future<void> clearNotesList() async {
     await _prefs.remove(notesListKey);

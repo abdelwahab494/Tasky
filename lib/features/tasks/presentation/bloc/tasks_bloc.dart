@@ -50,6 +50,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     final DateTime now = DateTime.now();
 
     final TaskEntity newTask = TaskEntity(
+      isarId: event.task.isarId,
       id: newId,
       taskName: event.task.taskName,
       taskDesc: event.task.taskDesc,
@@ -75,6 +76,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     final DateTime now = DateTime.now();
 
     final TaskEntity updatedTask = TaskEntity(
+      isarId: event.task.isarId,
       id: event.task.id!,
       taskName: event.task.taskName,
       taskDesc: event.task.taskDesc,
@@ -101,7 +103,10 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     TaskDeleteRequested event,
     Emitter<TasksState> emit,
   ) async {
-    final deleteTaskResult = await deleteTaskUsecase(event.id);
+    if (event.isarId == null) {
+      emit(const TasksError("Failed To Delete This Task!"));
+    }
+    final deleteTaskResult = await deleteTaskUsecase(event.isarId);
 
     deleteTaskResult.fold(
       (failure) => emit(const TasksError("Failed To Delete This Task!")),

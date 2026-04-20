@@ -5,8 +5,9 @@ const platform = MethodChannel('com.example.tasky/update_widget');
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await HiveHelper.init();
-  ic.init();
+  // await HiveHelper.init();
+  await ic.init();
+  await ic.getIt.allReady();
   await PrefHelper.init();
   final String? name = await PrefHelper.getName();
 

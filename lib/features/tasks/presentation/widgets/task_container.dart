@@ -48,7 +48,7 @@ class TaskContainer extends StatelessWidget {
         children: [
           SlidableAction(
             onPressed: (context) =>
-                context.read<TasksBloc>().add(TaskDeleteRequested(task.id)),
+                context.read<TasksBloc>().add(TaskDeleteRequested(task.isarId)),
             icon: Icons.clear_rounded,
             backgroundColor: Colors.red.shade600,
             foregroundColor: Colors.white,
@@ -81,6 +81,7 @@ class TaskContainer extends StatelessWidget {
                 onChanged: (value) => context.read<TasksBloc>().add(
                   TaskUpdateRequested(
                     TaskParams(
+                      isarId: task.isarId,
                       id: task.id,
                       taskName: task.taskName,
                       taskDesc: task.taskDesc,
@@ -127,6 +128,7 @@ class TaskContainer extends StatelessWidget {
                       bloc.add(
                         TaskUpdateRequested(
                           TaskParams(
+                            isarId: task.isarId,
                             id: task.id,
                             taskName: task.taskName,
                             taskDesc: task.taskDesc,
@@ -141,6 +143,7 @@ class TaskContainer extends StatelessWidget {
                       bloc.add(
                         TaskUpdateRequested(
                           TaskParams(
+                            isarId: task.isarId,
                             id: task.id,
                             taskName: task.taskName,
                             taskDesc: task.taskDesc,
@@ -155,7 +158,7 @@ class TaskContainer extends StatelessWidget {
                       editTask(context);
                       break;
                     case TaskPopUpEnum.delete:
-                      bloc.add(TaskDeleteRequested(task.id));
+                      bloc.add(TaskDeleteRequested(task.isarId));
                       break;
                   }
                 },

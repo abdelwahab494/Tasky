@@ -1,10 +1,16 @@
 import 'package:tasky/core/imports.dart';
 
 Future<void> tasksInjection() async {
-  getIt.registerLazySingleton<Box<TaskModel>>(() => HiveHelper.tasks);
+  if (!getIt.isRegistered<Isar>()) {
+    getIt.registerLazySingletonAsync<Isar>(() async {
+      return await IsarHelper.init();
+    });
+  }
+
+  await getIt.isReady<Isar>();
 
   getIt.registerLazySingleton<TasksLocalDatasource>(
-    () => TasksHiveDatasource(getIt()),
+    () => TasksIsarDatasource(getIt<Isar>()),
   );
 
   getIt.registerLazySingleton<TasksRepo>(() => TasksRepoImpl(getIt()));

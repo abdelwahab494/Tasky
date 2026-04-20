@@ -33,7 +33,7 @@ class TodoView extends StatelessWidget {
               builder: (context, state) {
                 if (state is TasksLoaded) {
                   if (state.todoTasks.isEmpty) {
-                    return TaskEmptyView(
+                    return EmptyView(
                       svgPath: AppAssets.iconsTodo,
                       title: s.noTasksToDo,
                       subTitle: s.takesomerestfornow,

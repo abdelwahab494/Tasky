@@ -33,7 +33,7 @@ class DoneView extends StatelessWidget {
               builder: (context, state) {
                 if (state is TasksLoaded) {
                   if (state.doneTasks.isEmpty) {
-                    return TaskEmptyView(
+                    return EmptyView(
                       svgPath: AppAssets.iconsCompleted,
                       title: s.noCompletedTasks,
                       subTitle: s.timetomakeprogress,

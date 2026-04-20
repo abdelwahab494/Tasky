@@ -16,8 +16,8 @@ class _EditBottomSheetState extends State<EditBottomSheet>
   void initState() {
     super.initState();
     isHighPriority = widget.task.isHighPriority;
-    taskNameC.text = widget.task.taskName;
-    taskDescC.text = widget.task.taskDesc ?? "";
+    firstC.text = widget.task.taskName;
+    secC.text = widget.task.taskDesc ?? "";
   }
 
   @override
@@ -72,14 +72,14 @@ class _EditBottomSheetState extends State<EditBottomSheet>
                           children: [
                             CustomTextField(
                               title: "Task Name",
-                              controller: taskNameC,
+                              controller: firstC,
                               validationMessage: "Please Enter The Task Name.",
                               // autofocus: true,
                             ),
                             Gap(AppSizes.h20),
                             CustomTextField(
                               title: "Task Description",
-                              controller: taskDescC,
+                              controller: secC,
                               validationMessage: '',
                               maxLines: 5,
                               validate: false,
@@ -115,9 +115,10 @@ class _EditBottomSheetState extends State<EditBottomSheet>
                       if (!formKey.currentState!.validate()) return;
                       final navigator = Navigator.of(context);
                       final TaskParams editedTask = TaskParams(
+                        isarId: widget.task.isarId,
                         id: widget.task.id,
-                        taskName: taskNameC.text.trim(),
-                        taskDesc: taskDescC.text.trim(),
+                        taskName: firstC.text.trim(),
+                        taskDesc: secC.text.trim(),
                         isHighPriority: isHighPriority,
                         isDone: widget.task.isDone,
                       );

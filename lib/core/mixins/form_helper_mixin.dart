@@ -2,13 +2,13 @@ import 'package:tasky/core/imports.dart';
 
 mixin FormHelperMixin<T extends StatefulWidget> on State<T> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final TextEditingController taskNameC = TextEditingController();
-  final TextEditingController taskDescC = TextEditingController();
+  final TextEditingController firstC = TextEditingController();
+  final TextEditingController secC = TextEditingController();
 
   @override
   void dispose() {
-    taskNameC.dispose();
-    taskDescC.dispose();
+    firstC.dispose();
+    secC.dispose();
     super.dispose();
   }
 }

@@ -40,7 +40,8 @@ class NotesController extends ChangeNotifier {
   Future<void> loadNotes() async {
     _isLoading = true;
     notifyListeners();
-    final List<NoteModel> fetchedNotesList = await PrefHelper.getNotesList();
+    final List<NoteModel> fetchedNotesList =
+        []; // await PrefHelper.getNotesList();
     _mainNotesList = fetchedNotesList;
     _notesList = fetchedNotesList;
     _isLoading = false;
@@ -59,14 +60,14 @@ class NotesController extends ChangeNotifier {
         _mainNotesList.removeAt(index);
       }
     }
-    _mainNotesList.insert(
-      0,
-      NoteModel(
-        title: _titleC.text.trim(),
-        body: _bodyC.text.trim(),
-        dateTime: DateTime.now(),
-      ),
-    );
+    // _mainNotesList.insert(
+    //   0,
+    //   NoteModel(
+    //     title: _titleC.text.trim(),
+    //     body: _bodyC.text.trim(),
+    //     dateTime: DateTime.now(),
+    //   ),
+    // );
 
     _notesList = List.from(_mainNotesList);
     _editingNote = null;
@@ -106,9 +107,9 @@ class NotesController extends ChangeNotifier {
       clearControllers();
     }
 
-    await Navigator.of(
-      context,
-    ).push(MaterialPageRoute(builder: (_) => AddNoteScreen(note: note)));
+    // await Navigator.of(
+    //   context,
+    // ).push(MaterialPageRoute(builder: (_) => AddNoteScreen(note: note)));
 
     if (context.mounted) {
       saveNote();

@@ -29,12 +29,12 @@ class TaskUpdateRequested extends TasksEvent {
 }
 
 class TaskDeleteRequested extends TasksEvent {
-  final String id;
+  final int? isarId;
 
-  const TaskDeleteRequested(this.id);
+  const TaskDeleteRequested(this.isarId);
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [];
 }
 
 class TasksSortToggled extends TasksEvent {}
