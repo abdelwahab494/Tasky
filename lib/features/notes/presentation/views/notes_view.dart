@@ -4,6 +4,19 @@ import 'package:tasky/core/imports.dart';
 class NotesView extends StatelessWidget {
   const NotesView({super.key});
 
+  Future<void> noteNavigation(BuildContext context, {NoteEntity? note}) async {
+    final bloc = context.read<NotesBloc>();
+    final bool? result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) =>
+            note == null ? AddNotePage.empty() : AddNotePage(note: note),
+      ),
+    );
+    if (result == true) {
+      bloc.add(LoadNotesRequested());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final S s = S.of(context);
@@ -14,8 +27,21 @@ class NotesView extends StatelessWidget {
           slivers: <Widget>[
             const SliverAppbar(),
             SliverPadding(
-              padding: EdgeInsetsGeometry.all(AppSizes.w8),
-              sliver: BlocBuilder<NotesBloc, NotesState>(
+              padding: EdgeInsetsGeometry.symmetric(
+                horizontal: AppSizes.w16,
+                vertical: AppSizes.h8,
+              ),
+              sliver: BlocConsumer<NotesBloc, NotesState>(
+                listenWhen: (prev, curr) =>
+                    curr is NotesError || curr is NotesSuccess,
+                listener: (context, state) {
+                  if (state is NotesSuccess) {
+                    context.showSuccess(state.message);
+                  }
+                  if (state is NotesError) {
+                    context.showError(state.message);
+                  }
+                },
                 builder: (context, state) {
                   if (state is NotesLoaded) {
                     if (state.notesList.isEmpty) {
@@ -37,11 +63,7 @@ class NotesView extends StatelessWidget {
                               ? context.read<NotesBloc>().add(
                                   ToggleDeleteNoteRequested(note),
                                 )
-                              : Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (_) => AddNoteScreen(note: note),
-                                  ),
-                                ),
+                              : noteNavigation(context, note: note),
                           onLongPress: () => context.read<NotesBloc>().add(
                             ToggleDeleteNoteRequested(note),
                           ),
@@ -100,7 +122,10 @@ class NotesView extends StatelessWidget {
                   child: Icon(CupertinoIcons.delete, size: AppSizes.r25),
                 );
               }
-              return FloatingButton(title: s.addNewNote, onPressed: () {});
+              return FloatingButton(
+                title: s.addNewNote,
+                onPressed: () => noteNavigation(context),
+              );
             }
             return const SizedBox.shrink();
           },

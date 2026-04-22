@@ -14,17 +14,11 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeController>(
-          create: (_) => HomeController()..init(),
-        ),
         ChangeNotifierProvider<UserDetailsController>(
           create: (_) => UserDetailsController(),
         ),
         ChangeNotifierProvider<WelcomeController>(
           create: (_) => WelcomeController(),
-        ),
-        ChangeNotifierProvider<NotesController>(
-          create: (_) => NotesController(),
         ),
         ChangeNotifierProvider<ThemeController>(
           create: (_) => ThemeController(),

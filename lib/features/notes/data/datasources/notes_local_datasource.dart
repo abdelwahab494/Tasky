@@ -47,7 +47,7 @@ class NotesIsarDatasource implements NotesLocalDatasource {
   @override
   Future<List<NoteModel>> getNotes() {
     try {
-      return isar.noteModels.where().findAll();
+      return isar.noteModels.where().sortByCreatedAtDesc().findAll();
     } catch (e) {
       throw CacheException();
     }

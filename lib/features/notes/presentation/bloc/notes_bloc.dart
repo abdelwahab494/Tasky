@@ -34,8 +34,12 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
     result.fold(
       (failure) => emit(const NotesError("Failed To Load Notes!")),
-      (notesList) =>
-          emit(NotesLoaded(mainNotesList: notesList, notesList: notesList)),
+      (notesList) => emit(
+        NotesLoaded(
+          mainNotesList: List<NoteEntity>.from(notesList),
+          notesList: List<NoteEntity>.from(notesList),
+        ),
+      ),
     );
   }
 
@@ -56,10 +60,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       emit(const NotesError("Failed To Add Note!"));
     }
 
-    // result.fold(
-    //   (failure) => emit(const NotesError("Failed To Add Note!")),
-    //   (_) => emit(const NotesSuccess("Note Added Successfully")),
-    // );
+    result.fold(
+      (failure) => emit(const NotesError("Failed To Add Note!")),
+      (_) => emit(const NotesSuccess("Note Added Successfully")),
+    );
 
     await _reload(emit);
   }
@@ -102,10 +106,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       emit(const NotesError("Failed To Update Notes!"));
     }
 
-    // result.fold(
-    //   (failure) => emit(const NotesError("Failed To Update Notes!")),
-    //   (_) => emit(const NotesSuccess("Notes Updated Successfully")),
-    // );
+    result.fold(
+      (failure) => emit(const NotesError("Failed To Update Notes!")),
+      (_) => emit(const NotesSuccess("Notes Updated Successfully")),
+    );
 
     await _reload(emit);
   }
