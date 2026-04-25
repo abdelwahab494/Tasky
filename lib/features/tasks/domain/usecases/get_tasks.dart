@@ -8,6 +8,6 @@ class GetTasksUsecase implements UseCase<List<TaskEntity>, NoParams> {
 
   @override
   Future<Either<Failure, List<TaskEntity>>> call(params) {
-    return repo.loadTasks();
+    return repo.getTasks();
   }
 }

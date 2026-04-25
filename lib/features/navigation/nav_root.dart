@@ -14,7 +14,7 @@ class _NavRootState extends State<NavRoot> {
     const TodoPage(),
     const DonePage(),
     const NotesPage(),
-    const ProfileScreen(),
+    const ProfilePage(),
   ];
 
   @override

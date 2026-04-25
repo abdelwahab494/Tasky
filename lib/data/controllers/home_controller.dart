@@ -199,7 +199,7 @@ class HomeController extends ChangeNotifier {
       _tasksList.clear();
       updateLists(_tasksList);
       navigator.pushAndRemoveUntil(
-        MaterialPageRoute(builder: (c) => const WelcomeScreen()),
+        MaterialPageRoute(builder: (c) => const LoginPage()),
         (Route<dynamic> route) => false,
       );
     }

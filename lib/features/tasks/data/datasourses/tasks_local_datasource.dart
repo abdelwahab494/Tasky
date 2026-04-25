@@ -1,15 +1,15 @@
 import 'package:tasky/core/imports.dart';
 
 abstract class TasksLocalDatasource {
-  Future<void> addTask(TaskModel task);
+  Future<void> addTask(UserModel user, TaskModel task);
 
   Future<void> deleteTask(int? isarId);
 
-  Future<void> updateTask(TaskModel task);
+  Future<void> updateTask(UserModel user, TaskModel task);
 
-  Future<List<TaskModel>> getTasks();
+  Future<List<TaskModel>> getTasks(UserModel user);
 
-  Future<void> deleteAllTasks();
+  Future<void> deleteAllTasks(UserModel user);
 }
 
 // class TasksHiveDatasource implements TasksLocalDatasource {
@@ -70,19 +70,41 @@ class TasksIsarDatasource implements TasksLocalDatasource {
   TasksIsarDatasource(this.isar);
 
   @override
-  Future<void> addTask(TaskModel task) async {
+  Future<void> addTask(UserModel user, TaskModel task) async {
     try {
-      await isar.writeTxn(() => isar.taskModels.put(task));
-    } catch (e) {
+      await isar.writeTxn(() async {
+        await isar.taskModels.put(task);
+
+        task.user.value = user;
+        await task.user.save();
+
+        if (!user.tasks.contains(task)) {
+          user.tasks.add(task);
+        }
+        await user.tasks.save();
+      });
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
 
   @override
-  Future<void> deleteAllTasks() async {
+  Future<void> deleteAllTasks(UserModel user) async {
     try {
-      await isar.writeTxn(() => isar.taskModels.clear());
-    } catch (e) {
+      await isar.writeTxn(() async {
+        await user.tasks.load();
+        final ids = user.tasks.map((e) => e.isarId).toList();
+
+        await isar.taskModels.deleteAll(ids);
+
+        user.tasks.clear();
+        await user.tasks.save();
+      });
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
@@ -90,26 +112,42 @@ class TasksIsarDatasource implements TasksLocalDatasource {
   @override
   Future<void> deleteTask(int? isarId) async {
     try {
-      await isar.writeTxn(() => isar.taskModels.delete(isarId!));
-    } catch (e) {
+      if (isarId != null) {
+        await isar.writeTxn(() async {
+          await isar.taskModels.delete(isarId);
+        });
+      }
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
 
   @override
-  Future<List<TaskModel>> getTasks() {
+  Future<List<TaskModel>> getTasks(UserModel user) async {
     try {
-      return isar.taskModels.where().findAll();
-    } catch (e) {
+      await user.tasks.load();
+      return user.tasks.toList();
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
 
   @override
-  Future<void> updateTask(TaskModel task) async {
+  Future<void> updateTask(UserModel user, TaskModel task) async {
     try {
-      await isar.writeTxn(() => isar.taskModels.put(task));
-    } catch (e) {
+      await isar.writeTxn(() async {
+        await isar.taskModels.put(task);
+
+        task.user.value = user;
+        await task.user.save();
+      });
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }

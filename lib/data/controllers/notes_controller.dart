@@ -26,7 +26,7 @@
 //   }
 
 //   void init() {
-//     loadNotes();
+//     getNotes();
 //   }
 
 //   @override
@@ -37,7 +37,7 @@
 //     _titleC.dispose();
 //   }
 
-//   Future<void> loadNotes() async {
+//   Future<void> getNotes() async {
 //     _isLoading = true;
 //     notifyListeners();
 //     final List<NoteModel> fetchedNotesList =

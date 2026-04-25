@@ -68,7 +68,14 @@ const TaskModelSchema = CollectionSchema(
       ],
     )
   },
-  links: {},
+  links: {
+    r'user': LinkSchema(
+      id: 1897204888493259106,
+      name: r'user',
+      target: r'UserModel',
+      single: true,
+    )
+  },
   embeddedSchemas: {},
   getId: _taskModelGetId,
   getLinks: _taskModelGetLinks,
@@ -153,11 +160,12 @@ Id _taskModelGetId(TaskModel object) {
 }
 
 List<IsarLinkBase<dynamic>> _taskModelGetLinks(TaskModel object) {
-  return [];
+  return [object.user];
 }
 
 void _taskModelAttach(IsarCollection<dynamic> col, Id id, TaskModel object) {
   object.isarId = id;
+  object.user.attach(col, col.isar.collection<UserModel>(), r'user', id);
 }
 
 extension TaskModelQueryWhereSort
@@ -829,7 +837,20 @@ extension TaskModelQueryObject
     on QueryBuilder<TaskModel, TaskModel, QFilterCondition> {}
 
 extension TaskModelQueryLinks
-    on QueryBuilder<TaskModel, TaskModel, QFilterCondition> {}
+    on QueryBuilder<TaskModel, TaskModel, QFilterCondition> {
+  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> user(
+      FilterQuery<UserModel> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'user');
+    });
+  }
+
+  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> userIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'user', 0, true, 0, true);
+    });
+  }
+}
 
 extension TaskModelQuerySortBy on QueryBuilder<TaskModel, TaskModel, QSortBy> {
   QueryBuilder<TaskModel, TaskModel, QAfterSortBy> sortByCreatedAt() {

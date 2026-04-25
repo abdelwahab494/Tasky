@@ -11,6 +11,8 @@ class NoteModel {
   late String body;
   late DateTime createdAt;
 
+  final user = IsarLink<UserModel>();
+
   NoteModel();
 
   factory NoteModel.fromEntity(NoteEntity note) {

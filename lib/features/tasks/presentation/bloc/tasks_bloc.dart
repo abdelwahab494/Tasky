@@ -10,6 +10,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final DeleteTaskUsecase deleteTaskUsecase;
   final GetTasksUsecase getTasksUsecase;
   final DeleteAllTasksUsecase deleteAllTasksUsecase;
+  final GetHomeUserUsecase getHomeUserUsecase;
 
   TasksBloc({
     required this.addTaskUsecase,
@@ -17,6 +18,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     required this.deleteTaskUsecase,
     required this.getTasksUsecase,
     required this.deleteAllTasksUsecase,
+    required this.getHomeUserUsecase,
   }) : super(TasksInitial()) {
     on<TasksLoadRequested>(_onTasksLoadRequested);
     on<TaskAddRequested>(_onTaskAddRequested);
@@ -26,12 +28,24 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<TasksDeleteAll>(_onTasksDeleteAll);
   }
 
+  HomeUserEntity? _currentuser;
+
   Future<void> _reload(Emitter<TasksState> emit) async {
     final tasksResult = await getTasksUsecase(NoParams());
 
+    if (_currentuser == null) {
+      final userResult = await getHomeUserUsecase(NoParams());
+
+      userResult.fold(
+        (failure) => emit(const TasksError("Failed to Load User Details!")),
+        (user) => _currentuser = user,
+      );
+    }
+
     tasksResult.fold(
       (failure) => emit(const TasksError("Failed To Load Tasks")),
-      (tasksList) => emit(TasksLoaded(tasksList)),
+      (tasksList) =>
+          emit(TasksLoaded(tasksList: tasksList, currentUser: _currentuser!)),
     );
   }
 
@@ -127,7 +141,12 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
           ? SortTypeEnum.descending
           : SortTypeEnum.ascending;
 
-      emit(TasksLoaded(currentState.tasksList, sortType: newSortType));
+      emit(
+        currentState.copyWith(
+          tasksList: currentState.tasksList,
+          sortType: newSortType,
+        ),
+      );
     }
   }
 

@@ -58,9 +58,10 @@ class MyApp extends StatelessWidget {
               darkTheme: darkTheme,
               themeMode: themeMode,
               debugShowCheckedModeBanner: false,
-              home: initialName == null || initialName!.isEmpty
-                  ? const WelcomeScreen()
-                  : const NavRoot(),
+              // home: initialName == null || initialName!.isEmpty
+              //     ? const LoginPage()
+              //     : const NavRoot(),
+              home: const LoginPage(),
             );
           },
         );

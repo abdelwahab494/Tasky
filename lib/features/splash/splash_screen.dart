@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
           context,
           MaterialPageRoute(
             builder: (c) =>
-                username == null ? const WelcomeScreen() : const NavRoot(),
+                username == null ? const LoginPage() : const NavRoot(),
           ),
         );
       }

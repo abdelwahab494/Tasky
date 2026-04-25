@@ -19,6 +19,8 @@ class TaskModel {
 
   late DateTime createdAt;
 
+  final user = IsarLink<UserModel>();
+
   TaskModel();
 
   factory TaskModel.fromEntity(TaskEntity task) {

@@ -12,10 +12,18 @@ Future<void> noteInjection() async {
   getIt.registerLazySingleton<NotesLocalDatasource>(
     () => NotesIsarDatasource(getIt<Isar>()),
   );
+  if (!getIt.isRegistered<UserLocalDatasource>()) {
+    getIt.registerLazySingleton<UserLocalDatasource>(
+      () => UserIsarDatasource(getIt<Isar>()),
+    );
+  }
 
-  getIt.registerLazySingleton<NotesRepo>(
-    () => NotesRepoImpl(getIt<NotesLocalDatasource>()),
-  );
+  if (!getIt.isRegistered<UserRepo>()) {
+    getIt.registerLazySingleton<UserRepo>(
+      () => UserRepoImpl(getIt<UserLocalDatasource>()),
+    );
+  }
+  getIt.registerLazySingleton<NotesRepo>(() => NotesRepoImpl(getIt(), getIt()));
 
   getIt.registerLazySingleton(() => GetNotesUsecase(getIt<NotesRepo>()));
   getIt.registerLazySingleton(() => AddNoteUsecase(getIt<NotesRepo>()));

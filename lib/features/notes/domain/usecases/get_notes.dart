@@ -8,6 +8,6 @@ class GetNotesUsecase implements UseCase<List<NoteEntity>, NoParams> {
 
   @override
   Future<Either<Failure, List<NoteEntity>>> call(params) {
-    return repo.loadNotes();
+    return repo.getNotes();
   }
 }

@@ -1,8 +1,13 @@
 import 'package:tasky/core/imports.dart';
 
-class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> with FormHelperMixin {
   @override
   Widget build(BuildContext context) {
     final S s = S.of(context);
@@ -25,7 +30,7 @@ class WelcomeScreen extends StatelessWidget {
                         spacing: AppSizes.w16,
                         children: [
                           SvgPicture.asset(
-                            "assets/images/logo.svg",
+                            AppAssets.imagesLogo,
                             height: AppSizes.h42,
                             width: AppSizes.w42,
                           ),
@@ -55,9 +60,7 @@ class WelcomeScreen extends StatelessWidget {
                                         .displayMedium!
                                         .copyWith(fontSize: AppSizes.sp24),
                                   ),
-                                  SvgPicture.asset(
-                                    "assets/images/welcome icon.svg",
-                                  ),
+                                  SvgPicture.asset(AppAssets.imagesWelcomeIcon),
                                 ],
                               ),
                               Gap(AppSizes.h8),
@@ -71,54 +74,60 @@ class WelcomeScreen extends StatelessWidget {
                               ),
                               Gap(AppSizes.h24),
                               SvgPicture.asset(
-                                "assets/images/welcome image.svg",
+                                AppAssets.imagesWelcomeImage,
                                 width: AppSizes.w215,
                                 height: AppSizes.h204,
                               ),
                               Gap(AppSizes.h28),
-                              Consumer<WelcomeController>(
-                                builder:
-                                    (
-                                      BuildContext context,
-                                      WelcomeController controller,
-                                      Widget? child,
-                                    ) {
-                                      return Form(
-                                        key: controller.formKey,
-                                        child: CustomTextField(
-                                          title: s.yourName,
-                                          controller: controller.nameC,
-                                          validationMessage: S
-                                              .of(context)
-                                              .pleaseEnterYourName,
-                                          hintText: s.egAbdelwahabMo,
-                                        ),
-                                      );
-                                    },
+                              Form(
+                                key: formKey,
+                                child: CustomTextField(
+                                  title: s.yourName,
+                                  controller: firstC,
+                                  validationMessage: S
+                                      .of(context)
+                                      .pleaseEnterYourName,
+                                  hintText: s.egAbdelwahabMo,
+                                ),
                               ),
                               Gap(AppSizes.h30),
-                              Consumer<WelcomeController>(
-                                builder: (context, controller, child) {
-                                  return ElevatedButton(
-                                    onPressed: () =>
-                                        controller.saveUserName(context),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: DarkColors.primary,
-                                      foregroundColor: DarkColors.text2,
-                                      padding: EdgeInsets.symmetric(
-                                        vertical: AppSizes.h10,
-                                        horizontal: AppSizes.w10,
+                              BlocListener<UserBloc, UserState>(
+                                listener: (context, state) {
+                                  if (state is UserSuccess) {
+                                    context.showSuccess(state.message);
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                      MaterialPageRoute(
+                                        builder: (c) => const NavRoot(),
                                       ),
-                                    ),
-                                    child: Text(
-                                      s.letsGetStarted,
-                                      style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: AppSizes.sp18,
-                                      ),
-                                    ),
-                                  );
+                                      (Route<dynamic> route) => false,
+                                    );
+                                  }
+                                  if (state is UserError) {
+                                    context.showError(state.message);
+                                  }
                                 },
+                                child: ElevatedButton(
+                                  onPressed: () => context.read<UserBloc>().add(
+                                    LoginRequested(
+                                      LoginParams(firstC.text.trim()),
+                                    ),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: DarkColors.primary,
+                                    foregroundColor: DarkColors.text2,
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: AppSizes.h10,
+                                      horizontal: AppSizes.w10,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    s.letsGetStarted,
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: AppSizes.sp18,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),

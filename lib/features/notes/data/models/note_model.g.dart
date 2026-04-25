@@ -44,7 +44,14 @@ const NoteModelSchema = CollectionSchema(
   deserializeProp: _noteModelDeserializeProp,
   idName: r'isarId',
   indexes: {},
-  links: {},
+  links: {
+    r'user': LinkSchema(
+      id: 6700720332624863385,
+      name: r'user',
+      target: r'UserModel',
+      single: true,
+    )
+  },
   embeddedSchemas: {},
   getId: _noteModelGetId,
   getLinks: _noteModelGetLinks,
@@ -116,11 +123,12 @@ Id _noteModelGetId(NoteModel object) {
 }
 
 List<IsarLinkBase<dynamic>> _noteModelGetLinks(NoteModel object) {
-  return [];
+  return [object.user];
 }
 
 void _noteModelAttach(IsarCollection<dynamic> col, Id id, NoteModel object) {
   object.isarId = id;
+  object.user.attach(col, col.isar.collection<UserModel>(), r'user', id);
 }
 
 extension NoteModelQueryWhereSort
@@ -708,7 +716,20 @@ extension NoteModelQueryObject
     on QueryBuilder<NoteModel, NoteModel, QFilterCondition> {}
 
 extension NoteModelQueryLinks
-    on QueryBuilder<NoteModel, NoteModel, QFilterCondition> {}
+    on QueryBuilder<NoteModel, NoteModel, QFilterCondition> {
+  QueryBuilder<NoteModel, NoteModel, QAfterFilterCondition> user(
+      FilterQuery<UserModel> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.link(q, r'user');
+    });
+  }
+
+  QueryBuilder<NoteModel, NoteModel, QAfterFilterCondition> userIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.linkLength(r'user', 0, true, 0, true);
+    });
+  }
+}
 
 extension NoteModelQuerySortBy on QueryBuilder<NoteModel, NoteModel, QSortBy> {
   QueryBuilder<NoteModel, NoteModel, QAfterSortBy> sortByBody() {

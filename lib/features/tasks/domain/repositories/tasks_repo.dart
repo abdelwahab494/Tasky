@@ -8,7 +8,9 @@ abstract class TasksRepo {
 
   Future<Either<Failure, Unit>> deleteTask(int? isarId);
 
-  Future<Either<Failure, List<TaskEntity>>> loadTasks();
+  Future<Either<Failure, List<TaskEntity>>> getTasks();
 
   Future<Either<Failure, Unit>> deleteAllTasks();
+
+  Future<Either<Failure, HomeUserEntity>> getCurrentUser();
 }

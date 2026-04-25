@@ -10,5 +10,5 @@ abstract class NotesRepo {
 
   Future<Either<Failure, Unit>> deleteAllNotes();
 
-  Future<Either<Failure, List<NoteEntity>>> loadNotes();
+  Future<Either<Failure, List<NoteEntity>>> getNotes();
 }

@@ -12,6 +12,7 @@ final class TasksInitial extends TasksState {}
 final class TasksLoaded extends TasksState {
   final List<TaskEntity> tasksList;
   final SortTypeEnum sortType;
+  final HomeUserEntity currentUser;
 
   List<TaskEntity> get sortedTasks {
     if (sortType == SortTypeEnum.descending) {
@@ -38,11 +39,28 @@ final class TasksLoaded extends TasksState {
     }
   }
 
-  const TasksLoaded(this.tasksList, {this.sortType = SortTypeEnum.ascending});
+  const TasksLoaded({
+    required this.tasksList,
+    this.sortType = SortTypeEnum.ascending,
+   required this.currentUser,
+  });
+
+  TasksLoaded copyWith({
+    List<TaskEntity>? tasksList,
+    SortTypeEnum? sortType,
+    HomeUserEntity? currentUser,
+  }) {
+    return TasksLoaded(
+      tasksList: tasksList ?? this.tasksList,
+      currentUser: currentUser ?? this.currentUser,
+      sortType: sortType ?? this.sortType,
+    );
+  }
 
   @override
   List<Object> get props => [
     tasksList,
+    currentUser,
     doneTasks,
     todoTasks,
     highPriorityTasks,
