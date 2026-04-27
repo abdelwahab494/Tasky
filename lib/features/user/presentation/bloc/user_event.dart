@@ -16,3 +16,16 @@ class LoginRequested extends UserEvent {
 }
 
 class LogoutRequested extends UserEvent {}
+
+class ChangeAvatarRequested extends UserEvent {
+  final ImageActionsEnum action;
+  final SaveUserParams params;
+
+  const ChangeAvatarRequested({required this.params,  required this.action});
+}
+
+class SaveUserRequested extends UserEvent{
+  final SaveUserParams params;
+
+  const SaveUserRequested(this.params);
+}

@@ -32,6 +32,7 @@ class ProfileView extends StatelessWidget {
                   context.showError(state.message);
                 }
               },
+              buildWhen: (previous, current) => current is UserLoaded,
               builder: (context, state) {
                 if (state is UserLoaded) {
                   return SliverMainAxisGroup(
@@ -78,9 +79,30 @@ class ProfileView extends StatelessWidget {
                                   bottom: -AppSizes.h12,
                                   right: -AppSizes.w10,
                                   child: IconButton(
-                                    onPressed: () => context
-                                        .read<UserDetailsController>()
-                                        .selectImageActions(context),
+                                    onPressed: () async {
+                                      final UserBloc bloc = context
+                                          .read<UserBloc>();
+                                      final ImageActionsEnum? result =
+                                          await showDialog<ImageActionsEnum?>(
+                                            context: context,
+                                            builder: (context) =>
+                                                ImageActionsDialog(
+                                                  showDelete:
+                                                      state.currentUser.image !=
+                                                      null,
+                                                ),
+                                          );
+                                      if (result != null) {
+                                        bloc.add(
+                                          ChangeAvatarRequested(
+                                            params: SaveUserParams(
+                                              user: state.currentUser,
+                                            ),
+                                            action: result,
+                                          ),
+                                        );
+                                      }
+                                    },
                                     style: IconButton.styleFrom(
                                       backgroundColor: state.currentUser.isDark
                                           ? DarkColors.backGround2
@@ -139,12 +161,21 @@ class ProfileView extends StatelessWidget {
                                 ),
                                 Gap(AppSizes.h16),
                                 GestureDetector(
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => const UserDetailsScreen(),
-                                    ),
-                                  ),
+                                  onTap: () async {
+                                    final bool? result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => UserDatailsPage(
+                                          user: state.currentUser,
+                                        ),
+                                      ),
+                                    );
+                                    if (context.mounted && result == true) {
+                                      context.read<UserBloc>().add(
+                                        CurrentUserRequested(),
+                                      );
+                                    }
+                                  },
                                   child: ProfileRow(
                                     svgPicture: AppAssets.iconsProfile,
                                     title: s.userDetails,

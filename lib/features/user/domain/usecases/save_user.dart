@@ -8,17 +8,16 @@ class SaveUserUsecase extends UseCase<Unit, SaveUserParams> {
 
   @override
   Future<Either<Failure, Unit>> call(SaveUserParams params) {
-    final UserEntity user = UserEntity(
-      name: params.name,
-      isLogged: true,
-      lastLoggedDate: DateTime.now(),
-    );
-    return repo.saveUser(user);
+    return repo.saveUser(params.user);
   }
 }
 
 class SaveUserParams {
-  final String name;
+  final UserEntity user;
 
-  SaveUserParams(this.name);
+  SaveUserParams({required this.user});
+
+  SaveUserParams copyWith({UserEntity? user}) {
+    return SaveUserParams(user: user ?? this.user);
+  }
 }

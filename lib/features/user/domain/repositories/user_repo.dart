@@ -13,4 +13,6 @@ abstract class UserRepo {
   Future<Either<Failure, List<UserEntity>>> getAllUsers();
 
   Future<Either<Failure, Unit>> deleteUser(int userId);
+
+  Future<Either<Failure, String?>> pickImage(ImageSource source);
 }

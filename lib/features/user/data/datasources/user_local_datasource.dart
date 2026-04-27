@@ -12,6 +12,8 @@ abstract class UserLocalDatasource {
   Future<void> deleteUser(int userId);
 
   Future<List<UserModel>> getAllUsers();
+
+  Future<String?> pickImage(ImageSource imageSource);
 }
 
 class UserIsarDatasource implements UserLocalDatasource {
@@ -128,5 +130,18 @@ class UserIsarDatasource implements UserLocalDatasource {
       debugPrint(stack.toString());
       throw CacheException();
     }
+  }
+
+  @override
+  Future<String?> pickImage(ImageSource imageSource) async {
+    final XFile? pickedImage = await ImagePicker().pickImage(source: imageSource);
+    if (pickedImage == null) return null;
+
+    final appDir = await getApplicationDocumentsDirectory();
+    final newFile = await File(
+      pickedImage.path,
+    ).copy("${appDir.path}/${pickedImage.name}");
+
+    return newFile.path;
   }
 }

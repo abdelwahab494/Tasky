@@ -11,6 +11,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final GetTasksUsecase getTasksUsecase;
   final DeleteAllTasksUsecase deleteAllTasksUsecase;
   final GetHomeUserUsecase getHomeUserUsecase;
+  final SyncWidgetUsecase syncWidgetUsecase;
 
   TasksBloc({
     required this.addTaskUsecase,
@@ -19,6 +20,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     required this.getTasksUsecase,
     required this.deleteAllTasksUsecase,
     required this.getHomeUserUsecase,
+    required this.syncWidgetUsecase,
   }) : super(TasksInitial()) {
     on<TasksLoadRequested>(_onTasksLoadRequested);
     on<TaskAddRequested>(_onTaskAddRequested);
@@ -28,24 +30,21 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     on<TasksDeleteAll>(_onTasksDeleteAll);
   }
 
-  HomeUserEntity? _currentuser;
-
   Future<void> _reload(Emitter<TasksState> emit) async {
     final tasksResult = await getTasksUsecase(NoParams());
 
-    if (_currentuser == null) {
-      final userResult = await getHomeUserUsecase(NoParams());
+    await tasksResult.fold(
+      (failure) async => emit(const TasksError("Failed To Load Tasks")),
+      (tasksList) async {
+        final userResult = await getHomeUserUsecase(NoParams());
 
-      userResult.fold(
-        (failure) => emit(const TasksError("Failed to Load User Details!")),
-        (user) => _currentuser = user,
-      );
-    }
-
-    tasksResult.fold(
-      (failure) => emit(const TasksError("Failed To Load Tasks")),
-      (tasksList) =>
-          emit(TasksLoaded(tasksList: tasksList, currentUser: _currentuser!)),
+        userResult.fold(
+          (failure) => emit(const TasksError("Failed to Load User Details!")),
+          (user) => emit(TasksLoaded(tasksList: tasksList, currentUser: user)),
+        );
+        
+        await syncWidgetUsecase(SyncWidgetParams(tasksList));
+      },
     );
   }
 

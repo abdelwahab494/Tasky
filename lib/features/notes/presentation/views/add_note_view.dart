@@ -26,9 +26,9 @@ class _AddNoteViewState extends State<AddNoteView> with FormHelperMixin {
   }
 
   void _saveNote() {
-    if (!hasChanged) return;
-
-    if (firstC.text.trim().isEmpty && secC.text.trim().isEmpty) {
+    if (!hasChanged ||
+        (firstC.text.trim().isEmpty && secC.text.trim().isEmpty)) {
+      Navigator.of(context).pop();
       return;
     }
 
@@ -62,11 +62,10 @@ class _AddNoteViewState extends State<AddNoteView> with FormHelperMixin {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: PopScope(
-        canPop: true,
+        canPop: false,
         onPopInvoked: (didPop) {
-          if (didPop) {
-            _saveNote();
-          }
+          if (didPop) return;
+          _saveNote();
         },
         child: Scaffold(
           appBar: AppBar(
@@ -78,15 +77,16 @@ class _AddNoteViewState extends State<AddNoteView> with FormHelperMixin {
                 listener: (context, state) {
                   if (state is NotesSuccess) {
                     context.showSuccess(state.message);
+                    Navigator.of(context).pop(true);
                   }
                   if (state is NotesError) {
                     context.showError(state.message);
+                    Navigator.of(context).pop();
                   }
                 },
                 child: IconButton(
                   onPressed: () {
                     _saveNote();
-                    Navigator.of(context).pop();
                   },
                   icon: Icon(Icons.check, size: AppSizes.r30),
                 ),

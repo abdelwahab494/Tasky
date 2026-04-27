@@ -9,6 +9,9 @@ Future<void> tasksInjection() async {
 
   await getIt.isReady<Isar>();
 
+  getIt.registerLazySingleton<TasksWidgetDatasource>(
+    () => TasksWidgetDatasourceImpl(getIt<Isar>()),
+  );
   getIt.registerLazySingleton<TasksLocalDatasource>(
     () => TasksIsarDatasource(getIt<Isar>()),
   );
@@ -31,6 +34,9 @@ Future<void> tasksInjection() async {
   getIt.registerLazySingleton<TasksRepo>(
     () => TasksRepoImpl(getIt<TasksLocalDatasource>(), getIt<SessionHelper>()),
   );
+  getIt.registerLazySingleton<TasksWidgetRepo>(
+    () => TasksWidgetRepoImpl(getIt<TasksWidgetDatasource>()),
+  );
 
   getIt.registerLazySingleton(() => AddTaskUsecase(getIt()));
   getIt.registerLazySingleton(() => UpdateTaskUsecase(getIt()));
@@ -38,6 +44,7 @@ Future<void> tasksInjection() async {
   getIt.registerLazySingleton(() => GetTasksUsecase(getIt()));
   getIt.registerLazySingleton(() => DeleteAllTasksUsecase(getIt()));
   getIt.registerLazySingleton(() => GetHomeUserUsecase(getIt()));
+  getIt.registerLazySingleton(() => SyncWidgetUsecase(getIt()));
 
   getIt.registerFactory(
     () => TasksBloc(
@@ -47,6 +54,7 @@ Future<void> tasksInjection() async {
       getTasksUsecase: getIt(),
       deleteAllTasksUsecase: getIt(),
       getHomeUserUsecase: getIt(),
+      syncWidgetUsecase: getIt(),
     ),
   );
 }

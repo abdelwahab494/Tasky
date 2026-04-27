@@ -10,3 +10,5 @@ class UnexpectedFailure extends Failure {}
 class CacheFailure extends Failure {}
 
 class HiveFailure extends Failure {}
+
+class WidgetFailure extends Failure {}

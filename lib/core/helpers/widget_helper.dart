@@ -13,7 +13,7 @@ class WidgetHelper {
       await prefs.setString(tasksKey, tasks);
 
       // Then notify the platform to update the widget
-      await platform.invokeMethod('updateWidget');
+      await channel.invokeMethod('updateWidget');
     } catch (e) {
       null;
     }

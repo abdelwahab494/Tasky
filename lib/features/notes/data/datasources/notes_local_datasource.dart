@@ -20,18 +20,21 @@ class NotesIsarDatasource implements NotesLocalDatasource {
   @override
   Future<void> addNote(UserModel user, NoteModel note) async {
     try {
+      final alreadyExists = user.notes.any((e) => e.isarId == note.isarId);
       await isar.writeTxn(() async {
         note.user.value = user;
 
         await isar.noteModels.put(note);
         await note.user.save();
 
-        if (!user.notes.any((e) => e.isarId == note.isarId)) {
+        if (!alreadyExists) {
           user.notes.add(note);
         }
         await user.notes.save();
       });
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
@@ -48,7 +51,9 @@ class NotesIsarDatasource implements NotesLocalDatasource {
         user.notes.clear();
         await user.notes.save();
       });
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
@@ -61,7 +66,9 @@ class NotesIsarDatasource implements NotesLocalDatasource {
           await isar.noteModels.deleteAll(idsList);
         });
       }
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
@@ -71,7 +78,9 @@ class NotesIsarDatasource implements NotesLocalDatasource {
     try {
       await user.notes.load();
       return user.notes.toList();
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }
@@ -79,15 +88,18 @@ class NotesIsarDatasource implements NotesLocalDatasource {
   @override
   Future<void> updateNote(UserModel user, NoteModel note) async {
     try {
+      final userNote = note.user.value?.isarId != user.isarId;
       await isar.writeTxn(() async {
         await isar.noteModels.put(note);
 
-        if (note.user.value?.isarId != user.isarId) {
+        if (userNote) {
           note.user.value = user;
           await note.user.save();
         }
       });
-    } catch (e) {
+    } catch (e, stack) {
+      debugPrint(e.toString());
+      debugPrint(stack.toString());
       throw CacheException();
     }
   }

@@ -1,38 +1,26 @@
 import 'package:tasky/core/imports.dart';
 import 'package:tasky/core/di/injection_container.dart' as ic;
 
-const platform = MethodChannel('com.example.tasky/update_widget');
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await HiveHelper.init();
   await ic.init();
   await ic.getIt.allReady();
   await PrefHelper.init();
-  final String? name = await PrefHelper.getName();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<UserDetailsController>(
-          create: (_) => UserDetailsController(),
-        ),
-        ChangeNotifierProvider<WelcomeController>(
-          create: (_) => WelcomeController(),
-        ),
         ChangeNotifierProvider<ThemeController>(
           create: (_) => ThemeController(),
         ),
       ],
-      child: MyApp(initialName: name),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final String? initialName;
-
-  const MyApp({super.key, this.initialName});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +46,7 @@ class MyApp extends StatelessWidget {
               darkTheme: darkTheme,
               themeMode: themeMode,
               debugShowCheckedModeBanner: false,
-              // home: initialName == null || initialName!.isEmpty
-              //     ? const LoginPage()
-              //     : const NavRoot(),
-              home: const LoginPage(),
+              home: const AuthGate(),
             );
           },
         );

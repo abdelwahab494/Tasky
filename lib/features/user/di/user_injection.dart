@@ -24,6 +24,7 @@ Future<void> userInjection() async {
   getIt.registerLazySingleton(() => LoginUsecase(getIt()));
   getIt.registerLazySingleton(() => LogoutUsecase(getIt()));
   getIt.registerLazySingleton(() => SaveUserUsecase(getIt()));
+  getIt.registerLazySingleton(() => PickImageUsecase(getIt()));
 
   getIt.registerFactory(
     () => UserBloc(
@@ -31,6 +32,7 @@ Future<void> userInjection() async {
       loginUsecase: getIt(),
       logoutUsecase: getIt(),
       saveUserUsecase: getIt(),
+      pickImageUsecase: getIt(),
     ),
   );
 }

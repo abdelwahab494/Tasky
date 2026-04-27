@@ -66,4 +66,14 @@ class UserRepoImpl implements UserRepo {
       return Left(CacheFailure());
     }
   }
+
+    @override
+  Future<Either<Failure, String?>> pickImage(ImageSource imageSource) async {
+    try {
+      final path = await source.pickImage(imageSource);
+      return Right(path);
+    } catch (_) {
+      return Left(CacheFailure());
+    }
+  }
 }
