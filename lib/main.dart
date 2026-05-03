@@ -1,44 +1,26 @@
 import 'package:tasky/core/imports.dart';
-
-const platform = MethodChannel('com.example.tasky/update_widget');
+import 'package:tasky/core/di/injection_container.dart' as ic;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ic.init();
+  await ic.getIt.allReady();
   await PrefHelper.init();
-  final String? name = await PrefHelper.getName();
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<HomeController>(
-          create: (_) => HomeController()..init(),
-        ),
-        ChangeNotifierProvider<UserDetailsController>(
-          create: (_) => UserDetailsController(),
-        ),
-        ChangeNotifierProvider<WelcomeController>(
-          create: (_) => WelcomeController(),
-        ),
-        ChangeNotifierProvider<NotesController>(
-          create: (_) => NotesController(),
-        ),
         ChangeNotifierProvider<ThemeController>(
           create: (_) => ThemeController(),
         ),
       ],
-      // child: DevicePreview(
-      //   enabled: !kReleaseMode,
-      //   builder: (context) => MyApp(initialName: name),
-      // ),
-      child: MyApp(initialName: name,),
+      child: const MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final String? initialName;
-
-  const MyApp({super.key, this.initialName});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,17 +41,12 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: S.delegate.supportedLocales,
-              // useInheritedMediaQuery: true,
-              // locale: DevicePreview.locale(context),
-              // builder: DevicePreview.appBuilder,
               title: 'Tasky',
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: themeMode,
               debugShowCheckedModeBanner: false,
-              home: initialName == null || initialName!.isEmpty
-                  ? const WelcomeScreen()
-                  : const NavRoot(),
+              home: const AuthGate(),
             );
           },
         );

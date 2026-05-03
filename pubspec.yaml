@@ -21,7 +21,7 @@ dependencies:
   percent_indicator: ^4.2.5
   image_picker: ^1.2.1
   flutter_slidable: ^4.0.3
-  equatable: ^2.0.7
+  equatable: ^2.0.8
   avatar_glow: ^3.0.1
   path_provider: ^2.1.5
   provider: ^6.1.5+1
@@ -35,11 +35,23 @@ dependencies:
   flutter_localization: ^0.3.3
   flutter_localizations:
     sdk: flutter
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  dartz: ^0.10.1
+  bloc: ^9.2.0
+  flutter_bloc: ^9.1.1
+  uuid: ^4.5.3
+  get_it: ^9.2.1
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  build_runner: ^2.4.13
+  hive_generator: 
+  isar_generator: ^3.1.0+1
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -71,5 +83,14 @@ flutter:
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
+
 flutter_intl:
   enabled: true
+
+flutter_assets:
+  assets_path: assets
+  output_path: lib/core/manager/
+  filename: app_assets.dart
+  field_prefix:
+  classname: AppAssets
+  ignore_comments: true

@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addTask": MessageLookupByLibrary.simpleMessage("Add Task"),
         "addyourfirstone":
             MessageLookupByLibrary.simpleMessage("Add your first one"),
+        "alldatamaybedeletedpermanently": MessageLookupByLibrary.simpleMessage(
+            "All data may be deleted permanently."),
         "alltaskswillbedeletedpermanently":
             MessageLookupByLibrary.simpleMessage(
                 "All tasks will be deleted permanently."),
@@ -87,6 +89,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "theselectednoteswillbepermanentlydeleted":
             MessageLookupByLibrary.simpleMessage(
                 "The selected notes will be permanently deleted."),
+        "thisFieldIsRequired":
+            MessageLookupByLibrary.simpleMessage("This Field Is Required"),
         "timetomakeprogress":
             MessageLookupByLibrary.simpleMessage("Time to make progress"),
         "title": MessageLookupByLibrary.simpleMessage("Title"),

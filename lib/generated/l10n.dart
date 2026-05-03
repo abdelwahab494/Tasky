@@ -560,6 +560,16 @@ class S {
     );
   }
 
+  /// `All data may be deleted permanently.`
+  String get alldatamaybedeletedpermanently {
+    return Intl.message(
+      'All data may be deleted permanently.',
+      name: 'alldatamaybedeletedpermanently',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hello,`
   String get hello {
     return Intl.message(
@@ -585,6 +595,16 @@ class S {
     return Intl.message(
       'tasks',
       name: 'tasks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Field Is Required`
+  String get thisFieldIsRequired {
+    return Intl.message(
+      'This Field Is Required',
+      name: 'thisFieldIsRequired',
       desc: '',
       args: [],
     );

@@ -1,0 +1,16 @@
+import 'package:dartz/dartz.dart';
+import 'package:tasky/core/imports.dart';
+
+abstract class TasksRepo {
+  Future<Either<Failure, Unit>> addTask(TaskEntity task);
+
+  Future<Either<Failure, Unit>> updateTask(TaskEntity task);
+
+  Future<Either<Failure, Unit>> deleteTask(int? isarId);
+
+  Future<Either<Failure, List<TaskEntity>>> getTasks();
+
+  Future<Either<Failure, Unit>> deleteAllTasks();
+
+  Future<Either<Failure, HomeUserEntity>> getCurrentUser();
+}

@@ -106,6 +106,7 @@ ThemeData lightTheme = ThemeData(
       foregroundColor: LightColors.backGround2,
       elevation: 0,
       shadowColor: Colors.transparent,
+      padding: EdgeInsets.all(AppSizes.w12),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -157,4 +158,7 @@ ThemeData lightTheme = ThemeData(
   dividerTheme: DividerThemeData(color: LightColors.border),
   splashFactory: NoSplash.splashFactory,
   popupMenuTheme: PopupMenuThemeData(color: LightColors.backGround),
+  iconButtonTheme: IconButtonThemeData(
+    style: IconButton.styleFrom(shape: const CircleBorder()),
+  ),
 );

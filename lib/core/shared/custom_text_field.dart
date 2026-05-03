@@ -51,6 +51,7 @@ class CustomTextField extends StatelessWidget {
             context,
           ).textTheme.displayMedium!.copyWith(fontSize: AppSizes.sp16),
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.all(AppSizes.w16),
             hintText: hintText,
             errorBorder: OutlineInputBorder(
               borderSide: BorderSide(

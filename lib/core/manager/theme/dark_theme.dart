@@ -103,7 +103,7 @@ ThemeData darkTheme = ThemeData(
       foregroundColor: DarkColors.text2,
       elevation: 0,
       shadowColor: Colors.transparent,
-      padding: EdgeInsets.zero,
+      padding: EdgeInsets.all(AppSizes.w12),
     ),
   ),
   checkboxTheme: CheckboxThemeData(
@@ -144,4 +144,7 @@ ThemeData darkTheme = ThemeData(
   dividerTheme: DividerThemeData(color: DarkColors.border),
   splashFactory: NoSplash.splashFactory,
   popupMenuTheme: const PopupMenuThemeData(shadowColor: Colors.black38),
+  iconButtonTheme: IconButtonThemeData(
+    style: IconButton.styleFrom(shape: const CircleBorder()),
+  ),
 );

@@ -17,7 +17,7 @@ class CustomElevatedButton extends StatelessWidget {
       padding: EdgeInsets.all(AppSizes.w16),
       child: ElevatedButton.icon(
         onPressed: onPressed,
-        style: Theme.of(context).elevatedButtonTheme.style,
+        // style: Theme.of(context).elevatedButtonTheme.style,
         label: Text(
           title,
           style: GoogleFonts.poppins(
