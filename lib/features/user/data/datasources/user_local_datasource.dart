@@ -63,8 +63,7 @@ class UserIsarDatasource implements UserLocalDatasource {
         if (user == null) {
           user = UserModel()
             ..name = username
-            ..isLogged = true
-            ..isDark = true;
+            ..isLogged = true;
 
           await isar.userModels.put(user);
         } else {
@@ -134,7 +133,9 @@ class UserIsarDatasource implements UserLocalDatasource {
 
   @override
   Future<String?> pickImage(ImageSource imageSource) async {
-    final XFile? pickedImage = await ImagePicker().pickImage(source: imageSource);
+    final XFile? pickedImage = await ImagePicker().pickImage(
+      source: imageSource,
+    );
     if (pickedImage == null) return null;
 
     final appDir = await getApplicationDocumentsDirectory();

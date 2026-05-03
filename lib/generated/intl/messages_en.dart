@@ -27,6 +27,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "addTask": MessageLookupByLibrary.simpleMessage("Add Task"),
         "addyourfirstone":
             MessageLookupByLibrary.simpleMessage("Add your first one"),
+        "alldatamaybedeletedpermanently": MessageLookupByLibrary.simpleMessage(
+            "All data may be deleted permanently."),
         "alltaskswillbedeletedpermanently":
             MessageLookupByLibrary.simpleMessage(
                 "All tasks will be deleted permanently."),

@@ -22,28 +22,23 @@ const UserModelSchema = CollectionSchema(
       name: r'image',
       type: IsarType.string,
     ),
-    r'isDark': PropertySchema(
-      id: 1,
-      name: r'isDark',
-      type: IsarType.bool,
-    ),
     r'isLogged': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'isLogged',
       type: IsarType.bool,
     ),
     r'lastLoggedDate': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'lastLoggedDate',
       type: IsarType.dateTime,
     ),
     r'name': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'name',
       type: IsarType.string,
     ),
     r'quote': PropertySchema(
-      id: 5,
+      id: 4,
       name: r'quote',
       type: IsarType.string,
     )
@@ -131,11 +126,10 @@ void _userModelSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.image);
-  writer.writeBool(offsets[1], object.isDark);
-  writer.writeBool(offsets[2], object.isLogged);
-  writer.writeDateTime(offsets[3], object.lastLoggedDate);
-  writer.writeString(offsets[4], object.name);
-  writer.writeString(offsets[5], object.quote);
+  writer.writeBool(offsets[1], object.isLogged);
+  writer.writeDateTime(offsets[2], object.lastLoggedDate);
+  writer.writeString(offsets[3], object.name);
+  writer.writeString(offsets[4], object.quote);
 }
 
 UserModel _userModelDeserialize(
@@ -146,12 +140,11 @@ UserModel _userModelDeserialize(
 ) {
   final object = UserModel();
   object.image = reader.readStringOrNull(offsets[0]);
-  object.isDark = reader.readBool(offsets[1]);
-  object.isLogged = reader.readBool(offsets[2]);
+  object.isLogged = reader.readBool(offsets[1]);
   object.isarId = id;
-  object.lastLoggedDate = reader.readDateTime(offsets[3]);
-  object.name = reader.readString(offsets[4]);
-  object.quote = reader.readStringOrNull(offsets[5]);
+  object.lastLoggedDate = reader.readDateTime(offsets[2]);
+  object.name = reader.readString(offsets[3]);
+  object.quote = reader.readStringOrNull(offsets[4]);
   return object;
 }
 
@@ -167,12 +160,10 @@ P _userModelDeserializeProp<P>(
     case 1:
       return (reader.readBool(offset)) as P;
     case 2:
-      return (reader.readBool(offset)) as P;
-    case 3:
       return (reader.readDateTime(offset)) as P;
-    case 4:
+    case 3:
       return (reader.readString(offset)) as P;
-    case 5:
+    case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -516,16 +507,6 @@ extension UserModelQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'image',
         value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<UserModel, UserModel, QAfterFilterCondition> isDarkEqualTo(
-      bool value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'isDark',
-        value: value,
       ));
     });
   }
@@ -1059,18 +1040,6 @@ extension UserModelQuerySortBy on QueryBuilder<UserModel, UserModel, QSortBy> {
     });
   }
 
-  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByIsDark() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isDark', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByIsDarkDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isDark', Sort.desc);
-    });
-  }
-
   QueryBuilder<UserModel, UserModel, QAfterSortBy> sortByIsLogged() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'isLogged', Sort.asc);
@@ -1131,18 +1100,6 @@ extension UserModelQuerySortThenBy
   QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByImageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'image', Sort.desc);
-    });
-  }
-
-  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByIsDark() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isDark', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserModel, UserModel, QAfterSortBy> thenByIsDarkDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'isDark', Sort.desc);
     });
   }
 
@@ -1216,12 +1173,6 @@ extension UserModelQueryWhereDistinct
     });
   }
 
-  QueryBuilder<UserModel, UserModel, QDistinct> distinctByIsDark() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'isDark');
-    });
-  }
-
   QueryBuilder<UserModel, UserModel, QDistinct> distinctByIsLogged() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'isLogged');
@@ -1260,12 +1211,6 @@ extension UserModelQueryProperty
   QueryBuilder<UserModel, String?, QQueryOperations> imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'image');
-    });
-  }
-
-  QueryBuilder<UserModel, bool, QQueryOperations> isDarkProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'isDark');
     });
   }
 

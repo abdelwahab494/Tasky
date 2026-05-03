@@ -42,8 +42,10 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
           (failure) => emit(const TasksError("Failed to Load User Details!")),
           (user) => emit(TasksLoaded(tasksList: tasksList, currentUser: user)),
         );
-        
-        await syncWidgetUsecase(SyncWidgetParams(tasksList));
+
+        await syncWidgetUsecase(
+          SyncWidgetParams(tasksList.where((task) => !task.isDone).toList()),
+        );
       },
     );
   }

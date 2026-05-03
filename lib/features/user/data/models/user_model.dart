@@ -10,7 +10,6 @@ class UserModel {
   late String name;
   String? quote;
   String? image;
-  late bool isDark = true;
   @Index()
   late bool isLogged;
   DateTime lastLoggedDate = DateTime.now();
@@ -26,7 +25,6 @@ class UserModel {
       ..name = user.name
       ..quote = user.quote
       ..image = user.image
-      ..isDark = user.isDark
       ..isLogged = user.isLogged
       ..lastLoggedDate = user.lastLoggedDate;
   }
@@ -37,7 +35,6 @@ class UserModel {
       name: name,
       quote: quote,
       image: image,
-      isDark: isDark,
       isLogged: isLogged,
       lastLoggedDate: lastLoggedDate,
     );
@@ -48,7 +45,6 @@ class UserModel {
     String? name,
     String? quote,
     String? image,
-    bool? isDark,
     bool? isLogged,
     DateTime? lastLoggedDate,
   }) {
@@ -57,7 +53,6 @@ class UserModel {
       ..name = name ?? this.name
       ..quote = quote ?? this.quote
       ..image = image ?? this.image
-      ..isDark = isDark ?? this.isDark
       ..isLogged = isLogged ?? this.isLogged
       ..lastLoggedDate = lastLoggedDate ?? this.lastLoggedDate;
   }

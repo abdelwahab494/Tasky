@@ -50,6 +50,7 @@
   "sortUp": "Sort Up",
   "deleteAllTasks": "Delete All Tasks",
   "alltaskswillbedeletedpermanently": "All tasks will be deleted permanently.",
+  "alldatamaybedeletedpermanently": "All data may be deleted permanently.",
   "hello": "Hello,",
   "onetaskatatimeOnestepcloser": "One task at a time. One step closer.",
   "tasks": "tasks",

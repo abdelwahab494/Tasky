@@ -104,17 +104,17 @@ class ProfileView extends StatelessWidget {
                                       }
                                     },
                                     style: IconButton.styleFrom(
-                                      backgroundColor: state.currentUser.isDark
-                                          ? DarkColors.backGround2
-                                          : LightColors.backGround2,
-                                      foregroundColor: state.currentUser.isDark
-                                          ? DarkColors.text2
-                                          : LightColors.text2,
-                                      side: state.currentUser.isDark
-                                          ? BorderSide.none
-                                          : BorderSide(
-                                              color: LightColors.border,
-                                            ),
+                                      // backgroundColor: state.currentUser.isDark
+                                      //     ? DarkColors.backGround2
+                                      //     : LightColors.backGround2,
+                                      // foregroundColor: state.currentUser.isDark
+                                      //     ? DarkColors.text2
+                                      //     : LightColors.text2,
+                                      // side: state.currentUser.isDark
+                                      //     ? BorderSide.none
+                                      //     : BorderSide(
+                                      //         color: LightColors.border,
+                                      //       ),
                                       iconSize: AppSizes.w20,
                                     ),
                                     icon: const Icon(Icons.camera_alt_outlined),
@@ -202,9 +202,21 @@ class ProfileView extends StatelessWidget {
                                 const Divider(),
                                 Gap(AppSizes.h10),
                                 GestureDetector(
-                                  onTap: () => context.read<UserBloc>().add(
-                                    LogoutRequested(),
-                                  ),
+                                  onTap: () async {
+                                    final bool? result =
+                                        await Dialogs.showDeletAlertDialog(
+                                          context: context,
+                                          title: s.logOut,
+                                          contentText:
+                                              s.alldatamaybedeletedpermanently,
+                                          action: s.logOut,
+                                        );
+                                    if (context.mounted && result == true) {
+                                      context.read<UserBloc>().add(
+                                        LogoutRequested(),
+                                      );
+                                    }
+                                  },
                                   child: ProfileRow(
                                     svgPicture: AppAssets.iconsLogout,
                                     title: s.logOut,

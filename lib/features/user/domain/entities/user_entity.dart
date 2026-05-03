@@ -6,7 +6,6 @@ class UserEntity extends Equatable {
   final String name;
   final String? quote;
   final String? image;
-  final bool isDark;
   final bool isLogged;
   final DateTime lastLoggedDate;
 
@@ -17,7 +16,6 @@ class UserEntity extends Equatable {
     required this.name,
     this.quote,
     this.image,
-    this.isDark = true,
     required this.isLogged,
     required this.lastLoggedDate,
   });
@@ -27,7 +25,6 @@ class UserEntity extends Equatable {
     name,
     quote,
     image,
-    isDark,
     isLogged,
     lastLoggedDate,
   ];
@@ -37,7 +34,6 @@ class UserEntity extends Equatable {
     String? name,
     String? quote,
     Object? image = _sentinel,
-    bool? isDark,
     bool? isLogged,
     DateTime? lastLoggedDate,
   }) {
@@ -46,7 +42,6 @@ class UserEntity extends Equatable {
       name: name ?? this.name,
       quote: quote ?? this.quote,
       image: image == _sentinel ? this.image : image as String?,
-      isDark: isDark ?? this.isDark,
       isLogged: isLogged ?? this.isLogged,
       lastLoggedDate: lastLoggedDate ?? this.lastLoggedDate,
     );

@@ -560,6 +560,16 @@ class S {
     );
   }
 
+  /// `All data may be deleted permanently.`
+  String get alldatamaybedeletedpermanently {
+    return Intl.message(
+      'All data may be deleted permanently.',
+      name: 'alldatamaybedeletedpermanently',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Hello,`
   String get hello {
     return Intl.message(
