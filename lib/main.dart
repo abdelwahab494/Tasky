@@ -8,12 +8,8 @@ Future<void> main() async {
   await PrefHelper.init();
 
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeController>(
-          create: (_) => ThemeController(),
-        ),
-      ],
+    BlocProvider(
+      create: (context) => getIt<SettingsBloc>()..add(GetSettingsRequested()),
       child: const MyApp(),
     ),
   );
@@ -24,14 +20,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Selector<ThemeController, ThemeMode>(
-      selector: (context, controller) => controller.theme,
-      builder: (context, themeMode, child) {
-        return ScreenUtilInit(
-          designSize: const Size(360, 690),
-          minTextAdapt: true,
-          splitScreenMode: true,
-          builder: (context, child) {
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return BlocSelector<SettingsBloc, SettingsState, ThemeMode>(
+          selector: (state) => state.themeMode,
+          builder: (context, themeMode) {
             return MaterialApp(
               locale: const Locale("en"),
               localizationsDelegates: [

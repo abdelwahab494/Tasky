@@ -68,28 +68,29 @@ class HomeUserWelcome extends StatelessWidget {
                     ),
                   ),
                   Gap(AppSizes.w11),
-                  Consumer<ThemeController>(
-                    builder: (context, controller, child) {
+                  BlocSelector<SettingsBloc, SettingsState, bool>(
+                    selector: (state) => state.isDark,
+                    builder: (context, isDark) {
                       return IconButton.filled(
-                        onPressed: () async {
-                          await controller.toggleTheme();
-                        },
+                        onPressed: () => context.read<SettingsBloc>().add(
+                          ToggleThemeRequested(
+                            ToggleThemeParams(value: !isDark),
+                          ),
+                        ),
                         style: IconButton.styleFrom(
-                          backgroundColor: controller.isDark
+                          backgroundColor: isDark
                               ? DarkColors.backGround2
                               : LightColors.backGround2,
-                          foregroundColor: controller.isDark
+                          foregroundColor: isDark
                               ? DarkColors.text2
                               : LightColors.text2,
-                          side: controller.isDark
+                          side: isDark
                               ? BorderSide.none
                               : BorderSide(color: LightColors.border),
                           fixedSize: Size(AppSizes.w34, AppSizes.h34),
                         ),
                         icon: SvgPicture.asset(
-                          controller.isDark
-                              ? AppAssets.iconsSun
-                              : AppAssets.iconsMoon,
+                          isDark ? AppAssets.iconsSun : AppAssets.iconsMoon,
                           width: AppSizes.w22,
                           height: AppSizes.h22,
                         ),
@@ -138,28 +139,27 @@ class HomeUserWelcome extends StatelessWidget {
                   ),
                 ),
                 Gap(AppSizes.w11),
-                Consumer<ThemeController>(
-                  builder: (context, controller, child) {
+                BlocSelector<SettingsBloc, SettingsState, bool>(
+                  selector: (state) => state.isDark,
+                  builder: (context, isDark) {
                     return IconButton.filled(
-                      onPressed: () async {
-                        await controller.toggleTheme();
-                      },
+                      onPressed: () => context.read<SettingsBloc>().add(
+                        ToggleThemeRequested(ToggleThemeParams(value: !isDark)),
+                      ),
                       style: IconButton.styleFrom(
-                        backgroundColor: controller.isDark
+                        backgroundColor: isDark
                             ? DarkColors.backGround2
                             : LightColors.backGround2,
-                        foregroundColor: controller.isDark
+                        foregroundColor: isDark
                             ? DarkColors.text2
                             : LightColors.text2,
-                        side: controller.isDark
+                        side: isDark
                             ? BorderSide.none
                             : BorderSide(color: LightColors.border),
                         fixedSize: Size(AppSizes.w34, AppSizes.h34),
                       ),
                       icon: SvgPicture.asset(
-                        controller.isDark
-                            ? AppAssets.iconsSun
-                            : AppAssets.iconsMoon,
+                        isDark ? AppAssets.iconsSun : AppAssets.iconsMoon,
                         width: AppSizes.w22,
                         height: AppSizes.h22,
                       ),

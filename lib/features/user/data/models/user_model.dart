@@ -2,7 +2,7 @@ import 'package:tasky/core/imports.dart';
 
 part 'user_model.g.dart';
 
-@collection
+@Collection()
 class UserModel {
   Id isarId = Isar.autoIncrement;
 

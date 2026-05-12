@@ -75,50 +75,61 @@ class ProfileView extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: -AppSizes.h12,
-                                  right: -AppSizes.w10,
-                                  child: IconButton(
-                                    onPressed: () async {
-                                      final UserBloc bloc = context
-                                          .read<UserBloc>();
-                                      final ImageActionsEnum? result =
-                                          await showDialog<ImageActionsEnum?>(
-                                            context: context,
-                                            builder: (context) =>
-                                                ImageActionsDialog(
-                                                  showDelete:
-                                                      state.currentUser.image !=
-                                                      null,
+                                BlocSelector<SettingsBloc, SettingsState, bool>(
+                                  selector: (state) => state.isDark,
+                                  builder: (context, isDark) {
+                                    return Positioned(
+                                      bottom: -AppSizes.h12,
+                                      right: -AppSizes.w10,
+                                      child: IconButton(
+                                        onPressed: () async {
+                                          final UserBloc bloc = context
+                                              .read<UserBloc>();
+                                          final ImageActionsEnum? result =
+                                              await showDialog<
+                                                ImageActionsEnum?
+                                              >(
+                                                context: context,
+                                                builder: (context) =>
+                                                    ImageActionsDialog(
+                                                      showDelete:
+                                                          state
+                                                              .currentUser
+                                                              .image !=
+                                                          null,
+                                                    ),
+                                              );
+                                          if (result != null) {
+                                            bloc.add(
+                                              ChangeAvatarRequested(
+                                                params: SaveUserParams(
+                                                  user: state.currentUser,
                                                 ),
-                                          );
-                                      if (result != null) {
-                                        bloc.add(
-                                          ChangeAvatarRequested(
-                                            params: SaveUserParams(
-                                              user: state.currentUser,
-                                            ),
-                                            action: result,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                    style: IconButton.styleFrom(
-                                      // backgroundColor: state.currentUser.isDark
-                                      //     ? DarkColors.backGround2
-                                      //     : LightColors.backGround2,
-                                      // foregroundColor: state.currentUser.isDark
-                                      //     ? DarkColors.text2
-                                      //     : LightColors.text2,
-                                      // side: state.currentUser.isDark
-                                      //     ? BorderSide.none
-                                      //     : BorderSide(
-                                      //         color: LightColors.border,
-                                      //       ),
-                                      iconSize: AppSizes.w20,
-                                    ),
-                                    icon: const Icon(Icons.camera_alt_outlined),
-                                  ),
+                                                action: result,
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        style: IconButton.styleFrom(
+                                          backgroundColor: isDark
+                                              ? DarkColors.backGround2
+                                              : LightColors.backGround2,
+                                          foregroundColor: isDark
+                                              ? DarkColors.text2
+                                              : LightColors.text2,
+                                          side: isDark
+                                              ? BorderSide.none
+                                              : BorderSide(
+                                                  color: LightColors.border,
+                                                ),
+                                          iconSize: AppSizes.w20,
+                                        ),
+                                        icon: const Icon(
+                                          Icons.camera_alt_outlined,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),
@@ -146,8 +157,9 @@ class ProfileView extends StatelessWidget {
                       SliverGap(AppSizes.h30),
                       SliverFillRemaining(
                         hasScrollBody: false,
-                        child: Consumer<ThemeController>(
-                          builder: (context, controller, child) {
+                        child: BlocSelector<SettingsBloc, SettingsState, bool>(
+                          selector: (state) => state.isDark,
+                          builder: (context, isDark) {
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -179,9 +191,10 @@ class ProfileView extends StatelessWidget {
                                   child: ProfileRow(
                                     svgPicture: AppAssets.iconsProfile,
                                     title: s.userDetails,
+                                    isDark: isDark,
                                     trailing: Icon(
                                       Icons.arrow_forward_rounded,
-                                      color: controller.isDark
+                                      color: isDark
                                           ? DarkColors.text2
                                           : LightColors.text2,
                                     ),
@@ -192,11 +205,15 @@ class ProfileView extends StatelessWidget {
                                 ProfileRow(
                                   svgPicture: AppAssets.iconsDarkmode,
                                   title: s.darkMode,
+                                  isDark: isDark,
                                   trailing: Switch(
-                                    value: controller.isDark,
-                                    onChanged: (value) async {
-                                      await controller.toggleTheme();
-                                    },
+                                    value: isDark,
+                                    onChanged: (value) =>
+                                        context.read<SettingsBloc>().add(
+                                          ToggleThemeRequested(
+                                            ToggleThemeParams(value: value),
+                                          ),
+                                        ),
                                   ),
                                 ),
                                 const Divider(),
@@ -218,11 +235,12 @@ class ProfileView extends StatelessWidget {
                                     }
                                   },
                                   child: ProfileRow(
+                                    isDark: isDark,
                                     svgPicture: AppAssets.iconsLogout,
                                     title: s.logOut,
                                     trailing: Icon(
                                       Icons.arrow_forward_rounded,
-                                      color: controller.isDark
+                                      color: isDark
                                           ? DarkColors.text2
                                           : LightColors.text2,
                                     ),

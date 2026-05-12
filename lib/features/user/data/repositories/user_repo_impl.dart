@@ -12,8 +12,10 @@ class UserRepoImpl implements UserRepo {
       final UserModel model = UserModel.fromEntity(user);
       await source.saveUser(model);
       return const Right(unit);
-    } catch (e) {
+    } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 
@@ -24,6 +26,8 @@ class UserRepoImpl implements UserRepo {
       return const Right(unit);
     } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 
@@ -32,8 +36,10 @@ class UserRepoImpl implements UserRepo {
     try {
       final user = await source.getCurrentUser();
       return Right(user?.toEntity());
-    } catch (e) {
+    } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 
@@ -42,8 +48,10 @@ class UserRepoImpl implements UserRepo {
     try {
       await source.deleteUser(userId);
       return const Right(unit);
-    } catch (e) {
+    } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 
@@ -52,8 +60,10 @@ class UserRepoImpl implements UserRepo {
     try {
       final users = await source.getAllUsers();
       return Right(users.map((e) => e.toEntity()).toList());
-    } catch (e) {
+    } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 
@@ -62,18 +72,22 @@ class UserRepoImpl implements UserRepo {
     try {
       await source.logout();
       return const Right(unit);
-    } catch (e) {
+    } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 
-    @override
+  @override
   Future<Either<Failure, String?>> pickImage(ImageSource imageSource) async {
     try {
       final path = await source.pickImage(imageSource);
       return Right(path);
-    } catch (_) {
+    } on CacheException {
       return Left(CacheFailure());
+    } catch (_) {
+      return Left(UnexpectedFailure());
     }
   }
 }

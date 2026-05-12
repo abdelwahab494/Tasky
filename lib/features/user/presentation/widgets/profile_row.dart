@@ -6,10 +6,12 @@ class ProfileRow extends StatelessWidget {
     required this.svgPicture,
     required this.title,
     required this.trailing,
+    required this.isDark,
   });
   final String svgPicture;
   final String title;
   final Widget trailing;
+  final bool isDark;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,7 @@ class ProfileRow extends StatelessWidget {
         SvgPicture.asset(
           svgPicture,
           colorFilter: ColorFilter.mode(
-            context.watch<ThemeController>().isDark
-                ? DarkColors.text2
-                : LightColors.text2,
+            isDark ? DarkColors.text2 : LightColors.text2,
             BlendMode.srcIn,
           ),
         ),

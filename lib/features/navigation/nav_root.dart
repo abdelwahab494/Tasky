@@ -124,7 +124,7 @@ class _NavRootState extends State<NavRoot> {
                       : Colors.transparent,
                 ),
                 child: SvgPicture.asset(
-                  "assets/icons/notes.svg",
+                  AppAssets.iconsNotes,
                   colorFilter: ColorFilter.mode(
                     currentIndex == 3
                         ? Theme.of(context).primaryColor
@@ -150,7 +150,7 @@ class _NavRootState extends State<NavRoot> {
                       : Colors.transparent,
                 ),
                 child: SvgPicture.asset(
-                  "assets/icons/profile.svg",
+                  AppAssets.iconsProfile,
                   colorFilter: ColorFilter.mode(
                     currentIndex == 4
                         ? Theme.of(context).primaryColor

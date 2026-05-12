@@ -6,4 +6,5 @@ Future<void> init() async {
   tasksInjection();
   noteInjection();
   userInjection();
+  settingsInjection();
 }

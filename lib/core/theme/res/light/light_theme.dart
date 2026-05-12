@@ -2,10 +2,10 @@ import 'package:tasky/core/imports.dart';
 
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
-  brightness: Brightness.dark,
+  brightness: Brightness.light,
   scaffoldBackgroundColor: LightColors.backGround,
   primaryColor: LightColors.primary,
-  colorScheme: ColorScheme.dark(
+  colorScheme: ColorScheme.light(
     primaryContainer: LightColors.backGround2,
     secondaryContainer: Colors.grey.shade200,
     outline: LightColors.border,
