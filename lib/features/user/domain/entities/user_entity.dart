@@ -21,13 +21,7 @@ class UserEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-    name,
-    quote,
-    image,
-    isLogged,
-    lastLoggedDate,
-  ];
+  List<Object?> get props => [name, quote, image, isLogged, lastLoggedDate];
 
   UserEntity copyWith({
     int? isarId,

@@ -24,12 +24,18 @@ final class NotesLoaded extends NotesState {
   });
 
   @override
-  List<Object> get props => [mainNotesList, notesList, deletingList, isDeleting, isSearching];
+  List<Object> get props => [
+    mainNotesList,
+    notesList,
+    deletingList,
+    isDeleting,
+    isSearching,
+  ];
 
   NotesLoaded copyWith({
     List<NoteEntity>? mainNotesList,
     List<NoteEntity>? notesList,
-    List<NoteEntity>? deletingList,    
+    List<NoteEntity>? deletingList,
     bool? isSearching,
   }) {
     return NotesLoaded(

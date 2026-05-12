@@ -135,7 +135,7 @@ class UserIsarDatasource implements UserLocalDatasource {
   Future<String?> pickImage(ImageSource imageSource) async {
     final XFile? pickedImage = await ImagePicker().pickImage(
       source: imageSource,
-    );  
+    );
     if (pickedImage == null) return null;
 
     final appDir = await getApplicationDocumentsDirectory();

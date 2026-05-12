@@ -6,8 +6,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<TasksBloc>()
-        ..add(TasksLoadRequested()),
+      create: (context) => getIt<TasksBloc>()..add(TasksLoadRequested()),
       child: const HomeView(),
     );
   }

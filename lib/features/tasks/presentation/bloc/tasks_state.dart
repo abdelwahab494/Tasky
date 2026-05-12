@@ -42,7 +42,7 @@ final class TasksLoaded extends TasksState {
   const TasksLoaded({
     required this.tasksList,
     this.sortType = SortTypeEnum.ascending,
-   required this.currentUser,
+    required this.currentUser,
   });
 
   TasksLoaded copyWith({

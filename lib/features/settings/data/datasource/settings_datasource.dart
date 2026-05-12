@@ -17,8 +17,9 @@ class SettingsIsarDatasource extends SettingsDatasource {
     try {
       final settings = await isar.settingsModels.where().findFirst();
 
-      return settings ?? SettingsModel()
-        ..themeMode = ThemeMode.dark;
+      final result = settings ?? (SettingsModel()..themeMode = ThemeMode.dark);
+
+      return result;
     } catch (e, stack) {
       debugPrint(e.toString());
       debugPrint(stack.toString());
@@ -38,6 +39,8 @@ class SettingsIsarDatasource extends SettingsDatasource {
       await isar.writeTxn(() async {
         await isar.settingsModels.put(settings);
       });
+
+      await isar.settingsModels.where().findFirst();
     } catch (e, stack) {
       debugPrint(e.toString());
       debugPrint(stack.toString());
