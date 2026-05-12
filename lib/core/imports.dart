@@ -103,7 +103,6 @@ export 'package:tasky/features/notes/presentation/views/notes_view.dart';
 export 'package:tasky/features/notes/presentation/widgets/note_card.dart';
 export 'package:tasky/features/notes/presentation/widgets/sliver_appbar.dart';
 export 'package:tasky/features/user/presentation/widgets/profile_row.dart';
-export 'package:tasky/features/splash/splash_screen.dart';
 export 'package:tasky/features/tasks/data/datasourses/tasks_local_datasource.dart';
 export 'package:tasky/features/tasks/data/models/task_model.dart';
 export 'package:tasky/features/tasks/data/repo/tasks_repo_impl.dart';
