@@ -4,6 +4,7 @@ import 'package:tasky/core/imports.dart';
 part 'notes_event.dart';
 part 'notes_state.dart';
 
+@Injectable()
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   final GetNotesUsecase getNotesUsecase;
   final AddNoteUsecase addNoteUsecase;

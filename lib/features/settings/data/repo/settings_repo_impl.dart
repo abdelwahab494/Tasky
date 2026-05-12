@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton(as: SettingsRepo, env: [Env.prod])
 class SettingsRepoImpl extends SettingsRepo {
   final SettingsDatasource source;
 

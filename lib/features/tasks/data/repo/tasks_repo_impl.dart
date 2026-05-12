@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton(as: TasksRepo, env: [Env.prod])
 class TasksRepoImpl implements TasksRepo {
   final TasksLocalDatasource tasksSource;
   final SessionHelper session;

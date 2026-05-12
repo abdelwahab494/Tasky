@@ -16,6 +16,7 @@ abstract class UserLocalDatasource {
   Future<String?> pickImage(ImageSource imageSource);
 }
 
+@LazySingleton(as: UserLocalDatasource, env: [Env.prod])
 class UserIsarDatasource implements UserLocalDatasource {
   final Isar isar;
 

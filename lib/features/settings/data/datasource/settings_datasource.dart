@@ -6,6 +6,7 @@ sealed class SettingsDatasource {
   Future<void> toggleTheme(bool value);
 }
 
+@LazySingleton(as: SettingsDatasource, env: [Env.prod])
 class SettingsIsarDatasource extends SettingsDatasource {
   final Isar isar;
   static const String settingsKey = "settingsKey";

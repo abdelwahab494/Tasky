@@ -5,6 +5,7 @@ import 'package:tasky/core/imports.dart';
 part 'user_event.dart';
 part 'user_state.dart';
 
+@Injectable()
 class UserBloc extends Bloc<UserEvent, UserState> {
   final GetCurrentUserUsecase getCurrentUserUsecase;
   final LoginUsecase loginUsecase;

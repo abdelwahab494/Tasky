@@ -12,6 +12,7 @@ abstract class NotesLocalDatasource {
   Future<void> deleteAllNotes(UserModel user);
 }
 
+@LazySingleton(as: NotesLocalDatasource, env: [Env.prod])
 class NotesIsarDatasource implements NotesLocalDatasource {
   final Isar isar;
 

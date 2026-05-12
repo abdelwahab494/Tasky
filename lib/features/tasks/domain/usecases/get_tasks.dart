@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton()
 class GetTasksUsecase implements UseCase<List<TaskEntity>, NoParams> {
   final TasksRepo repo;
 

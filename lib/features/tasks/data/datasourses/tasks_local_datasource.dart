@@ -12,6 +12,7 @@ abstract class TasksLocalDatasource {
   Future<void> deleteAllTasks(UserModel user);
 }
 
+@LazySingleton(as: TasksLocalDatasource, env: [Env.prod])
 class TasksIsarDatasource implements TasksLocalDatasource {
   final Isar isar;
 

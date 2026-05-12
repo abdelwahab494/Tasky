@@ -4,6 +4,7 @@ abstract class TasksWidgetDatasource {
   Future<void> syncTasksToWidget(List<TaskModel> tasks);
 }
 
+@LazySingleton(as: TasksWidgetDatasource, env: [Env.prod])
 class TasksWidgetDatasourceImpl implements TasksWidgetDatasource {
   final Isar isar;
 

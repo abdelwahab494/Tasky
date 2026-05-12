@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton()
 class LoginUsecase extends UseCase<Unit, LoginParams> {
   final UserRepo repo;
 

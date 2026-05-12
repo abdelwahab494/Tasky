@@ -4,6 +4,7 @@ import 'package:tasky/core/imports.dart';
 part 'tasks_event.dart';
 part 'tasks_state.dart';
 
+@Injectable()
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
   final AddTaskUsecase addTaskUsecase;
   final UpdateTaskUsecase updateTaskUsecase;

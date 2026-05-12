@@ -3,6 +3,7 @@ import 'package:tasky/core/imports.dart';
 part 'settings_event.dart';
 part 'settings_state.dart';
 
+@Injectable()
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetSettingsUsecase getSettingsUsecase;
   final ToggleThemeUsecase toggleThemeUsecase;

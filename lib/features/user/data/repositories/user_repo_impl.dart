@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton(as: UserRepo, env: [Env.prod])
 class UserRepoImpl implements UserRepo {
   final UserLocalDatasource source;
 

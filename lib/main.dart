@@ -1,11 +1,8 @@
 import 'package:tasky/core/imports.dart';
-import 'package:tasky/core/di/injection_container.dart' as ic;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await ic.init();
-  await ic.getIt.allReady();
-  await PrefHelper.init();
+  await configureDependency(Env.prod);
 
   runApp(
     BlocProvider(

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton()
 class GetSettingsUsecase extends UseCase<SettingsEntity, NoParams> {
   final SettingsRepo repo;
 

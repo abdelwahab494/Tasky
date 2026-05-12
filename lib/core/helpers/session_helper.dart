@@ -1,5 +1,6 @@
 import 'package:tasky/core/imports.dart';
 
+@LazySingleton()
 class SessionHelper {
   // UserModel? _currentUser;
   final UserRepo userRepo;
@@ -13,8 +14,9 @@ class SessionHelper {
     final result = await userRepo.getCurrentUser();
 
     return result.fold((failure) => throw CacheException(), (userEntity) async {
-      if (userEntity == null || userEntity.isarId == null)
+      if (userEntity == null || userEntity.isarId == null) {
         throw CacheException();
+      }
 
       final user = await isar.userModels.get(userEntity.isarId!);
 

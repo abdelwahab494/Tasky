@@ -80,7 +80,7 @@ class _UserDetailsViewState extends State<UserDetailsView>
                 SaveUserParams(
                   user: widget.user.copyWith(
                     name: firstC.text.trim(),
-                    quote: secC.text.trim(),
+                    quote: secC.text.trim().isEmpty ? null : secC.text.trim(),
                   ),
                 ),
               ),
